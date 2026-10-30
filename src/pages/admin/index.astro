@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Contenido | Nahuel Silva</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <main id="cms-status" role="status" aria-live="polite">
+      <h1>Editor de contenido</h1>
+      <p id="cms-message">Preparando el panel…</p>
+      <a href="/">Volver al portfolio</a>
+    </main>
+    <noscript>Activá JavaScript para usar el editor de contenido.</noscript>
+    <script>
+      import '../../scripts/cms/admin';
+    </script>
+  </body>
+</html>
+
+<style>
+  :global(body) {
+    margin: 0;
+    background: #101220;
+    color: #f7f7fc;
+    font-family: system-ui, sans-serif;
+  }
+  #cms-status {
+    box-sizing: border-box;
+    max-width: 38rem;
+    margin: 12vh auto;
+    padding: 2rem;
+    line-height: 1.6;
+  }
+  #cms-status a {
+    color: #c2b0ff;
+  }
+  #cms-status[hidden] {
+    display: none;
+  }
+</style>
