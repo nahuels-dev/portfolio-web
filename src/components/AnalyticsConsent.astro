@@ -1,0 +1,80 @@
+---
+import Button from './ui/Button.astro';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const copy = {
+  es: {
+    title: 'Tu privacidad',
+    text: 'Con tu permiso, Google Tag Manager y Microsoft Clarity me ayudan a entender cómo se usa esta web mediante estadísticas y grabaciones de navegación. Los campos del formulario se ocultan. Podés cambiar tu elección desde el pie de página.',
+    accept: 'Aceptar analítica',
+    reject: 'Rechazar',
+  },
+  en: {
+    title: 'Your privacy',
+    text: 'With your permission, Google Tag Manager and Microsoft Clarity help me understand how this website is used through analytics and navigation recordings. Form fields are masked. You can change your choice from the footer.',
+    accept: 'Accept analytics',
+    reject: 'Decline',
+  },
+}[lang];
+---
+
+<section
+  class="analytics-consent"
+  data-analytics-consent
+  data-container="GTM-M8VMVWQB"
+  aria-labelledby="analytics-consent-title"
+  hidden
+>
+  <h2 id="analytics-consent-title">{copy.title}</h2>
+  <p>{copy.text}</p>
+  <div>
+    <Button as="button" variant="ghost" icon={false} glitch={false} data-analytics-choice="denied">
+      {copy.reject}
+    </Button>
+    <Button as="button" variant="ghost" icon={false} glitch={false} data-analytics-choice="granted">
+      {copy.accept}
+    </Button>
+  </div>
+</section>
+
+<script>
+  import '../scripts/analytics';
+</script>
+
+<style lang="scss">
+  .analytics-consent {
+    position: fixed;
+    z-index: 800;
+    right: 1rem;
+    bottom: 1rem;
+    width: min(35rem, calc(100% - 2rem));
+    padding: 1.25rem;
+    border: 1px solid var(--signal);
+    background: var(--black);
+    box-shadow: 0 0.5rem 2rem #0008;
+    h2 {
+      font: 700 1rem var(--font-body);
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    p {
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    div {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: flex-end;
+    }
+    &[hidden] {
+      display: none;
+    }
+  }
+</style>

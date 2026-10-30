@@ -102,9 +102,13 @@ export function createProjectStructuredData(site: URL, lang: Locale, project: Pr
         breadcrumb: { '@id': `${url}#breadcrumb` },
         mainEntity: { '@id': `${url}#project` },
         isPartOf: { '@id': `${new URL('/', site).href}#website` },
+        primaryImageOfPage: {
+          '@type': 'ImageObject',
+          url: new URL(project.image, site).href,
+        },
       },
       {
-        '@type': 'CreativeWork',
+        '@type': project.repository ? ['CreativeWork', 'SoftwareSourceCode'] : 'CreativeWork',
         '@id': `${url}#project`,
         name: project.name,
         description: project.description[lang],
@@ -113,6 +117,7 @@ export function createProjectStructuredData(site: URL, lang: Locale, project: Pr
         image: new URL(project.image, site).href,
         author: { '@id': personId },
         keywords: project.tech.join(', '),
+        ...(project.repository ? { codeRepository: project.repository } : {}),
         ...(project.href ? { sameAs: project.href } : {}),
       },
       {

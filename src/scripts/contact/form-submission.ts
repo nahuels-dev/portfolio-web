@@ -72,6 +72,7 @@ export function bindContactSubmission(
       try {
         await sendContactMessage(payload, state.attempt.key);
         state.sent = true;
+        document.dispatchEvent(new Event('portfolio:contact-sent'));
         state.attempt = undefined;
         showFeedback(copy.success, 'success');
         submitLabel.textContent = copy.sent;

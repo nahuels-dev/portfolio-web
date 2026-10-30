@@ -30,6 +30,8 @@ const home = lang === 'es' ? '/' : '/en/';
     path: projectPath(project, lang),
     alternatePath: projectPath(project, lang === 'es' ? 'en' : 'es'),
     schema: createProjectStructuredData(Astro.site!, lang, project),
+    image: project.image,
+    imageAlt: `${project.name} — ${project.category[lang]}`,
     navigation: projectNavigation(lang),
   }}
 >
