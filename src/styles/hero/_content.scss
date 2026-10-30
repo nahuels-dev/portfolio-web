@@ -1,0 +1,102 @@
+.hero {
+  &__content {
+    width: 57%;
+    position: relative;
+    padding-top: 0.625rem;
+  }
+  &__eyebrow {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font: 0.625rem/1.4 var(--font-mono);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    & > .status-dot {
+      margin-top: 0.25rem;
+    }
+    div {
+      border-left: 0.0625rem solid var(--line-bright);
+      padding-left: 0.625rem;
+      background: var(--black);
+      padding-right: 0.4375rem;
+    }
+    span {
+      color: var(--white);
+    }
+    p {
+      color: var(--text);
+      white-space: pre-line;
+      margin: 0.125rem 0 0;
+      max-width: 13.75rem;
+    }
+  }
+  &__title {
+    font: 900 clamp(4rem, 7.5vw, 6.75rem)/0.91 var(--font-display);
+    letter-spacing: -0.075em;
+    margin: 0 0 0.8125rem;
+    & > span:last-child {
+      clip-path: var(--shape-control);
+      color: var(--accent);
+    }
+    span {
+      display: table;
+      background: var(--black);
+      padding: 0 1.4375rem 0.3125rem 0;
+      position: relative;
+    }
+    span:first-child {
+      clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);
+      padding-right: 2.625rem;
+    }
+    span:last-child {
+      padding-right: 1.75rem;
+    }
+    &-mark {
+      font: 0.75rem var(--font-mono) !important;
+      position: absolute !important;
+      right: 0.125rem;
+      top: 0.5rem;
+      background: none !important;
+      padding: 0 !important;
+    }
+  }
+  &__role {
+    font: 900 clamp(1.125rem, 2.6vw, 2.1875rem)/1.12 var(--font-display);
+    letter-spacing: -0.035em;
+    color: var(--white);
+    margin: 0 0 1.125rem;
+    span {
+      display: table;
+      background: var(--black);
+      padding: 0.125rem 1rem 0.125rem 0;
+    }
+  }
+  &__intro {
+    max-width: 26.5625rem;
+    color: var(--text);
+    font: 0.75rem/1.65 var(--font-mono);
+    margin: 0 0 1.3125rem;
+    background: var(--black);
+    padding-right: 0.625rem;
+  }
+  &__actions {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 29.0625rem;
+    background: var(--black);
+    padding: 0 0.625rem 0.75rem 0;
+    background: transparent;
+    :global(.button) {
+      flex: 1;
+    }
+  }
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4375rem;
+    max-width: 31.25rem;
+    background: var(--black);
+    padding: 0.125rem 0.5rem 0.25rem 0;
+    background: transparent;
+  }
+}

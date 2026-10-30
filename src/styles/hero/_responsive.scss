@@ -1,0 +1,161 @@
+.hero {
+  @media (max-width: 1100px) {
+    padding: 1.375rem;
+    min-height: 35.3125rem;
+    &__content {
+      width: 62%;
+    }
+    &__rail {
+      width: 22%;
+    }
+    &__title {
+      font-size: 8vw;
+    }
+    &__intro {
+      max-width: 21.875rem;
+      font-size: 0.6875rem;
+    }
+    &__actions {
+      max-width: 24.375rem;
+    }
+    &__quote {
+      padding: 0.75rem;
+    }
+  }
+  @media (max-width: 760px) {
+    min-height: 0;
+    padding: 1rem 1.0625rem 2rem;
+    &__content {
+      width: 100%;
+    }
+    &__art {
+      --portrait-position: 16% 50%;
+      left: 30%;
+      right: 0;
+      top: 0;
+      bottom: auto;
+      height: clamp(19.5rem, 58vw, 29rem);
+      clip-path: polygon(
+        18% 0,
+        90% 0,
+        100% 6%,
+        100% 82%,
+        82% 100%,
+        18% 100%,
+        0 83%,
+        0 27%,
+        13% 17%,
+        0 10%
+      );
+    }
+    &__eyebrow {
+      font-size: 0.5625rem;
+      margin-bottom: 0;
+      max-width: 12rem;
+    }
+    &__title {
+      font-size: clamp(2.5rem, 11.7vw, 5.25rem);
+
+      margin-top: clamp(7.75rem, calc(20vw + 3rem), 13rem);
+    }
+    &__role {
+      font-size: clamp(0.9375rem, 4.15vw, 1.75rem);
+      margin-bottom: 1.25rem;
+    }
+    &__intro {
+      width: 100%;
+      max-width: none;
+      padding: 0.5rem 0 0;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+    &__actions {
+      width: 100%;
+      max-width: none;
+      flex-direction: column;
+      gap: 0.625rem;
+      padding: 0 0 1rem;
+    }
+    &__tags {
+      max-width: none;
+      padding-right: 0;
+      gap: 0.4375rem;
+      :global(.tag) {
+        font-size: 0.6875rem;
+        padding: 0.3125rem 0.625rem;
+      }
+    }
+    &__rail {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      margin-top: 1.25rem;
+      gap: 0.75rem;
+    }
+    &__quote {
+      display: none;
+    }
+    &__manifesto {
+      padding: 0.875rem 1rem;
+      strong {
+        font-size: 0.8125rem;
+        line-height: 1.4;
+        padding-right: 2rem;
+        span {
+          display: inline;
+          & + span::before {
+            content: ' ';
+          }
+        }
+      }
+      & > :global(svg) {
+        width: 1.25rem;
+        right: 0.875rem;
+        top: 0.875rem;
+      }
+      div {
+        margin-top: 0.4375rem;
+        border-top: 0;
+        padding-top: 0;
+        gap: 1rem;
+        span {
+          font-size: 0.5rem;
+          max-width: none;
+        }
+        :global(svg) {
+          height: 1.25rem;
+          width: 1.25rem;
+        }
+      }
+    }
+    &__coordinates {
+      position: static;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.5rem 1rem;
+      margin-top: 1.25rem;
+      font-size: 0.4375rem;
+      span {
+        margin-left: 0;
+      }
+    }
+  }
+  @media (min-width: 601px) and (max-width: 760px) {
+    &__actions {
+      flex-direction: row;
+    }
+  }
+  @media (max-width: 440px) {
+    &__eyebrow {
+      font-size: 0.5rem;
+      max-width: 11rem;
+    }
+  }
+  @media (max-width: 360px) {
+    &__art {
+      --portrait-position: 57% 50%;
+    }
+  }
+}

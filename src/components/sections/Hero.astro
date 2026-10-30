@@ -1,0 +1,134 @@
+---
+import { Picture } from 'astro:assets';
+import { heroPortrait, cyberPortrait } from '../../data/portrait-image';
+import Button from '../ui/Button.astro';
+import Tag from '../ui/Tag.astro';
+import Icon from '../ui/Icon.astro';
+import Stats from '../ui/Stats.astro';
+import TechFrame from '../ui/TechFrame.astro';
+import { getUI, type Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+
+const t = getUI(lang);
+---
+
+<section class="hero" id="inicio" aria-labelledby="hero-title">
+  <TechFrame variant="hero" />
+  <div class="hero__visual">
+    <div class="hero__art" data-portrait-reveal>
+      <Picture
+        {...heroPortrait}
+        alt={t.portraitAlt}
+        formats={['avif', 'webp']}
+        fallbackFormat="webp"
+        loading="eager"
+        fetchpriority="high"
+        class="hero__portrait"
+      />
+      <div class="hero__portrait-layer" data-portrait-cyber hidden aria-hidden="true">
+        <Picture
+          {...cyberPortrait}
+          alt=""
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          loading="eager"
+          fetchpriority="low"
+          class="hero__portrait"
+        />
+      </div>
+      <canvas class="hero__portrait-glitch" data-portrait-reveal-canvas hidden aria-hidden="true" />
+    </div>
+  </div>
+  <div class="hero__content">
+    <div class="hero__eyebrow" data-hero>
+      <span class="status-dot" />
+      <div>
+        <span>{t.eyebrow}</span>
+        <p>{t.micro}</p>
+      </div>
+    </div>
+    <p class="hero__title" data-hero>
+      <span>NAHUEL</span>
+      <span>
+        SILVA
+        <span class="hero__title-mark" aria-hidden="true">
+          //
+        </span>
+      </span>
+    </p>
+    <h1 class="hero__role" id="hero-title" data-hero>
+      <span>{t.role[0]}</span> <span>{t.role[1]}</span>
+    </h1>
+    <p class="hero__intro" data-hero>
+      {t.intro}
+    </p>
+    <div class="hero__actions" data-hero>
+      <Button href="#proyectos" variant="primary">
+        {t.work}
+      </Button>
+      <Button href="#contacto" contact>
+        {t.contact}
+      </Button>
+    </div>
+    <div class="hero__portrait-access sr-only">
+      <Button
+        as="button"
+        variant="ghost"
+        icon={false}
+        glitch={false}
+        class="hero__portrait-control"
+        data-portrait-reveal-control
+        aria-label={t.portraitRevealLabel}
+        aria-pressed="false"
+        hidden
+      >
+        {t.portraitRevealLabel}
+      </Button>
+    </div>
+    <div class="hero__tags" data-hero>
+      {t.skills.map((s) => (
+        <Tag>{s}</Tag>
+      ))}
+    </div>
+  </div>
+  <aside class="hero__rail">
+    <div class="hero__manifesto">
+      <Icon size={28} />
+      <strong>
+        {t.heroNote.map((line) => (
+          <span>{line}</span>
+        ))}
+      </strong>
+      <div>
+        <span>{t.noteSteps}</span>
+        <Icon name="bars" size={38} />
+      </div>
+      <Button href="#contacto" contact>
+        {t.contact}
+      </Button>
+    </div>
+    <div class="hero__quote">
+      <span class="hero__quote-mark">“</span>
+      <p>{t.heroQuote}</p>
+      <span class="hero__quote-by">{t.quoteBy}</span>
+      <span class="hero__quote-line" />
+    </div>
+    <Stats lang={lang} compact />
+  </aside>
+  <span class="hero__coordinates" aria-hidden="true">
+    34°54′ S / 56°11′ W <span>{t.based}</span>
+  </span>
+</section>
+
+<style lang="scss">
+  @use '../../styles/hero/layout';
+  @use '../../styles/hero/portrait';
+  @use '../../styles/hero/content';
+  @use '../../styles/hero/rail';
+  @use '../../styles/hero/responsive';
+</style>
