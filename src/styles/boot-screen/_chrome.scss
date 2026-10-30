@@ -1,0 +1,48 @@
+.blackwall {
+  &__coordinates {
+    display: grid;
+    grid-template-columns: auto 1.5625rem auto;
+    align-items: center;
+    gap: 0.625rem;
+    margin-left: auto;
+    align-self: end;
+    color: var(--muted);
+    font: 0.5rem var(--font-mono);
+    i {
+      height: 0.0625rem;
+      background: var(--signal);
+    }
+    b {
+      grid-column: 1/-1;
+      font-weight: 400;
+      text-align: right;
+      color: var(--signal);
+    }
+  }
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 0.0625rem solid color-mix(in srgb, var(--brand) 17%, transparent);
+    font: 0.5rem var(--font-mono);
+    > div {
+      display: grid;
+      gap: 0.5rem;
+    }
+    strong {
+      color: var(--accent);
+      font-weight: 400;
+    }
+    > div > span,
+    > .blackwall__destination {
+      color: var(--muted);
+    }
+  }
+  &__destination {
+    margin-left: auto;
+  }
+  :global(.blackwall__skip) {
+    margin-left: auto;
+  }
+}

@@ -1,0 +1,81 @@
+.blackwall {
+  &__terminal {
+    --frame-surface: #090910ed;
+    --line-bright: var(--brand);
+    position: relative;
+    isolation: isolate;
+    width: clamp(19.375rem, 31vw, 28.125rem);
+    padding: clamp(1.5625rem, 3vw, 2.5rem);
+  }
+  &__eyebrow {
+    margin: 0 0 1.875rem;
+    font: 0.5625rem var(--font-mono);
+    color: var(--signal);
+    letter-spacing: 0.06em;
+  }
+  &__title {
+    margin: 0;
+    font: 700 clamp(1.8125rem, 2.7vw, 2.625rem)/1.13 var(--font-body);
+    letter-spacing: -0.025em;
+    white-space: pre-line;
+    text-wrap: balance;
+    min-height: 2.3em;
+  }
+  &__divider {
+    display: flex;
+    gap: 0.3125rem;
+    margin: 1.5rem 0;
+    height: 0.0625rem;
+    background: color-mix(in srgb, var(--brand) 13%, transparent);
+    span {
+      display: block;
+      width: 26%;
+      background: var(--signal);
+      &:nth-child(2) {
+        width: 5%;
+        opacity: 0.5;
+      }
+      &:nth-child(3) {
+        width: 2%;
+        opacity: 0.3;
+      }
+    }
+  }
+  &__logs {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.25rem;
+    display: grid;
+    gap: 0.875rem;
+    font: 0.5rem/1.6 var(--font-mono);
+    color: #aaa5b6;
+    li {
+      display: flex;
+      align-items: start;
+      gap: 0.5rem;
+    }
+    b {
+      font-weight: 400;
+      margin-left: auto;
+      color: var(--signal);
+    }
+    .is-ready b {
+      color: var(--accent);
+    }
+  }
+  &__chevron {
+    color: var(--signal);
+  }
+  &__terminal-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.6875rem;
+    font: 0.5rem var(--font-mono);
+    color: var(--muted);
+    .status-dot {
+      width: 0.25rem;
+      height: 0.25rem;
+    }
+  }
+}

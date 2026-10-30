@@ -1,0 +1,6 @@
+:global(html[data-boot='pending']) .blackwall[hidden] {
+  display: grid;
+}
+:global(html[data-boot]) {
+  overflow: hidden;
+}

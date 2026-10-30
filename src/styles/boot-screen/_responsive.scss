@@ -1,0 +1,86 @@
+.blackwall {
+  @media (min-width: 1700px) {
+    &__terminal {
+      margin-left: 4%;
+    }
+  }
+  @media (max-width: 600px) {
+    padding: 1.375rem 1.25rem;
+    &__header {
+      gap: 0.875rem;
+      padding-bottom: 0.9375rem;
+    }
+    &__chapter {
+      font-size: 0.5rem;
+    }
+    &__protocol {
+      font-size: 0.4375rem;
+      span {
+        font-size: 0.375rem;
+      }
+    }
+    &__body {
+      padding: 2.25rem 0.3125rem;
+    }
+    &__terminal {
+      width: min(100%, 23.75rem);
+      padding: 1.75rem 1.5rem;
+    }
+    &__eyebrow {
+      margin-bottom: 1.5625rem;
+      font-size: 0.5rem;
+    }
+    &__title {
+      font-size: clamp(1.8125rem, 8.4vw, 2.25rem);
+    }
+    &__coordinates {
+      display: none;
+    }
+    &__logs {
+      font-size: 0.4375rem;
+      margin-bottom: 1.75rem;
+      gap: 0.9375rem;
+    }
+    &__footer {
+      gap: 0.75rem;
+      align-items: center;
+      > div {
+        font-size: 0.4375rem;
+        span {
+          display: none;
+        }
+      }
+    }
+    &__destination {
+      display: none;
+    }
+  }
+  @media (max-height: 600px), (min-width: 1440px) and (min-aspect-ratio: 2/1) {
+    padding: 0.875rem 1.5rem;
+    &__body {
+      padding: 0.9375rem 0;
+    }
+    &__terminal {
+      padding: 1.125rem 1.625rem;
+    }
+    &__eyebrow {
+      margin-bottom: 0.8125rem;
+    }
+    &__title {
+      font-size: 1.6875rem;
+    }
+    &__divider {
+      margin: 0.8125rem 0;
+    }
+    &__logs {
+      gap: 0.4375rem;
+      margin-bottom: 1.0625rem;
+    }
+    &__terminal-footer {
+      margin-top: 0.8125rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}

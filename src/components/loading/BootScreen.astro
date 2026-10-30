@@ -1,0 +1,104 @@
+---
+import Logo from '../ui/Logo.astro';
+import Button from '../ui/Button.astro';
+import TechFrame from '../ui/TechFrame.astro';
+import SignalProgress from '../ui/SignalProgress.astro';
+import { bootUI } from '../../i18n/boot';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+
+const t = bootUI[lang];
+---
+
+<div
+  class="blackwall"
+  data-loading-screen
+  data-lenis-prevent
+  role="dialog"
+  aria-modal="true"
+  aria-label={t.label}
+  tabindex="-1"
+  hidden
+>
+  <div class="blackwall__field" aria-hidden="true">
+    <canvas class="blackwall__canvas" data-loading-fallback></canvas>
+    <canvas class="blackwall__canvas" data-loading-gpu hidden></canvas>
+    <div class="blackwall__vignette"></div>
+  </div>
+  <header class="blackwall__header">
+    <div class="blackwall__brand" inert aria-hidden="true">
+      <Logo />
+    </div>
+    <span class="blackwall__chapter">
+      <b data-loading-step>01</b> / <span data-loading-phase>{t.connection}</span>
+    </span>
+    <span class="blackwall__protocol">
+      NET // BLACKWALL.PROTOCOL<span>NS.001 / PORTFOLIO</span>
+    </span>
+  </header>
+  <div class="blackwall__body">
+    <section class="blackwall__terminal" aria-labelledby="loading-title">
+      <TechFrame />
+      <p class="blackwall__eyebrow" data-loading-note>
+        {t.notes[0]}
+      </p>
+      <h2 class="blackwall__title" id="loading-title" data-loading-title aria-live="polite">
+        {t.titles[0]}
+      </h2>
+      <div class="blackwall__divider" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ol class="blackwall__logs">
+        {t.logs.map((log) => (
+          <li data-loading-log>
+            <span class="blackwall__chevron" aria-hidden="true">
+              &gt;
+            </span>
+            <span>{log}</span>
+            <b data-loading-check>…</b>
+          </li>
+        ))}
+      </ol>
+      <SignalProgress label={t.progress} />
+      <div class="blackwall__terminal-footer">
+        <span class="status-dot"></span>
+        {t.status}
+      </div>
+    </section>
+    <div class="blackwall__coordinates" aria-hidden="true">
+      <span>34°54′ S</span>
+      <i></i>
+      <span>56°11′ W</span>
+      <b>NS / 001</b>
+    </div>
+  </div>
+  <footer class="blackwall__footer">
+    <div>
+      <strong>
+        {lang.toUpperCase()} / {t.encrypted}
+      </strong>
+      <span>{t.signature}</span>
+    </div>
+    <Button as="button" variant="ghost" class="blackwall__skip" glitch={false}>
+      {t.skip}
+    </Button>
+    <span class="blackwall__destination">{t.destination}</span>
+  </footer>
+</div>
+
+<style lang="scss">
+  @use '../../styles/boot-screen/layout';
+  @use '../../styles/boot-screen/terminal';
+  @use '../../styles/boot-screen/chrome';
+  @use '../../styles/boot-screen/responsive';
+  @use '../../styles/boot-screen/document';
+  @use '../../styles/boot-screen/landscape';
+  @use '../../styles/boot-screen/animation';
+</style>

@@ -1,0 +1,58 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div
+  class="signal-progress"
+  data-loading-progress
+  role="progressbar"
+  aria-label={label}
+  aria-valuemin="0"
+  aria-valuemax="100"
+  aria-valuenow="0"
+>
+  <span class="signal-progress__track" aria-hidden="true">
+    <span class="signal-progress__fill" />
+  </span>
+  <span class="signal-progress__meta" aria-hidden="true">
+    <span>DATA / NS.001</span>
+    <strong data-loading-percent>00%</strong>
+  </span>
+</div>
+<style lang="scss">
+  .signal-progress {
+    --progress: 0;
+    &__track {
+      display: block;
+      height: 0.1875rem;
+      overflow: hidden;
+      background: #393440;
+    }
+    &__fill {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand), var(--signal));
+      transform: scaleX(var(--progress));
+      transform-origin: left;
+      box-shadow: 0 0 0.875rem color-mix(in srgb, var(--brand) 40%, transparent);
+    }
+    &__meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.9375rem;
+      margin-top: 0.5625rem;
+      font: 0.5625rem var(--font-mono);
+      color: var(--muted);
+      strong {
+        color: var(--white);
+        font-weight: 400;
+      }
+    }
+  }
+</style>
