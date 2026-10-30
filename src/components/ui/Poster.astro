@@ -1,0 +1,113 @@
+---
+import { Image } from 'astro:assets';
+import { posterImages, type PosterVariant } from '../../data/environment-images';
+
+interface Props {
+  lines: string[];
+  variant?: PosterVariant;
+  compact?: boolean;
+  explorer?: string;
+}
+
+const { lines, variant = 'principles', compact = false, explorer = 'EXPLORER' } = Astro.props;
+---
+
+<div class:list={['poster', { 'poster--compact': compact }]} aria-hidden="true">
+  <Image
+    src={posterImages[variant]}
+    alt=""
+    width={compact ? 500 : 400}
+    widths={[240, 400, 600, 800]}
+    sizes={variant === 'principles' ? '18vw' : '(max-width: 760px) calc(100vw - 4rem), 28vw'}
+    format="webp"
+    quality={80}
+    loading="lazy"
+  />
+  <strong>
+    {lines.map((line) => (
+      <span>{line}</span>
+    ))}
+  </strong>
+  <span class="poster__slashes">///</span>
+  <span class="poster__code">NS / {explorer}</span>
+</div>
+<style lang="scss">
+  .poster {
+    position: relative;
+    border: 0.0625rem solid var(--line-bright);
+    min-height: 15rem;
+    clip-path: polygon(
+      0.875rem 0,
+      calc(100% - 0.875rem) 0,
+      100% 0.875rem,
+      100% calc(100% - 1.5625rem),
+      calc(100% - 1.5625rem) 100%,
+      0 100%,
+      0 0.875rem
+    );
+    overflow: hidden;
+    background: var(--surface);
+    :global(img) {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 65%;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, color-mix(in srgb, var(--black) 60%, transparent), transparent),
+        linear-gradient(transparent 70%, color-mix(in srgb, var(--black) 53%, transparent));
+    }
+    strong {
+      position: absolute;
+      z-index: 1;
+      top: 1.375rem;
+      left: 1.1875rem;
+      font: 900 clamp(0.6875rem, 1.3vw, 1.125rem)/1.15 var(--font-display);
+      letter-spacing: -0.03em;
+      border-left: 0.125rem solid var(--signal);
+      padding-left: 0.75rem;
+      span {
+        display: block;
+      }
+    }
+    &__slashes {
+      position: absolute;
+      z-index: 1;
+      left: 1.8125rem;
+      top: 7.5rem;
+      font: 700 2rem var(--font-display);
+      font-style: italic;
+      letter-spacing: 0.0625rem;
+      color: var(--signal);
+    }
+    &__code {
+      position: absolute;
+      z-index: 1;
+      right: 0.875rem;
+      bottom: 0.9375rem;
+      font: 0.4375rem var(--font-mono);
+      writing-mode: vertical-rl;
+    }
+    &--compact {
+      min-height: 100%;
+      strong {
+        font-size: 0.75rem;
+        top: 0.875rem;
+        left: 0.625rem;
+        padding-left: 0.5rem;
+      }
+      .poster__slashes {
+        top: auto;
+        bottom: 0.625rem;
+        left: 1.0625rem;
+        font-size: 1.75rem;
+      }
+    }
+  }
+</style>
