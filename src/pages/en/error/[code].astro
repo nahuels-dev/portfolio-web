@@ -1,0 +1,19 @@
+---
+import ErrorLayout from '../../../layouts/ErrorLayout.astro';
+import type { ErrorCode } from '../../../i18n/errors';
+
+export function getStaticPaths() {
+  return [500, 503].map((code) => ({
+    params: { code: String(code) },
+    props: { code: code as ErrorCode },
+  }));
+}
+
+interface Props {
+  code: ErrorCode;
+}
+
+const { code } = Astro.props;
+---
+
+<ErrorLayout code={code} lang="en" />

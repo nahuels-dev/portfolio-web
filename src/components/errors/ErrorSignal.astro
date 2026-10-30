@@ -1,0 +1,40 @@
+---
+import type { ErrorCode } from '../../i18n/errors';
+
+interface Props {
+  code: ErrorCode;
+}
+
+const { code } = Astro.props;
+---
+
+<div class="error-signal" data-error-signal={code} aria-hidden="true">
+  <span class="error-signal__fallback">{code}</span>
+</div>
+
+<style lang="scss">
+  .error-signal {
+    position: relative;
+    width: min(64rem, 90vw);
+    height: clamp(10rem, 27vw, 25rem);
+    margin: 0 auto;
+    pointer-events: none;
+    &__fallback {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font: 900 clamp(7rem, 24vw, 22rem)/1 var(--font-display);
+      letter-spacing: -0.08em;
+      color: var(--signal);
+      text-shadow: 0 0 3rem #8155ff60;
+    }
+    &[data-ready] &__fallback {
+      visibility: hidden;
+    }
+    @media (max-width: 650px) {
+      width: 100%;
+      height: clamp(9rem, 41vw, 15rem);
+    }
+  }
+</style>

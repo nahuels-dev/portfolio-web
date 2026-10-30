@@ -1,0 +1,109 @@
+---
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import Logo from '../ui/Logo.astro';
+import ErrorSignal from './ErrorSignal.astro';
+import { getErrorUI, type ErrorCode } from '../../i18n/errors';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  code: ErrorCode;
+}
+
+const { lang, code } = Astro.props;
+
+const t = getErrorUI(lang, code);
+
+const home = lang === 'es' ? '/' : '/en/';
+
+const other = lang === 'es' ? 'en' : 'es';
+
+const languageURL =
+  code === 404
+    ? `${other === 'en' ? '/en' : ''}/404/`
+    : `${other === 'en' ? '/en' : ''}/error/${code}/`;
+---
+
+<div class="error-page" data-error-language={lang} lang={lang}>
+  <a class="skip-link" href={`#error-main-${lang}`}>
+    {t.skip}
+  </a>
+  <header class="error-header">
+    <div class="error-header__identity">
+      <Logo href={home} label={t.logo} />
+      <span>
+        NAHUEL SILVA<small>{t.signature}</small>
+      </span>
+    </div>
+    <span class="error-header__mode">
+      <span class="status-dot" />
+      {t.mode}
+    </span>
+    <a data-glitch class="error-header__language" href={languageURL} aria-label={t.language}>
+      {t.languageCode}
+      <Icon size={12} />
+    </a>
+  </header>
+  <main class="error-stage" id={`error-main-${lang}`} tabindex="-1">
+    <section class="error-copy" aria-labelledby={`error-title-${lang}`}>
+      <p class="error-copy__sector">
+        <span />
+        {t.sector}
+        <span />
+      </p>
+      <ErrorSignal code={code} />
+      <p class="error-copy__eyebrow">
+        ERROR_{code} <span>// {t.tag}</span>
+      </p>
+      <h1 id={`error-title-${lang}`}>
+        <span class="sr-only">Error {code}: </span>
+        {t.title.join(' ')}
+      </h1>
+      <p class="error-copy__description">{t.description}</p>
+      <div class="error-copy__actions">
+        <Button href={home} variant="primary">
+          {t.home}
+        </Button>
+        {code === 404 ? (
+          <Button href={`${home}#proyectos`}>{t.projects}</Button>
+        ) : (
+          <span data-error-retry-wrapper hidden>
+            <Button as="button" class="error-retry">
+              {t.retry}
+            </Button>
+          </span>
+        )}
+      </div>
+      <p class="error-copy__detail">
+        <Icon name="globe" size={14} />
+        {t.detail}
+      </p>
+    </section>
+    <aside class="error-telemetry" aria-label={t.diagnostic}>
+      <span>
+        {t.route} <code data-error-path>/…</code>
+      </span>
+      <span>
+        <i />
+        {t.exit} // {t.available}
+      </span>
+    </aside>
+  </main>
+  <footer class="error-footer">
+    <span>{t.footer}</span>
+    <span>
+      34°54′ S <i />
+      56°11′ W
+    </span>
+    <span>NET // BLACKWALL.PROTOCOL</span>
+  </footer>
+</div>
+
+<style lang="scss">
+  @use '../../styles/error-view/layout';
+  @use '../../styles/error-view/header';
+  @use '../../styles/error-view/content';
+  @use '../../styles/error-view/telemetry';
+  @use '../../styles/error-view/responsive';
+</style>

@@ -1,0 +1,98 @@
+---
+import '../styles/global.scss';
+import ErrorView from '../components/errors/ErrorView.astro';
+import { getErrorUI, type ErrorCode } from '../i18n/errors';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  code: ErrorCode;
+  lang?: Locale;
+}
+
+const { code, lang = 'es' } = Astro.props;
+
+const title = `${code} — ${getErrorUI(lang, code).title.join(' ')} — Nahuel Silva`;
+
+const titles = {
+  es: `${code} — ${getErrorUI('es', code).title.join(' ')} — Nahuel Silva`,
+  en: `${code} — ${getErrorUI('en', code).title.join(' ')} — Nahuel Silva`,
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#101220" />
+    <title>{title}</title>
+    <script is:inline define:vars={{ titles }}>
+      const errorLocale =
+        location.pathname === '/en' || location.pathname.startsWith('/en/') ? 'en' : 'es';
+      document.documentElement.lang = errorLocale;
+      document.title = titles[errorLocale];
+    </script>
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/orbitron-bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      href="/fonts/chakra-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+  <body class="error-document" data-error-screen data-error-code={code}>
+    <div class="error-atmosphere" aria-hidden="true">
+      <canvas data-error-field />
+      <canvas data-error-gpu hidden />
+      <span />
+    </div>
+    <ErrorView lang="es" code={code} />
+    <ErrorView lang="en" code={code} />
+    <script>
+      import { initErrorScreen } from '../scripts/errors/error-screen';
+      import { initHoverGlitch } from '../scripts/effects/hover-glitch';
+      const disposeScene = initErrorScreen();
+      const disposeHover = initHoverGlitch();
+      if (import.meta.hot)
+        import.meta.hot.dispose(() => {
+          disposeScene();
+          disposeHover();
+        });
+    </script>
+  </body>
+</html>
+<style lang="scss">
+  :global(.error-document) {
+    isolation: isolate;
+    background: #080a14;
+  }
+  :global(html[lang='es'] [data-error-language='en']),
+  :global(html[lang='en'] [data-error-language='es']) {
+    display: none;
+  }
+  .error-atmosphere {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 40%, #8155ff30, transparent 65%), #030307;
+    canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.9;
+    }
+    > span {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 36%, transparent 15%, #03030750 80%),
+        linear-gradient(0deg, #030307ed 0%, #030307c9 28%, transparent 60%, #03030780);
+    }
+  }
+</style>

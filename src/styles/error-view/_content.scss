@@ -1,0 +1,80 @@
+.error-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 0 1.25rem;
+  min-width: 0;
+  &:focus {
+    outline: none;
+  }
+}
+.error-copy {
+  text-align: center;
+  min-width: 0;
+  margin: auto 0;
+  &__sector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--signal-hover);
+    font: 0.5625rem var(--font-mono);
+    letter-spacing: 0.14em;
+    margin: 0;
+    > span {
+      width: 2rem;
+      height: 0.0625rem;
+      background: var(--brand);
+    }
+  }
+  &__eyebrow {
+    font: 0.5625rem/1.6 var(--font-mono);
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin: 0.25rem 0 0.875rem;
+    span {
+      color: var(--signal-hover);
+      margin-left: 0.5rem;
+    }
+  }
+  h1 {
+    margin: 0 0 0.875rem;
+    font: 900 clamp(1.125rem, 2.1vw, 1.875rem)/1.3 var(--font-display);
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  &__description {
+    max-width: 38rem;
+    margin: 0 auto 1.5rem;
+    font: 0.75rem/1.85 var(--font-mono);
+    color: var(--text);
+    text-wrap: pretty;
+  }
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    align-items: stretch;
+    [hidden] {
+      display: none;
+    }
+    > span {
+      display: flex;
+    }
+  }
+  &__detail {
+    display: flex;
+    justify-content: center;
+    gap: 0.625rem;
+    align-items: flex-start;
+    margin: 1.125rem 0 0;
+    font: 0.5625rem/1.7 var(--font-mono);
+    color: var(--muted);
+    :global(svg) {
+      flex-shrink: 0;
+      margin-top: 0.125rem;
+    }
+  }
+}
