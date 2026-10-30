@@ -1,62 +1,71 @@
 {
   "id": "02",
   "slug": "portfolio",
-  "name": "Portfolio / v.01",
+  "name": "Portfolio",
   "category": {
     "es": "Portfolio creativo",
     "en": "Creative portfolio"
   },
   "description": {
-    "es": "Mi primera órbita digital. Diseño, movimiento y desarrollo frontend.",
-    "en": "My first digital orbit. Design, motion and frontend development."
+    "es": "Mi portfolio actual: identidad visual, movimiento y contenido editable, con el código abierto para explorar cómo está construido.",
+    "en": "My current portfolio: visual identity, motion and editable content, with public source code to explore how it is built."
   },
-  "tech": ["Astro", "GSAP", "Contentful"],
+  "tech": ["Astro", "TypeScript", "GSAP", "WebGPU", "Decap CMS", "Cloudflare Workers"],
   "image": "/images/project-portfolio.webp",
-  "imageSrcSet": "/images/project-portfolio-320.webp 320w, /images/project-portfolio-480.webp 480w, /images/project-portfolio.webp 720w",
-  "repository": "https://github.com/nahuels-dev/portfolio",
-  "label": "github.com / portfolio",
+  "imageSrcSet": "/images/project-portfolio-320.webp 320w, /images/project-portfolio-480.webp 480w, /images/project-portfolio.webp 1440w",
+  "href": "https://nahuel-s.dev/",
+  "repository": "https://github.com/nahuels-dev/portfolio-web",
+  "label": "nahuel-s.dev",
   "role": {
-    "es": "Diseño y desarrollo frontend",
-    "en": "Design and frontend development"
+    "es": "Diseño, desarrollo frontend y publicación",
+    "en": "Design, frontend development and deployment"
   },
   "copy": {
     "es": {
-      "intro": "Un espacio propio para conectar diseño, código y movimiento.",
-      "overview": "Mi primera órbita digital: un portfolio personal para presentar mi trabajo y experimentar con una identidad visual propia.",
-      "challenge": "Presentar proyectos y servicios de forma clara, sin perder el carácter personal ni el lugar de la experimentación visual.",
-      "solution": "Una experiencia que combina contenido, componentes y movimiento para darle continuidad al recorrido por el portfolio.",
+      "intro": "El portfolio que estás recorriendo: diseño, código y movimiento en una misma experiencia.",
+      "overview": "Esta versión reúne mis proyectos, servicios y forma de trabajar en un sitio bilingüe. Diseñé y desarrollé una identidad visual propia, con contenido editable desde un CMS online y el código disponible en GitHub.",
+      "challenge": "Construir una experiencia visual con carácter sin perder claridad, adaptación a móviles ni control sobre el contenido. El sitio también debía permitir actualizar proyectos y textos sin modificar los componentes.",
+      "solution": "Una web estática con Astro y TypeScript, animaciones con GSAP y efectos con WebGPU. Decap CMS guarda el contenido en archivos JSON de la rama develop; los cambios se validan y se publican en Cloudflare Workers al integrarlos en main.",
       "features": [
         {
           "title": "Identidad propia",
-          "text": "Una dirección visual que conecta los proyectos con mi manera de trabajar."
+          "text": "Tipografía, marcos geométricos y una paleta de alto contraste conectan la portada, los servicios y los casos de estudio."
         },
         {
-          "title": "Movimiento",
-          "text": "Animaciones con GSAP como parte de la experiencia frontend."
+          "title": "Movimiento y efectos",
+          "text": "GSAP coordina las transiciones y WebGPU genera los efectos glitch, con alternativas para dispositivos sin soporte y preferencias de movimiento reducido."
         },
         {
-          "title": "Contenido y componentes",
-          "text": "Astro y Contentful forman parte del stack con el que se construyó esta versión."
+          "title": "Contenido editable",
+          "text": "Decap CMS permite actualizar proyectos, servicios y textos en español e inglés. Los archivos JSON se validan antes de generar las páginas."
+        },
+        {
+          "title": "Código y publicación",
+          "text": "El repositorio público permite explorar los componentes y efectos. GitHub Actions verifica cada cambio y Cloudflare publica la web al actualizar main."
         }
       ]
     },
     "en": {
-      "intro": "A personal space connecting design, code and motion.",
-      "overview": "My first digital orbit: a personal portfolio for presenting my work and experimenting with a visual identity of my own.",
-      "challenge": "Present projects and services clearly while making room for personality and visual experimentation.",
-      "solution": "An experience combining content, components and motion to create a continuous journey through the portfolio.",
+      "intro": "The portfolio you are exploring: design, code and motion in one experience.",
+      "overview": "This version brings together my projects, services and approach in a bilingual website. I designed and developed a visual identity of my own, with content managed through an online CMS and source code available on GitHub.",
+      "challenge": "Build a distinctive visual experience while keeping content clear, responsive and easy to maintain. Projects and copy also needed to be editable without changing components.",
+      "solution": "A static website built with Astro and TypeScript, GSAP animations and WebGPU effects. Decap CMS saves content as JSON files on develop; changes are validated and deployed to Cloudflare Workers when merged into main.",
       "features": [
         {
           "title": "Personal identity",
-          "text": "A visual direction connecting the projects with the way I work."
+          "text": "Typography, geometric frames and a high-contrast palette connect the home page, services and case studies."
         },
         {
-          "title": "Motion",
-          "text": "GSAP animations as part of the frontend experience."
+          "title": "Motion and effects",
+          "text": "GSAP coordinates transitions and WebGPU renders glitch effects, with alternatives for unsupported devices and reduced motion preferences."
         },
         {
-          "title": "Content and components",
-          "text": "Astro and Contentful are part of the stack used to build this version."
+          "title": "Editable content",
+          "text": "Decap CMS manages projects, services and copy in Spanish and English. JSON content is validated before the pages are generated."
+        },
+        {
+          "title": "Source and deployment",
+          "text": "The public repository makes components and effects available to explore. GitHub Actions checks each change and Cloudflare publishes the site when main is updated."
         }
       ]
     }
