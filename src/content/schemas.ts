@@ -24,15 +24,14 @@ export const projectSchema = z.object({
   category: localized(text),
   description: localized(text),
   tech: z.array(text).min(1),
-  image: asset,
-  imageSrcSet: z.string().optional(),
+  image: mediaAsset,
   href: optionalUrl,
   repository: optionalUrl,
   label: text,
   role: localized(text),
   copy: localized(projectCopy),
   gallery: z
-    .array(z.object({ src: asset, alt: localized(text), caption: localized(text) }))
+    .array(z.object({ src: mediaAsset, alt: localized(text), caption: localized(text) }))
     .optional(),
 });
 
