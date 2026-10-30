@@ -4,6 +4,7 @@ import SeoHead from '../components/seo/SeoHead.astro';
 import Header from '../components/Header.astro';
 import FloatingNav from '../components/FloatingNav.astro';
 import Footer from '../components/Footer.astro';
+import AnalyticsConsent from '../components/AnalyticsConsent.astro';
 import BootScreen from '../components/loading/BootScreen.astro';
 import { BOOT_TIMING } from '../scripts/loading/boot-timing';
 import { getUI, type Locale } from '../i18n/ui';
@@ -138,6 +139,7 @@ const heroPreload = preloadOptions ? await getImage(preloadOptions) : undefined;
       </main>
       <Footer lang={lang} navigation={page?.navigation} homeHref={page ? homePath : undefined} />
     </div>
+    <AnalyticsConsent lang={lang} />
     <script>
       import '../scripts/main';
     </script>
