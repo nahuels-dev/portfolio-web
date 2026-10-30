@@ -1,0 +1,88 @@
+import type { Locale } from './ui';
+
+export const serviceUI = {
+  es: {
+    home: 'Inicio',
+    services: 'Servicios',
+    breadcrumb: 'Ruta de navegación',
+    eyebrow: 'DESDE URUGUAY / TRABAJO REMOTO',
+    consult: 'Consultar por este servicio',
+    included: 'Qué incluye mi trabajo',
+    includedNote: 'QUÉ VOY A ENTREGARTE',
+    audience: 'Cuándo puede servirte',
+    audienceNote: 'TU PUNTO DE PARTIDA',
+    process: 'Cómo trabajo',
+    processNote: 'PASO A PASO',
+    prepare: 'Qué necesito que me cuentes',
+    scope: 'Sobre el presupuesto',
+    faq: 'Lo que suelen preguntarme',
+    faqNote: 'TE CUENTO UN POCO MÁS',
+    related: 'También puedo ayudarte con',
+    relatedNote: 'SEGUÍ EXPLORANDO',
+    contact: 'Hablemos de tu proyecto',
+    contactNote: 'CONTAME TU IDEA',
+    email: 'Contarme tu idea',
+    copy: 'Copiar email',
+    copied: '¡Email copiado!',
+    copyError: 'No se pudo copiar. Usá el enlace de email.',
+    work: 'Ver mis proyectos',
+    all: 'Ver todos los servicios',
+    emailSubject: 'Consulta por',
+    emailBody:
+      'Hola Nahuel, me interesa este servicio.\n\nMi negocio o proyecto:\nQué necesito resolver:\nMaterial o sistema disponible:\nPlazo de referencia, si lo hay:\n',
+    indexTitle: 'Servicios de desarrollo y diseño en Uruguay | Nahuel Silva',
+    indexDescription:
+      'Soy Nahuel Silva, desarrollador freelance en Uruguay. Te ayudo con páginas web, tiendas online, apps, frontend, UI/UX, animaciones y emails HTML.',
+    indexHeading: 'Te ayudo con el diseño y desarrollo de tu proyecto.',
+    indexIntro:
+      'Acá podés ver lo que hago. En cada servicio te cuento cómo puedo ayudarte, cómo encaro el trabajo y qué necesito saber para preparar un presupuesto.',
+    choose: 'Si todavía no sabés por dónde empezar',
+    chooseText:
+      'Contame qué necesitás y cómo lo resolvés hoy. Te ayudo a ver si te conviene una web, una tienda, una app o mejorar algo que ya tenés.',
+    collaboration: 'Puedo ayudarte con más de una parte',
+    collaborationText:
+      'Puedo diseñar y desarrollar tu web, armar los emails de tu tienda o trabajar en la versión móvil de tu aplicación. Antes de empezar, te detallo de qué me voy a encargar y qué voy a entregarte.',
+  },
+  en: {
+    home: 'Home',
+    services: 'Services',
+    breadcrumb: 'Breadcrumb',
+    eyebrow: 'BASED IN URUGUAY / WORKING REMOTELY',
+    consult: 'Discuss this service',
+    included: 'What my work includes',
+    includedNote: 'WHAT I’LL DELIVER',
+    audience: 'When this could help',
+    audienceNote: 'YOUR STARTING POINT',
+    process: 'How I work',
+    processNote: 'STEP BY STEP',
+    prepare: 'What I need to know',
+    scope: 'About the quote',
+    faq: 'Questions I get asked',
+    faqNote: 'A LITTLE MORE DETAIL',
+    related: 'I can also help with',
+    relatedNote: 'KEEP EXPLORING',
+    contact: 'Let’s talk about your project',
+    contactNote: 'TELL ME YOUR IDEA',
+    email: 'Tell me your idea',
+    copy: 'Copy email',
+    copied: 'Email copied!',
+    copyError: 'Could not copy. Please use the email link.',
+    work: 'Explore my projects',
+    all: 'Explore all services',
+    emailSubject: 'Enquiry about',
+    emailBody:
+      'Hi Nahuel, I am interested in this service.\n\nMy business or project:\nThe problem I need to solve:\nAvailable assets or existing system:\nTarget timing, if any:\n',
+    indexTitle: 'Development and design services in Uruguay | Nahuel Silva',
+    indexDescription:
+      'I’m Nahuel Silva, a freelance developer in Uruguay. I help with websites, online stores, apps, frontend, UI/UX, animation and HTML emails.',
+    indexHeading: 'I can help you design and build your project.',
+    indexIntro:
+      'Here’s what I do. Each service explains how I can help, how I approach the work and what I need to know to put together a quote.',
+    choose: 'Not sure where to start?',
+    chooseText:
+      'Tell me what you need and how you handle it today. I’ll help you work out whether a website, a store, an app or changes to something you already have would suit you.',
+    collaboration: 'I can help with more than one part',
+    collaborationText:
+      'I can design and build your website, develop your store’s emails or work on the mobile version of your application. Before getting started, I explain which parts I’ll handle and what I’ll deliver.',
+  },
+} satisfies Record<Locale, object>;

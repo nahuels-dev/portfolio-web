@@ -1,0 +1,79 @@
+@use '../geometry';
+.service-page {
+  .service-steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    padding: 0;
+    margin: 0;
+    position: relative;
+  }
+  .service-steps::before {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    right: 2rem;
+    top: 2.5rem;
+    height: 1px;
+    background: var(--brand);
+  }
+  .service-proposal {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  .service-proposal > div {
+    @include geometry.cut-surface(var(--shape-card));
+    --cut-surface: var(--black);
+    --cut-line: var(--line);
+    min-width: 0;
+    padding: 1.5rem;
+  }
+  .service-proposal .service-proposal__brief {
+    --cut-line: var(--brand);
+    --cut-surface: var(--surface-gradient);
+  }
+  .service-proposal__icon {
+    display: inline-grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    color: var(--black);
+    background: var(--accent);
+    clip-path: var(--shape-control);
+    margin-bottom: 1.25rem;
+  }
+  .service-proposal__scope .service-proposal__icon {
+    background: var(--surface-tint);
+    color: var(--signal);
+  }
+  .service-proposal h3 {
+    text-transform: uppercase;
+    font-size: 1rem;
+  }
+  .service-proposal p {
+    margin: 0;
+    line-height: 1.8;
+    font-size: 0.9375rem;
+  }
+  .service-proposal ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .service-proposal li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.8;
+    font-size: 0.9375rem;
+  }
+  .service-proposal li svg {
+    flex-shrink: 0;
+    color: var(--signal);
+    margin-top: 0.25rem;
+  }
+}

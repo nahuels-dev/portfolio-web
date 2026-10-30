@@ -1,0 +1,43 @@
+---
+import Panel from '../ui/Panel.astro';
+import ServiceCard from '../ui/ServiceCard.astro';
+import { getUI, type Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+
+const t = getUI(lang);
+---
+
+<Panel id="servicios" title={t.services} note={t.servicesNote}>
+  <p class="services__intro">{t.servicesIntro}</p>
+  <div class="services__grid">
+    {t.servicesList.map((item, i) => (
+      <ServiceCard {...item} index={i} />
+    ))}
+  </div>
+</Panel>
+<style lang="scss">
+  .services__intro {
+    max-width: 52rem;
+    margin: 0 0 1.25rem;
+    color: var(--text);
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    @media (max-width: 1000px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (max-width: 440px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.625rem;
+    }
+  }
+</style>

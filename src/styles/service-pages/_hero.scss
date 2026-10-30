@@ -1,0 +1,59 @@
+.service-page {
+  .service-hero {
+    isolation: isolate;
+    position: relative;
+    padding: 1.5rem 2.25rem 2.75rem;
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      inset: 5rem 1rem 1rem 35%;
+      pointer-events: none;
+      background: radial-gradient(ellipse at 75% 45%, #8155ff1f, transparent 65%);
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.875rem, 3.4vw, 3.25rem);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -0.045em;
+      max-width: 23ch;
+      margin: 1rem 0 1.5rem;
+      text-transform: uppercase;
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+  }
+  .service-title__accent {
+    color: var(--accent);
+  }
+  .service-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    align-items: start;
+    gap: 2rem;
+  }
+  .service-hero__copy {
+    min-width: 0;
+  }
+  .service-eyebrow {
+    border-left: 2px solid var(--brand);
+    padding-left: 0.75rem;
+    font: 0.625rem/1.7 var(--font-mono);
+    letter-spacing: 0.04em;
+    color: var(--signal);
+  }
+  .service-lead {
+    max-width: 64ch;
+    font-size: 0.9375rem;
+    line-height: 1.8;
+    margin: 0 0 1rem;
+  }
+  .service-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+}

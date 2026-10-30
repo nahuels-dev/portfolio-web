@@ -1,0 +1,37 @@
+@use '../geometry';
+.service-page {
+  .service-audience {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 0;
+    margin: 0;
+    gap: 1rem;
+  }
+  .service-audience li {
+    @include geometry.cut-surface(var(--shape-card));
+    --cut-line: var(--line);
+    --cut-surface: var(--surface-gradient);
+    min-width: 0;
+    padding: 1.25rem 1.25rem 1.75rem;
+    > svg {
+      position: absolute;
+      right: 1rem;
+      bottom: 0.75rem;
+      color: var(--signal);
+      opacity: 0.35;
+    }
+  }
+  .service-audience__index {
+    display: block;
+    font: 900 2.5rem/1 var(--font-display);
+    color: var(--signal);
+    margin-bottom: 1rem;
+    letter-spacing: -0.05em;
+  }
+  .service-audience p {
+    margin: 0;
+    line-height: 1.75;
+    font-size: 0.9375rem;
+  }
+}

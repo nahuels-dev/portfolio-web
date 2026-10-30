@@ -1,0 +1,106 @@
+---
+import { Image } from 'astro:assets';
+import { serviceHeroImage } from '../../data/service-image';
+import { servicePortraitAlt } from '../../data/service-portraits';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  artwork: string;
+  label: string;
+  promise: string;
+}
+
+const { artwork, label, promise, lang } = Astro.props;
+---
+
+<figure class="service-visual">
+  <div class="service-visual__art">
+    <Image
+      {...serviceHeroImage(artwork)}
+      alt={servicePortraitAlt(artwork, lang)}
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+  <figcaption>
+    <span class="service-visual__label">
+      <span class="status-dot" />
+      {label}
+    </span>
+    <p>{promise}</p>
+  </figcaption>
+</figure>
+<style lang="scss">
+  @use '../../styles/geometry';
+  .service-visual {
+    position: relative;
+    margin: 0;
+    min-width: 0;
+    &__art {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      aspect-ratio: 1.5;
+      background: #ede5ff;
+      clip-path: polygon(
+        1.75rem 0,
+        68% 0,
+        calc(68% + 0.75rem) 0.75rem,
+        calc(100% - 1.25rem) 0.75rem,
+        100% 2rem,
+        100% 82%,
+        calc(100% - 1.25rem) calc(82% + 1.25rem),
+        calc(100% - 1.25rem) 100%,
+        0.75rem 100%,
+        0 calc(100% - 0.75rem),
+        0 1.75rem
+      );
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 50%;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(0deg, #10122012, transparent 25%);
+      }
+    }
+    figcaption {
+      @include geometry.cut-surface(var(--shape-card));
+      --cut-surface: var(--surface-gradient);
+      width: 80%;
+      margin: 1rem 0 0 auto;
+      padding: 1rem 1.25rem;
+    }
+    &__label {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      font: 0.625rem/1.5 var(--font-mono);
+      text-transform: uppercase;
+      color: var(--signal);
+    }
+    figcaption p {
+      font: 700 clamp(1.125rem, 1.5vw, 1.375rem)/1.3 var(--font-body);
+      color: var(--white);
+      margin: 0.625rem 0 0;
+      text-transform: uppercase;
+    }
+    @media (max-width: 760px) {
+      figcaption {
+        width: 100%;
+        margin: 0.75rem 0 0;
+        padding: 1rem;
+      }
+      figcaption p {
+        font-size: 1.125rem;
+      }
+    }
+  }
+</style>

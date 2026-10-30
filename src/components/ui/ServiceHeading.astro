@@ -1,0 +1,16 @@
+---
+interface Props {
+  text: string;
+  id: string;
+}
+
+const { text, id } = Astro.props;
+
+const words = text.split(' ');
+
+const ending = words.splice(-3).join(' ');
+---
+
+<h1 id={id}>
+  {words.join(' ')} <span class="service-title__accent">{ending}</span>
+</h1>

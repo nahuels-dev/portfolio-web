@@ -1,0 +1,134 @@
+---
+import Icon from './Icon.astro';
+import { Picture } from 'astro:assets';
+import { serviceArtwork } from '../../data/service-artwork';
+
+interface Props {
+  icon: string;
+  title: string;
+  text: string;
+  index: number;
+  href: string;
+}
+
+const { icon, title, text, index, href } = Astro.props;
+---
+
+<a data-glitch class="service-card" href={href}>
+  <span class="service-card__number">0{index + 1}</span>
+  <span class="service-card__texture" aria-hidden="true">
+    {serviceArtwork[icon] && (
+      <Picture
+        src={serviceArtwork[icon]}
+        alt=""
+        width={640}
+        widths={[240, 320, 400, 640]}
+        sizes="(max-width: 1000px) 46vw, 24vw"
+        formats={['avif', 'webp']}
+        fallbackFormat="webp"
+        quality={50}
+        loading="lazy"
+      />
+    )}
+  </span>
+  <Icon name={icon} size={34} />
+  <h3>{title}</h3>
+  <p>{text}</p>
+  <span class="service-card__arrow">
+    <Icon size={17} />
+  </span>
+</a>
+<style lang="scss">
+  @use '../../styles/geometry';
+  .service-card {
+    @include geometry.cut-surface(var(--shape-card));
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    min-height: 10.4375rem;
+    padding: 1.0625rem 0.8125rem 1.5625rem;
+
+    text-decoration: none;
+    --cut-surface: var(--surface-gradient);
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+    & > :global(svg) {
+      color: var(--signal);
+      position: relative;
+      margin-bottom: 0.9375rem;
+    }
+    &__number {
+      position: absolute;
+      top: 0.6875rem;
+      right: 0.6875rem;
+      font: 0.5rem var(--font-mono);
+      color: var(--muted);
+    }
+    &__texture {
+      clip-path: var(--shape-card);
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        130deg,
+        transparent 0 1.125rem,
+        color-mix(in srgb, var(--brand) 4%, transparent) 1.1875rem 1.25rem,
+        transparent 1.3125rem 2.375rem
+      );
+      opacity: 0.46;
+      mask-image: linear-gradient(#000 0%, #000a 40%, transparent 88%);
+      :global(img) {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: 65% 30%;
+        filter: saturate(0.65);
+      }
+    }
+    h3 {
+      font-size: 0.8125rem;
+      line-height: 1.2;
+      font-weight: 500;
+      text-transform: uppercase;
+      margin: 0 0 0.375rem;
+      position: relative;
+      color: var(--white);
+    }
+    p {
+      color: var(--text);
+      font-size: 0.6875rem;
+      line-height: 1.45;
+      margin: 0;
+      position: relative;
+    }
+    &__arrow {
+      position: absolute;
+      bottom: 0.5625rem;
+      right: 0.625rem;
+      display: flex;
+      transition: transform 0.2s;
+    }
+    &:hover {
+      --cut-line: var(--signal);
+      --cut-surface: var(--surface-hover);
+      .service-card__arrow {
+        transform: translate(0.125rem, -0.125rem);
+      }
+    }
+    @media (max-width: 600px) {
+      min-height: 10rem;
+      padding: 0.875rem 0.75rem 1.5625rem;
+      & > :global(svg) {
+        width: 1.8125rem;
+        margin-bottom: 0.75rem;
+      }
+      h3 {
+        font-size: 0.75rem;
+      }
+      p {
+        font-size: 0.625rem;
+      }
+    }
+  }
+</style>

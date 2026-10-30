@@ -1,0 +1,71 @@
+@use '../geometry';
+.service-page {
+  .service-related {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .service-related .service-card {
+    min-height: 12rem;
+  }
+  .service-related .service-card h3,
+  .service-index-grid .service-card h3 {
+    font-size: 1rem;
+  }
+  .service-related .service-card p,
+  .service-index-grid .service-card p {
+    font-size: 0.875rem;
+  }
+  .service-catalog-link {
+    margin-top: 1rem;
+  }
+  .service-index-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .service-index-grid .service-card {
+    min-height: 13rem;
+  }
+  .service-guidance {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+    gap: 2rem;
+    align-items: stretch;
+  }
+  .service-guidance > div:first-child {
+    min-width: 0;
+    padding: 1rem;
+  }
+  .service-guidance .poster {
+    min-height: 16rem;
+  }
+  .service-guidance .poster strong {
+    font-size: 1.5rem;
+  }
+  .service-combinations {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+  .service-combination {
+    @include geometry.cut-surface(var(--shape-card));
+    --cut-surface: var(--surface-gradient);
+    --cut-line: var(--line);
+    min-width: 0;
+    padding: 1.5rem;
+  }
+  .service-combination > svg {
+    color: var(--signal);
+    margin-bottom: 1.25rem;
+  }
+  .service-combination h3 {
+    font-size: 1rem;
+  }
+  .service-combination p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+}

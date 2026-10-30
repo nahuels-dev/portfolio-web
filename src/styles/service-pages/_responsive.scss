@@ -1,0 +1,149 @@
+.service-page {
+  @media (max-width: 1000px) {
+    .service-hero__grid {
+      gap: 1.5rem;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .service-hero {
+      padding: 1.25rem 1.5rem 2rem;
+    }
+    .service-hero h1 {
+      font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+    }
+    .service-index-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 760px) {
+    .service-hero {
+      padding: 1rem 1.125rem 1.5rem;
+    }
+    .service-hero__grid {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+    .service-hero__copy {
+      display: contents;
+    }
+    .service-hero__grid .service-eyebrow {
+      order: 0;
+    }
+    .service-hero__grid h1 {
+      order: 1;
+    }
+    .service-hero__grid .service-visual {
+      order: 2;
+      margin: 0 0 1.5rem;
+    }
+    .service-hero__grid .service-lead {
+      order: 3;
+    }
+    .service-hero__grid .service-actions {
+      order: 4;
+    }
+    .service-hero h1 {
+      font-size: clamp(1.75rem, 7.1vw, 2.625rem);
+      margin-bottom: 1.5rem;
+    }
+    .service-hero__grid .service-actions {
+      margin-top: 0.5rem;
+    }
+    .service-audience,
+    .service-deliverables,
+    .service-steps,
+    .service-proposal,
+    .service-combinations,
+    .service-guidance {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1rem;
+    }
+    .service-audience li {
+      display: grid;
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+      gap: 1rem;
+      align-items: start;
+      padding: 1.25rem 1.25rem 1.5rem;
+    }
+    .service-audience__index {
+      font-size: 1.75rem;
+      margin: 0.125rem 0 0;
+    }
+    .service-deliverable {
+      padding: 1.25rem;
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+    .service-deliverable--featured {
+      grid-row: auto;
+      padding: 1.5rem;
+      min-height: 17rem;
+    }
+    .service-deliverable--featured .service-deliverable__body {
+      margin-top: 0.5rem;
+    }
+    .service-deliverable--featured .service-number {
+      font-size: 2.5rem;
+    }
+    .service-deliverable--featured h3 {
+      font-size: 1.375rem;
+    }
+    .service-deliverable__watermark svg {
+      width: 7rem;
+      height: 7rem;
+    }
+
+    .service-steps::before {
+      top: 1rem;
+      bottom: 1rem;
+      left: 2.5rem;
+      right: auto;
+      height: auto;
+      width: 1px;
+    }
+    .panel__header {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .panel__note {
+      text-align: left;
+      max-width: none;
+    }
+    .panel__title {
+      font-size: 0.9375rem;
+    }
+    .service-related {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .service-related .service-card {
+      min-height: 11rem;
+    }
+    .service-proposal {
+      margin-top: 1.25rem;
+    }
+    .service-proposal > div {
+      padding: 1.25rem;
+    }
+    .service-actions {
+      gap: 0.75rem;
+    }
+    .service-actions .button {
+      max-width: 100%;
+    }
+    .service-guidance > div:first-child {
+      padding: 0;
+    }
+    .service-guidance .poster {
+      display: none;
+    }
+  }
+  @media (max-width: 440px) {
+    .service-index-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .service-index-grid .service-card {
+      min-height: 11rem;
+    }
+  }
+}

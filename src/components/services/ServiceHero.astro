@@ -1,0 +1,51 @@
+---
+import Breadcrumbs from '../ui/Breadcrumbs.astro';
+import Button from '../ui/Button.astro';
+import TechFrame from '../ui/TechFrame.astro';
+import ServiceVisual from '../ui/ServiceVisual.astro';
+import ServiceHeading from '../ui/ServiceHeading.astro';
+import { serviceIndexPath, type Service } from '../../data/services';
+import { serviceUI } from '../../i18n/services';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  service: Service;
+  lang: Locale;
+}
+
+const { service, lang } = Astro.props;
+const copy = service.copy[lang];
+const labels = serviceUI[lang];
+const home = lang === 'es' ? '/' : '/en/';
+---
+
+<section class="service-hero" id="inicio" aria-labelledby="service-title">
+  <TechFrame variant="hero" />
+  <Breadcrumbs
+    class="service-breadcrumb"
+    label={labels.breadcrumb}
+    items={[
+      { label: labels.home, href: home },
+      { label: labels.services, href: serviceIndexPath(lang) },
+      { label: copy.name },
+    ]}
+  />
+  <div class="service-hero__grid">
+    <div class="service-hero__copy">
+      <p class="service-eyebrow">{labels.eyebrow}</p>
+      <ServiceHeading id="service-title" text={copy.heading} />
+      {copy.intro.map((paragraph) => (
+        <p class="service-lead">{paragraph}</p>
+      ))}
+      <div class="service-actions">
+        <Button href="#contacto" variant="primary" contact>
+          {labels.consult}
+        </Button>
+        <Button href="#incluye" variant="secondary">
+          {labels.included}
+        </Button>
+      </div>
+    </div>
+    <ServiceVisual lang={lang} artwork={service.icon} label={copy.name} promise={copy.promise} />
+  </div>
+</section>

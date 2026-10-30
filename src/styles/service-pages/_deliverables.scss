@@ -1,0 +1,109 @@
+@use '../geometry';
+.service-page {
+  .service-deliverables {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: 1rem;
+  }
+  .service-deliverable {
+    @include geometry.cut-surface(var(--shape-card));
+    --cut-line: var(--line);
+    --cut-surface: var(--surface-gradient);
+    min-width: 0;
+    padding: 1.375rem;
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+  .service-deliverable__top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .service-number {
+    display: block;
+    font: 900 1.625rem/1 var(--font-display);
+    color: var(--signal);
+    letter-spacing: -0.05em;
+  }
+  .service-deliverable__icon {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    clip-path: var(--shape-control);
+    color: var(--signal);
+    background: var(--black);
+  }
+  .service-deliverable__body {
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .service-deliverable h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+  }
+  .service-deliverable p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+  .service-deliverable--featured {
+    grid-row: span 3;
+    display: flex;
+    flex-direction: column;
+    --cut-line: var(--brand);
+    padding: 1.75rem;
+    .service-deliverable__top {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .service-number {
+      font-size: 3.5rem;
+      color: var(--accent);
+    }
+    .service-deliverable__icon {
+      width: 3.5rem;
+      height: 3.5rem;
+      color: var(--black);
+      background: var(--accent);
+    }
+    .service-deliverable__icon svg {
+      width: 2rem;
+      height: 2rem;
+    }
+    .service-deliverable__body {
+      margin-top: 1.5rem;
+    }
+    h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.375rem, 2.2vw, 2rem);
+      line-height: 1.2;
+      max-width: 18ch;
+      letter-spacing: -0.035em;
+    }
+    p {
+      max-width: 43ch;
+    }
+  }
+  .service-deliverable__watermark {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 2rem;
+    opacity: 0.07;
+    color: var(--signal);
+    pointer-events: none;
+  }
+  .service-card-corner {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 4rem;
+    height: 1.25rem;
+    pointer-events: none;
+    background: repeating-linear-gradient(-45deg, transparent 0 0.5rem, #8155ff33 0.5rem 0.9375rem);
+  }
+}
