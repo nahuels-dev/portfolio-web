@@ -1,0 +1,53 @@
+---
+import brandIcons from '../../data/brand-icons.json';
+import {
+  IconBrandReact,
+  IconBrandNextjs,
+  IconBrandJavascript,
+  IconBrandNodejs,
+  IconBrandHtml5,
+  IconBrandCss3,
+  IconBrandFigma,
+  IconBrandAdobePhotoshop,
+  IconBrandAdobeIllustrator,
+} from '@tabler/icons-astro';
+
+const additionalBrands = {
+  react: IconBrandReact,
+  nextjs: IconBrandNextjs,
+  javascript: IconBrandJavascript,
+  nodejs: IconBrandNodejs,
+  html5: IconBrandHtml5,
+  css3: IconBrandCss3,
+  figma: IconBrandFigma,
+  photoshop: IconBrandAdobePhotoshop,
+  illustrator: IconBrandAdobeIllustrator,
+};
+
+interface Props {
+  name: keyof typeof brandIcons | keyof typeof additionalBrands;
+}
+
+const { name } = Astro.props;
+
+const Brand = additionalBrands[name as keyof typeof additionalBrands];
+
+const vector = brandIcons[name as keyof typeof brandIcons];
+---
+
+{Brand ? (
+  <Brand size="1.75rem" stroke={1.75} aria-hidden="true" focusable="false" />
+) : (
+  <svg
+    width="1.75rem"
+    height="1.75rem"
+    viewBox={name === 'gsap' ? '0 6.5 24 11' : '0 0 24 24'}
+    fill="currentColor"
+    aria-hidden="true"
+    focusable="false"
+  >
+    {vector.paths.map((d) => (
+      <path d={d} />
+    ))}
+  </svg>
+)}

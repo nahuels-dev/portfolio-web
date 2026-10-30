@@ -1,0 +1,156 @@
+---
+import Panel from '../ui/Panel.astro';
+import Button from '../ui/Button.astro';
+import PortraitCard from '../ui/PortraitCard.astro';
+import { profile } from '../../data/site';
+import { getUI, type Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+
+const t = getUI(lang);
+---
+
+<Panel id="sobre-mi" title={t.about} class="about-panel">
+  <div class="about__grid">
+    <PortraitCard words={t.buildWords} />
+    <div class="about__copy">
+      <h3 class="about__heading display-heading">
+        {t.aboutTitle.map((line) => (
+          <span>{line}</span>
+        ))}
+      </h3>
+      <div class="about__body">
+        <p>{t.aboutText}</p>
+        <p>{t.aboutText2}</p>
+        <p>{t.aboutText3}</p>
+      </div>
+      <Button href={profile.cv} icon="download" download>
+        {t.cv}
+      </Button>
+      <span class="about__matrix" aria-hidden="true" />
+      <span class="about__stripes" aria-hidden="true" />
+    </div>
+  </div>
+</Panel>
+
+<style lang="scss">
+  .about {
+    &__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: clamp(1.5625rem, 3.5vw, 3.125rem);
+      padding: 0 0.4375rem 0.25rem;
+    }
+    &__copy {
+      position: relative;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 0.75rem 0.875rem 0.75rem 0;
+      :global(.button) {
+        width: min(17.5rem, 100%);
+        margin-top: 0.25rem;
+      }
+    }
+    &__heading {
+      font-size: clamp(1.5625rem, 2.8vw, 2.5rem);
+      line-height: 1.08;
+      margin-bottom: 1.5rem;
+      & > span:last-child {
+        color: var(--signal);
+      }
+    }
+    &__body {
+      max-width: 40.625rem;
+      padding-right: 1.0625rem;
+      p {
+        font-size: 0.875rem;
+        line-height: 1.65;
+        color: var(--text);
+        margin: 0 0 1.0625rem;
+      }
+    }
+    &__matrix {
+      position: absolute;
+      width: 0.8125rem;
+      height: 3.375rem;
+      right: 0.1875rem;
+      bottom: 4.8125rem;
+      background: radial-gradient(circle, var(--line-bright) 0.0625rem, transparent 0.09375rem) 0
+        0 / 0.3125rem 0.375rem;
+    }
+    &__stripes {
+      position: absolute;
+      width: 6.25rem;
+      height: 3rem;
+      right: 0;
+      bottom: 0.5rem;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent 0 0.6875rem,
+        color-mix(in srgb, var(--brand) 15%, transparent) 0.6875rem 1.5rem
+      );
+      clip-path: polygon(33% 0, 100% 0, 100% 100%, 0 100%);
+    }
+    @media (max-width: 900px) {
+      &__grid {
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        gap: 1.5rem;
+        padding: 0;
+      }
+      &__heading {
+        font-size: clamp(1.25rem, 3.2vw, 1.75rem);
+        margin-bottom: 1.125rem;
+      }
+      &__body p {
+        font-size: 0.75rem;
+      }
+      &__copy {
+        padding-right: 0;
+      }
+      &__stripes {
+        width: 4.0625rem;
+        height: 2rem;
+      }
+    }
+    @media (max-width: 600px) {
+      &__grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.5rem;
+      }
+      &__copy {
+        padding: 0 0.375rem 0.5625rem;
+      }
+      &__heading {
+        font-size: clamp(1.25rem, 5.7vw, 1.9375rem);
+        margin-bottom: 1.1875rem;
+      }
+      &__body {
+        padding-right: 0.4375rem;
+        p {
+          font-size: 0.8125rem;
+          margin-bottom: 1rem;
+        }
+      }
+      &__copy :global(.button) {
+        width: min(15.9375rem, 100%);
+      }
+      &__matrix {
+        height: 2.25rem;
+        right: 0.125rem;
+        bottom: 4rem;
+      }
+      &__stripes {
+        width: 3.625rem;
+        height: 1.8125rem;
+        bottom: 0.5625rem;
+      }
+    }
+  }
+</style>

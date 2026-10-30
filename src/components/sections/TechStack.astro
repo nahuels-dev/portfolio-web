@@ -1,0 +1,77 @@
+---
+import Panel from '../ui/Panel.astro';
+import TechIcon from '../ui/TechIcon.astro';
+import { stack } from '../../data/site';
+import { getUI, type Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+
+const t = getUI(lang);
+---
+
+<Panel id="stack" title={t.stack} note={t.stackNote}>
+  <ul class="tech-stack">
+    {stack.map((tech) => (
+      <li class="tech-stack__item">
+        <span style={`--tech-color:${tech.color}`} class="tech-stack__symbol" aria-hidden="true">
+          <TechIcon name={tech.icon} />
+        </span>
+        <span>{tech.name}</span>
+      </li>
+    ))}
+  </ul>
+</Panel>
+<style lang="scss">
+  @use '../../styles/geometry';
+  .tech-stack {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 0.6875rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    &__item {
+      @include geometry.cut-surface(var(--shape-control));
+      min-height: 3.3125rem;
+      display: flex;
+      gap: 0.6875rem;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 0.75rem;
+      --cut-surface: var(--surface-gradient);
+    }
+    &__symbol {
+      color: var(--tech-color);
+      display: inline-flex;
+      flex-shrink: 0;
+      width: 1.75rem;
+      height: 1.75rem;
+      :global(svg) {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    @media (max-width: 1000px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    @media (max-width: 600px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+      &__item {
+        gap: 0.625rem;
+        font-size: 0.75rem;
+        min-height: 3.125rem;
+      }
+      &__symbol {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+  }
+</style>
