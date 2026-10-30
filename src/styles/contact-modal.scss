@@ -1,0 +1,10 @@
+@use 'contact-modal/shell';
+@use 'contact-modal/story';
+@use 'contact-modal/form';
+@use 'contact-modal/fields';
+@use 'contact-modal/actions';
+@use 'contact-modal/responsive';
+
+html.has-contact-modal {
+  overflow: hidden;
+}

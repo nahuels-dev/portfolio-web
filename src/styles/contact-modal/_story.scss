@@ -1,0 +1,122 @@
+.contact-modal {
+  &__story {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 2rem 1.5rem 0;
+    background: linear-gradient(160deg, #211a38, #101220 80%);
+    border-right: 1px solid var(--line);
+    min-width: 0;
+    h2 {
+      font: 900 clamp(1.25rem, 2.2vw, 1.75rem)/1.25 var(--font-display);
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin: 1.25rem 0 1rem;
+      span {
+        display: block;
+        color: var(--accent);
+        margin-top: 0.25rem;
+      }
+    }
+    > p {
+      font-size: 0.8125rem;
+      line-height: 1.75;
+      margin: 0;
+      max-width: 30ch;
+    }
+  }
+  &__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font: 0.5rem/1.6 var(--font-mono);
+    letter-spacing: 0.07em;
+    color: var(--signal);
+  }
+  &__steps {
+    list-style: none;
+    padding: 0;
+    margin: 1.75rem 0;
+    position: relative;
+    z-index: 1;
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      margin-top: 1rem;
+      color: var(--muted);
+      > span {
+        display: grid;
+        place-items: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        border: 1px solid var(--line);
+        font: 0.75rem var(--font-mono);
+        background: var(--black);
+        flex-shrink: 0;
+      }
+      div {
+        font-size: 0.875rem;
+      }
+      div > span {
+        display: block;
+        font: 0.4375rem/1.7 var(--font-mono);
+        letter-spacing: 0.03em;
+        margin-top: 0.125rem;
+      }
+      &[aria-current] {
+        color: var(--white);
+        > span {
+          background: var(--accent);
+          border-color: var(--accent);
+          color: var(--black);
+        }
+        div > span {
+          color: var(--signal);
+        }
+      }
+      &[data-complete='true'] > span {
+        color: var(--signal);
+        border-color: var(--signal);
+      }
+    }
+  }
+  &__art {
+    position: relative;
+    height: 9rem;
+    margin: 1.5rem -1.5rem 0;
+    overflow: hidden;
+    clip-path: polygon(0 1.25rem, 1.25rem 0, 100% 0, 100% 100%, 0 100%);
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 65%;
+      opacity: 0.5;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, transparent, #10122044);
+    }
+    span {
+      position: absolute;
+      z-index: 1;
+      bottom: 0.875rem;
+      left: 1.5rem;
+      font: 900 1.75rem var(--font-display);
+      font-style: italic;
+      color: var(--signal);
+    }
+    & > span:last-child {
+      left: auto;
+      right: 1rem;
+      bottom: 1rem;
+      font: 0.4375rem var(--font-mono);
+      color: var(--text);
+    }
+  }
+}

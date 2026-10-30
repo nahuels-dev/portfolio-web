@@ -1,0 +1,83 @@
+---
+import { profile } from '../../data/site';
+import Icon from '../ui/Icon.astro';
+import { getContactCopy } from '../../i18n/contact';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+
+const tr = (es: string, en: string) => (lang === 'es' ? es : en);
+
+const { steps } = getContactCopy(lang);
+---
+
+<section data-contact-step="2" aria-labelledby="contact-step-2" hidden>
+  <span class="contact-modal__kicker">03 / {steps[2]}</span>
+  <h3 id="contact-step-2" tabindex="-1">
+    {tr('¿Cómo te contacto?', 'How can I reach you?')}
+  </h3>
+  <p>
+    {tr(
+      'Decime tu nombre y tu email para que pueda responderte.',
+      'Leave your name and email so I can get back to you.',
+    )}
+  </p>
+  <div class="contact-modal__fields">
+    <div>
+      <label for="contact-name">{tr('Tu nombre', 'Your name')}</label>
+      <input
+        id="contact-name"
+        name="name"
+        autocomplete="name"
+        required
+        maxlength="100"
+        placeholder={tr('Cómo te llamás', 'Your name')}
+        aria-describedby="contact-name-error"
+      />
+      <p id="contact-name-error" class="contact-modal__error" role="alert" hidden></p>
+    </div>
+    <div>
+      <label for="contact-email">Email</label>
+      <input
+        id="contact-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+        maxlength="254"
+        placeholder={tr('vos@ejemplo.com', 'you@example.com')}
+        aria-describedby="contact-email-error"
+      />
+      <p id="contact-email-error" class="contact-modal__error" role="alert" hidden></p>
+    </div>
+  </div>
+  <div class="contact-modal__review">
+    <span>{tr('TU CONSULTA', 'YOUR ENQUIRY')}</span>
+    <strong data-contact-review-service></strong>
+    <p data-contact-review-message></p>
+  </div>
+  <p
+    class="contact-modal__feedback"
+    id="contact-form-feedback"
+    data-contact-feedback
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+    tabindex="-1"
+    hidden
+  ></p>
+  <p class="contact-modal__availability">
+    {tr(
+      'Si preferís, también podés escribirme por email.',
+      'If you prefer, you can also email me directly.',
+    )}
+  </p>
+  <a class="contact-modal__email" href={`mailto:${profile.email}`}>
+    {profile.email}
+    <Icon size={16} />
+  </a>
+</section>

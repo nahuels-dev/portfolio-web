@@ -1,0 +1,123 @@
+---
+import LogoMark from '../../assets/brand/nahuel-logo.svg';
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+import '../../styles/contact-modal.scss';
+import { getContactCopy } from '../../i18n/contact';
+import ContactStory from '../contact/ContactStory.astro';
+import ServiceStep from '../contact/ServiceStep.astro';
+import ProjectStep from '../contact/ProjectStep.astro';
+import DetailsStep from '../contact/DetailsStep.astro';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  service?: string;
+}
+
+const { lang, service } = Astro.props;
+
+const es = lang === 'es';
+
+const tr = (a: string, b: string) => (es ? a : b);
+
+const { copy } = getContactCopy(lang);
+---
+
+<dialog
+  id="contact-dialog"
+  class="contact-modal"
+  aria-labelledby="contact-modal-title"
+  aria-describedby="contact-modal-description"
+  data-contact-dialog
+  data-lang={lang}
+  data-copy={JSON.stringify(copy)}
+  data-lenis-prevent
+>
+  <div class="contact-modal__shell">
+    <div class="contact-modal__scroll" data-lenis-prevent>
+      <header class="contact-modal__header">
+        <div>
+          <LogoMark aria-hidden="true" />
+          <span>NS / {tr('NUEVO PROYECTO', 'NEW PROJECT')}</span>
+        </div>
+        <Button
+          as="button"
+          variant="icon"
+          icon={false}
+          glitch={false}
+          class="contact-modal__close"
+          data-contact-close
+          aria-label={tr('Cerrar formulario', 'Close enquiry form')}
+        >
+          <Icon name="close" size={22} />
+        </Button>
+      </header>
+      <div class="contact-modal__layout">
+        <ContactStory lang={lang} />
+        <form class="contact-modal__form" data-contact-form novalidate>
+          <div class="contact-modal__body" data-contact-body>
+            <ServiceStep lang={lang} service={service} />
+            <ProjectStep lang={lang} />
+            <DetailsStep lang={lang} />
+          </div>
+          <footer class="contact-modal__footer">
+            <div class="contact-modal__progress" aria-hidden="true">
+              <span data-contact-progress>01</span> / 03
+              <div>
+                <i data-contact-bar></i>
+              </div>
+            </div>
+            <div class="contact-modal__actions">
+              <Button
+                as="button"
+                class="contact-modal__back"
+                icon="left"
+                glitch={false}
+                data-contact-back
+                hidden
+              >
+                {tr('Volver', 'Back')}
+              </Button>
+              <Button
+                as="button"
+                variant="primary"
+                class="contact-modal__next"
+                glitch={false}
+                data-contact-next
+              >
+                <span>{tr('Continuar', 'Continue')}</span>
+              </Button>
+              <Button
+                as="button"
+                type="submit"
+                variant="primary"
+                class="contact-modal__submit"
+                glitch={false}
+                data-contact-submit
+                hidden
+              >
+                <span data-contact-submit-label>{copy.send}</span>
+              </Button>
+              <Button
+                as="button"
+                variant="primary"
+                class="contact-modal__next"
+                glitch={false}
+                data-contact-again
+                hidden
+              >
+                {tr('Nueva consulta', 'New enquiry')}
+              </Button>
+            </div>
+          </footer>
+        </form>
+      </div>
+    </div>
+  </div>
+</dialog>
+<script>
+  import { initContactModal } from '../../scripts/contact/contact-modal';
+  const disposeContactModal = initContactModal();
+  if (import.meta.hot) import.meta.hot.dispose(disposeContactModal);
+</script>

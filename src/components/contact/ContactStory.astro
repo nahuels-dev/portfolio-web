@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import { contactModalImage } from '../../data/environment-images';
+import { getContactCopy } from '../../i18n/contact';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+
+const tr = (es: string, en: string) => (lang === 'es' ? es : en);
+
+const { steps } = getContactCopy(lang);
+---
+
+<aside class="contact-modal__story">
+  <span class="contact-modal__eyebrow">
+    <span class="status-dot" />
+    {tr('DE LA IDEA A LO REAL', 'FROM IDEA TO REALITY')}
+  </span>
+  <h2 id="contact-modal-title">
+    {tr('Contame tu idea.', 'Tell me your idea.')}
+    <span>{tr('Te ayudo.', 'I can help.')}</span>
+  </h2>
+  <p id="contact-modal-description">
+    {tr(
+      'Elegí un servicio y contame qué necesitás. Después dejame tus datos para que pueda responderte.',
+      'Choose a service and tell me what you need. Then leave your details so I can reply.',
+    )}
+  </p>
+  <ol class="contact-modal__steps" aria-label={tr('Pasos de la consulta', 'Enquiry steps')}>
+    {steps.map((label, i) => (
+      <li data-contact-marker={i} aria-current={i === 0 ? 'step' : undefined}>
+        <span>0{i + 1}</span>
+        <div>
+          {label}
+          <span>
+            {
+              [
+                tr('QUÉ QUERÉS CREAR', 'WHAT YOU WANT TO BUILD'),
+                tr('UN POCO DE CONTEXTO', 'A LITTLE CONTEXT'),
+                tr('CÓMO TE CONTACTO', 'HOW TO REACH YOU'),
+              ][i]
+            }
+          </span>
+        </div>
+      </li>
+    ))}
+  </ol>
+  <div class="contact-modal__art" aria-hidden="true">
+    <Image src={contactModalImage} alt="" width={600} format="webp" quality={80} loading="lazy" />
+    <span>///</span>
+    <span>34°54′ S / 56°11′ W</span>
+  </div>
+</aside>

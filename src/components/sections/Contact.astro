@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import city from '../../assets/cyber-city-urban.png';
+import Panel from '../ui/Panel.astro';
+import ContactForm from './ContactForm.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { profile } from '../../data/site';
+import { getUI, type Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  service?: string;
+  text?: string;
+  emailHref?: string;
+  projectsHref?: string;
+}
+
+const {
+  lang,
+  service,
+  text,
+  emailHref = `mailto:${profile.email}`,
+  projectsHref = '#proyectos',
+} = Astro.props;
+
+const t = getUI(lang);
+---
+
+<Panel id="contacto" title={t.ctaLabel} class="contact-panel">
+  <div class="contact__grid">
+    <div class="contact__copy">
+      <h3 class="display-heading">
+        {t.ctaTitle.map((line) => (
+          <span>{line}</span>
+        ))}
+      </h3>
+      <p>{text ?? t.ctaText}</p>
+    </div>
+    <div class="contact__actions">
+      <div class="contact__buttons">
+        <Button href={emailHref} variant="primary" contact>
+          {t.contact}
+        </Button>
+        <Button href={projectsHref}>{t.work}</Button>
+      </div>
+      <a data-glitch class="contact__email" href={emailHref}>
+        <Icon name="mail" size={15} />
+        {profile.email}
+      </a>
+      <Button
+        as="button"
+        variant="text"
+        icon="copy"
+        class="contact__copy-email"
+        data-copy-email={profile.email}
+        data-copied={t.copied}
+        data-error={t.copyError}
+        aria-label={t.copy}
+      >
+        {t.copy}
+      </Button>
+      <span class="contact__location">
+        <Icon name="globe" size={14} />
+        {t.location}
+      </span>
+      <span class="contact__feedback" role="status" aria-live="polite" data-copy-feedback></span>
+    </div>
+    <div class="contact__image" aria-hidden="true">
+      <Image src={city} alt="" width={600} format="webp" quality={80} loading="lazy" />
+      <strong>
+        {t.poster.map((line) => (
+          <span>{line}</span>
+        ))}
+      </strong>
+      <span>///</span>
+    </div>
+  </div>
+</Panel>
+<ContactForm lang={lang} service={service} />
+<style lang="scss">
+  @use '../../styles/contact-section';
+</style>

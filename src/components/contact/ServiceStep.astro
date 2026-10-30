@@ -1,0 +1,47 @@
+---
+import { services } from '../../data/services';
+import { getContactCopy } from '../../i18n/contact';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  service?: string;
+}
+
+const { lang, service } = Astro.props;
+
+const tr = (es: string, en: string) => (lang === 'es' ? es : en);
+
+const { steps } = getContactCopy(lang);
+---
+
+<section data-contact-step="0" aria-labelledby="contact-step-0">
+  <span class="contact-modal__kicker">01 / {steps[0]}</span>
+  <h3 id="contact-step-0" tabindex="-1">
+    {tr('¿Qué querés crear?', 'What would you like to build?')}
+  </h3>
+  <p>
+    {tr(
+      'Elegí el servicio que más se acerque a tu idea.',
+      'Choose the service closest to your idea.',
+    )}
+  </p>
+  <fieldset class="contact-modal__choices" aria-describedby="contact-service-error">
+    <legend class="sr-only">
+      {tr('Servicio que te interesa', 'Service you are interested in')}
+    </legend>
+    {services.map((item, i) => (
+      <label class="contact-modal__choice">
+        <input type="radio" name="service" value={item.id} checked={service === item.id} required />
+        <span class="contact-modal__choice-number">0{i + 1}</span>
+        <span>{item.copy[lang].name}</span>
+      </label>
+    ))}
+    <label class="contact-modal__choice contact-modal__choice--other">
+      <input type="radio" name="service" value="other" required />
+      <span class="contact-modal__choice-number">?</span>
+      <span>{tr('Todavía no lo tengo claro', 'I’m still figuring it out')}</span>
+    </label>
+  </fieldset>
+  <p id="contact-service-error" class="contact-modal__error" role="alert" hidden></p>
+</section>

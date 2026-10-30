@@ -1,0 +1,54 @@
+---
+import { getContactCopy } from '../../i18n/contact';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+
+const tr = (es: string, en: string) => (lang === 'es' ? es : en);
+
+const { steps } = getContactCopy(lang);
+---
+
+<section data-contact-step="1" aria-labelledby="contact-step-1" hidden>
+  <span class="contact-modal__kicker">02 / {steps[1]}</span>
+  <h3 id="contact-step-1" tabindex="-1">
+    {tr('Contame la idea.', 'Tell me about your idea.')}
+  </h3>
+  <p>
+    {tr(
+      'No necesitás tener todo resuelto. Contame hasta dónde llegaste y te ayudo a ordenar el siguiente paso.',
+      'You don’t need to have everything figured out. Tell me where you are and I’ll help you plan the next step.',
+    )}
+  </p>
+  <div class="contact-modal__selection">
+    <span>{tr('SERVICIO', 'SERVICE')}</span>
+    <strong data-contact-selected></strong>
+  </div>
+  <label for="contact-message">
+    {tr('¿Qué te gustaría construir o mejorar?', 'What would you like to build or improve?')}
+  </label>
+  <textarea
+    id="contact-message"
+    name="message"
+    required
+    minlength="20"
+    maxlength="4000"
+    rows="6"
+    placeholder={tr(
+      'Qué hace tu negocio, qué tenés en mente y qué te gustaría resolver.',
+      'What your business does, what you have in mind and what you would like to solve.',
+    )}
+    aria-describedby="contact-message-help contact-message-error"
+  ></textarea>
+  <div class="contact-modal__field-note">
+    <span id="contact-message-help">{tr('Mínimo 20 caracteres.', 'At least 20 characters.')}</span>
+    <output data-contact-count for="contact-message">
+      0 / 4000
+    </output>
+  </div>
+  <p id="contact-message-error" class="contact-modal__error" role="alert" hidden></p>
+</section>
