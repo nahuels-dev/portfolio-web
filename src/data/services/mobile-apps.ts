@@ -1,0 +1,174 @@
+import type { Service } from './types';
+
+export const mobileApps: Service = {
+  id: 'mobile-apps',
+  icon: 'phone',
+  slug: {
+    es: 'aplicaciones-moviles',
+    en: 'mobile-apps',
+  },
+  related: ['ui-ux', 'web-apps', 'frontend'],
+  copy: {
+    es: {
+      name: 'Apps móviles',
+      summary:
+        'Diseño y desarrollo tu app móvil, empezando por una primera versión que puedas probar.',
+      title: 'Desarrollo de aplicaciones móviles en Uruguay | Nahuel Silva',
+      description:
+        'Soy desarrollador freelance de aplicaciones móviles en Uruguay. Te ayudo a definir una primera versión, diseñar las pantallas e integrar los servicios que necesites.',
+      heading: 'Diseño y desarrollo tu aplicación móvil.',
+      promise: 'Empiezo por una versión que te sirva.',
+      intro: [
+        'Si tenés una idea para una app, primero quiero entender qué va a hacer y quién la va a usar. Te ayudo a revisar si necesitás una aplicación instalada o si una web para celulares puede resolver lo mismo.',
+        'Diseño y desarrollo por etapas, empezando por la tarea más importante. Antes de programar, te explico qué plataformas, integraciones y tecnología tiene sentido usar según las funciones de tu app.',
+      ],
+      audience: [
+        'Querés validar una idea de aplicación con una primera versión acotada.',
+        'Tus clientes necesitan consultar información o realizar acciones frecuentes desde el teléfono.',
+        'Tu equipo necesita una herramienta móvil conectada con sus sistemas.',
+      ],
+      deliverables: [
+        {
+          title: 'Definición de la primera versión',
+          text: 'Te ayudo a elegir los usuarios, las tareas y las pantallas de la primera versión, y a separar las funciones que pueden quedar para después.',
+        },
+        {
+          title: 'Interfaz pensada para el teléfono',
+          text: 'Diseño y desarrollo las pantallas incluidas, con navegación táctil y mensajes para la carga, los errores y las confirmaciones.',
+        },
+        {
+          title: 'Servicios y funciones acordadas',
+          text: 'Reviso las APIs disponibles y necesidades como acceso de usuarios, notificaciones o cámara. Te aclaro qué funciones puedo incluir en el proyecto.',
+        },
+        {
+          title: 'Pruebas y preparación de entrega',
+          text: 'Pruebo la app en los dispositivos y plataformas incluidos. Preparo las versiones de prueba y los archivos de entrega o publicación que indique el presupuesto.',
+        },
+      ],
+      steps: [
+        {
+          title: 'Elegir el primer recorrido',
+          text: 'Te pregunto quién usaría la app, qué necesita hacer y en qué plataformas. Te propongo las funciones de una primera versión.',
+        },
+        {
+          title: 'Diseñar e implementar',
+          text: 'Te muestro cómo sería el recorrido y desarrollo las pantallas y las integraciones por partes que puedas revisar.',
+        },
+        {
+          title: 'Probar y preparar la salida',
+          text: 'Pruebo los casos incluidos y preparo la entrega. Si también me encargo de la publicación, reviso los requisitos y preparo los materiales necesarios.',
+        },
+      ],
+      requirements: [
+        'Quién usaría la aplicación y qué tarea principal necesita resolver.',
+        'Si necesitás Android, iOS o ambas plataformas y por qué.',
+        'Si ya existen backend, APIs, diseños o cuentas de desarrollador.',
+      ],
+      scope:
+        'En el presupuesto te detallo las plataformas, las funciones, los dispositivos de prueba y el trabajo de backend. También aclaro qué cuentas de desarrollador, infraestructura, servicios externos y mantenimiento vas a necesitar. La publicación depende de los requisitos y la revisión de cada tienda.',
+      faqs: [
+        {
+          question: '¿Desarrollás apps para Android y iOS?',
+          answer:
+            'Puedo evaluar ambas opciones y recomendarte un enfoque según las funciones, el presupuesto y el mantenimiento. Te aclaro qué plataformas y versiones incluye mi trabajo; una misma implementación no siempre cubre todos los casos.',
+        },
+        {
+          question: '¿Conviene una app o una web para celulares?',
+          answer:
+            'Depende del uso. Una web puede ser suficiente para presentar información o resolver tareas ocasionales. Una app puede aportar valor cuando hay uso frecuente o funciones del dispositivo que justifican instalarla.',
+        },
+        {
+          question: '¿Incluye publicar en App Store y Google Play?',
+          answer:
+            'Puedo incluir la preparación y la ayuda con la publicación. Para eso necesito las cuentas y los materiales correspondientes. La aprobación y los tiempos de revisión los define cada tienda.',
+        },
+        {
+          question: '¿Qué pasa después de lanzar la aplicación?',
+          answer:
+            'Puedo presupuestar una etapa de soporte o mantenimiento. Conviene tener en cuenta las correcciones, las nuevas versiones y los cambios en las plataformas o servicios que use la app.',
+        },
+      ],
+      cta: 'Contame quién usaría tu app y qué sería lo más importante que pueda hacer. Te ayudo a pensar una primera versión y las plataformas que necesita.',
+    },
+    en: {
+      name: 'Mobile apps',
+      summary: 'I design and build your mobile app, starting with an initial version you can try.',
+      title: 'Mobile app development in Uruguay | Nahuel Silva',
+      description:
+        'I’m a freelance mobile app developer based in Uruguay. I help define an initial version, design the screens and integrate the services you need.',
+      heading: 'I design and build your mobile application.',
+      promise: 'I start with a version you can use.',
+      intro: [
+        'If you have an app idea, first I want to understand what it will do and who will use it. I help you work out whether you need an installed app or a mobile website could do the same job.',
+        'I design and build in stages, starting with the most important task. Before coding, I explain which platforms, integrations and technologies make sense for your app’s features.',
+      ],
+      audience: [
+        'You want to validate an app idea with a focused first version.',
+        'Customers need to access information or perform recurring actions on their phones.',
+        'Your team needs a mobile tool connected to existing systems.',
+      ],
+      deliverables: [
+        {
+          title: 'First-release definition',
+          text: 'I help you choose the users, tasks and screens for a first version and separate features that can come later.',
+        },
+        {
+          title: 'Phone-focused interface',
+          text: 'I design and build the included screens, with touch navigation and loading, error and confirmation messages.',
+        },
+        {
+          title: 'Agreed services and features',
+          text: 'I review available APIs and needs such as sign-in, notifications or camera access, and explain which features I can include.',
+        },
+        {
+          title: 'Testing and delivery preparation',
+          text: 'I test the app on the included platforms and devices and prepare the test builds and delivery or publishing files listed in the quote.',
+        },
+      ],
+      steps: [
+        {
+          title: 'Choose the first journey',
+          text: 'I ask who would use the app, what they need to do and on which platforms, then suggest features for an initial version.',
+        },
+        {
+          title: 'Design and implement',
+          text: 'I show you the proposed journey and develop the screens and integrations in parts you can review.',
+        },
+        {
+          title: 'Test and prepare release',
+          text: 'I test the included scenarios and prepare the delivery. If I’m also handling publishing, I check the requirements and prepare the materials.',
+        },
+      ],
+      requirements: [
+        'Who would use the app and the main task it should solve.',
+        'Whether you need Android, iOS or both, and why.',
+        'Existing backend services, APIs, designs or developer accounts.',
+      ],
+      scope:
+        'My quote lists the platforms, features, test devices and backend work. I also explain the developer accounts, infrastructure, external services and maintenance you’ll need. Publishing depends on each store’s requirements and review.',
+      faqs: [
+        {
+          question: 'Do you develop apps for Android and iOS?',
+          answer:
+            'I can assess both options and suggest an approach based on features, budget and maintenance. I explain which platforms and versions my work covers; one implementation does not always cover every case.',
+        },
+        {
+          question: 'Should I choose an app or a mobile website?',
+          answer:
+            'That depends on usage. A website may be enough for information and occasional tasks. An app can add value when frequent use or device features justify installation.',
+        },
+        {
+          question: 'Is App Store and Google Play publication included?',
+          answer:
+            'I can include preparation and publishing support. For that I need the relevant accounts and materials. Approval and review times are decided by each store.',
+        },
+        {
+          question: 'What happens after launch?',
+          answer:
+            'I can quote for a period of support or maintenance. It helps to plan for fixes, new versions and changes to the platforms or services the app uses.',
+        },
+      ],
+      cta: 'Tell me who would use your app and the most important thing they need to do. I’ll help you think through a first version and the platforms it needs.',
+    },
+  },
+};

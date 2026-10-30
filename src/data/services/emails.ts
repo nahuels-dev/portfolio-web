@@ -1,0 +1,174 @@
+import type { Service } from './types';
+
+export const emails: Service = {
+  id: 'emails',
+  icon: 'mail',
+  slug: {
+    es: 'desarrollo-emails',
+    en: 'email-development',
+  },
+  related: ['ecommerce', 'ui-ux', 'frontend'],
+  copy: {
+    es: {
+      name: 'Desarrollo de emails',
+      summary:
+        'Desarrollo tus newsletters y emails transaccionales en HTML, adaptados a tu herramienta de envío.',
+      title: 'Desarrollo de emails HTML y plantillas responsive | Nahuel Silva',
+      description:
+        'Desarrollo emails HTML responsive como freelance en Uruguay. Maqueto newsletters y emails transaccionales para tu marca y tu herramienta de envío.',
+      heading: 'Desarrollo emails HTML para tu negocio.',
+      promise: 'Maqueto cada plantilla y reviso sus detalles.',
+      intro: [
+        'Si necesitás una newsletter, un email de bienvenida o una confirmación de compra, puedo maquetarlo en HTML. Me fijo en que el mensaje se lea bien y en que los enlaces y botones sean fáciles de encontrar.',
+        'Puedo partir de un diseño que ya tengas o ayudarte a armar la plantilla. Antes de desarrollarla, te pregunto qué herramienta usás para enviar y en qué clientes de correo necesitás que la pruebe.',
+      ],
+      audience: [
+        'Necesitás convertir un diseño en una plantilla HTML para tu herramienta de envío.',
+        'Querés unificar el aspecto de newsletters, campañas y mensajes de tu producto.',
+        'Tus emails actuales se leen mal en celulares o presentan problemas en algunos clientes de correo.',
+      ],
+      deliverables: [
+        {
+          title: 'Maquetación HTML responsive',
+          text: 'Maqueto el email con una estructura pensada para correo: textos, imágenes y botones adaptados a los tamaños de pantalla incluidos.',
+        },
+        {
+          title: 'Plantillas y módulos',
+          text: 'Armo cabeceras, bloques y pies que puedas reutilizar. Si tu plataforma tiene editor propio, primero reviso qué formatos admite.',
+        },
+        {
+          title: 'Variables e integración',
+          text: 'Preparo los campos dinámicos y los enlaces para la herramienta que uses. Te detallo aparte la conexión con eventos del producto o automatizaciones.',
+        },
+        {
+          title: 'Revisión y entrega',
+          text: 'Reviso el email en los clientes de correo incluidos, pruebo los enlaces y los recursos, y te entrego los archivos con indicaciones de uso.',
+        },
+      ],
+      steps: [
+        {
+          title: 'Definir mensaje y entorno',
+          text: 'Te pregunto qué querés comunicar y reviso el contenido, la plataforma de envío y los clientes de correo que necesitás cubrir.',
+        },
+        {
+          title: 'Maquetar la plantilla',
+          text: 'Desarrollo el HTML y los módulos, contemplando los contenidos variables y la lectura desde el celular.',
+        },
+        {
+          title: 'Validar antes de enviar',
+          text: 'Pruebo la plantilla y sus enlaces en los clientes de correo incluidos. Preparo una prueba de envío y los archivos para entregarte.',
+        },
+      ],
+      requirements: [
+        'Qué emails necesitás y qué acción debe facilitar cada uno.',
+        'Diseño, textos, imágenes y marca disponibles.',
+        'Plataforma de envío y ejemplos de las variables o datos dinámicos.',
+      ],
+      scope:
+        'En el presupuesto te aclaro cuántas plantillas, módulos, variantes y clientes de correo voy a cubrir. También te detallo si incluyo herramientas de prueba, automatizaciones, textos o gestión de campañas. El desarrollo de la plantilla no garantiza que el mensaje llegue a la bandeja principal.',
+      faqs: [
+        {
+          question: '¿Hacés newsletters y emails transaccionales?',
+          answer:
+            'Sí. Desarrollo campañas y newsletters, además de emails de bienvenida, confirmaciones de pedido o recuperación de acceso. Te pregunto qué contenido y variables necesita cada plantilla.',
+        },
+        {
+          question: '¿Se van a ver iguales en Gmail y Outlook?',
+          answer:
+            'Gmail, Outlook y otros clientes interpretan el HTML de forma distinta. Te indico cuáles voy a probar y preparo adaptaciones cuando alguna función no esté disponible.',
+        },
+        {
+          question: '¿Podré editar las plantillas?',
+          answer:
+            'Si tu herramienta lo permite, puedo preparar módulos o campos editables. Primero reviso la plataforma y el formato de entrega para decirte qué vas a poder cambiar.',
+        },
+        {
+          question: '¿Incluye el envío y las automatizaciones?',
+          answer:
+            'Mi trabajo principal es desarrollar las plantillas. Puedo incluir la configuración de envíos, eventos o automatizaciones después de revisar la herramienta y los accesos. La reputación del remitente y la entregabilidad necesitan su propia revisión.',
+        },
+      ],
+      cta: 'Contame qué emails necesitás y con qué herramienta los enviás. Te digo cómo puedo ayudarte con las plantillas.',
+    },
+    en: {
+      name: 'Email development',
+      summary: 'I build your newsletters and transactional emails in HTML for your sending tool.',
+      title: 'HTML email development and responsive templates | Nahuel Silva',
+      description:
+        'I’m a freelance responsive HTML email developer in Uruguay. I build newsletters and transactional templates for your brand and sending platform.',
+      heading: 'I build HTML emails for your business.',
+      promise: 'I code each template and check its details.',
+      intro: [
+        'If you need a newsletter, welcome email or order confirmation, I can build it in HTML. I focus on making the message readable and its links and buttons easy to find.',
+        'I can work from a design you already have or help you put together a template. Before building it, I ask which sending tool you use and which email clients you need me to test.',
+      ],
+      audience: [
+        'You need to turn a design into HTML for your sending platform.',
+        'You want consistent newsletters, campaigns and product messages.',
+        'Your current emails are difficult to read on phones or break in some email clients.',
+      ],
+      deliverables: [
+        {
+          title: 'Responsive HTML layout',
+          text: 'I code the email with an email-friendly structure, with text, images and buttons adapted to the included screen sizes.',
+        },
+        {
+          title: 'Templates and modules',
+          text: 'I build reusable headers, content blocks and footers. If your platform has its own editor, I first check the formats it supports.',
+        },
+        {
+          title: 'Variables and integration',
+          text: 'I prepare dynamic fields and links for your tool, listing product event connections or automations separately.',
+        },
+        {
+          title: 'Review and handover',
+          text: 'I check the included email clients, test links and assets and deliver the files with usage notes.',
+        },
+      ],
+      steps: [
+        {
+          title: 'Define the message and environment',
+          text: 'I ask what you want to communicate and review the content, sending platform and email clients you need to cover.',
+        },
+        {
+          title: 'Build the template',
+          text: 'I develop the HTML and modules, allowing for variable content and reading on a phone.',
+        },
+        {
+          title: 'Validate before sending',
+          text: 'I test the template and links in the included email clients, prepare a test send and get the files ready for delivery.',
+        },
+      ],
+      requirements: [
+        'The emails you need and the action each should support.',
+        'Available designs, copy, images and brand assets.',
+        'Your sending platform and examples of variables or dynamic data.',
+      ],
+      scope:
+        'My quote explains how many templates, modules, variants and email clients I’ll cover. It also lists whether testing tools, automations, copy or campaign management are included. Building a template does not guarantee primary-inbox placement.',
+      faqs: [
+        {
+          question: 'Do you build newsletters and transactional emails?',
+          answer:
+            'Yes. I build campaigns and newsletters, as well as welcome, order confirmation and account recovery emails. I ask which content and variables each template needs.',
+        },
+        {
+          question: 'Will they look identical in Gmail and Outlook?',
+          answer:
+            'Gmail, Outlook and other email clients interpret HTML differently. I list which ones I’ll test and prepare adaptations where a feature is unavailable.',
+        },
+        {
+          question: 'Will I be able to edit the templates?',
+          answer:
+            'If your tool supports it, I can prepare editable modules or fields. I first check the platform and delivery format so I can explain what you’ll be able to change.',
+        },
+        {
+          question: 'Are sending and automations included?',
+          answer:
+            'My main work is building the templates. I can include sending configuration, events or automations after checking your tool and access. Sender reputation and deliverability need their own review.',
+        },
+      ],
+      cta: 'Tell me which emails you need and the tool you use to send them. I’ll explain how I can help with the templates.',
+    },
+  },
+};

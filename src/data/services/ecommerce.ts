@@ -1,0 +1,174 @@
+import type { Service } from './types';
+
+export const ecommerce: Service = {
+  id: 'ecommerce',
+  icon: 'cart',
+  slug: {
+    es: 'tiendas-online',
+    en: 'online-stores',
+  },
+  related: ['websites', 'ui-ux', 'emails'],
+  copy: {
+    es: {
+      name: 'E-commerce',
+      summary:
+        'Diseño y desarrollo tu tienda online, desde el catálogo hasta el carrito y los pedidos.',
+      title: 'Desarrollo de tiendas online en Uruguay | Nahuel Silva',
+      description:
+        'Desarrollo tiendas online como freelance en Uruguay. Trabajo en el catálogo, el carrito, los pagos y las integraciones según lo que necesite tu negocio.',
+      heading: 'Diseño y desarrollo tu próxima tienda online.',
+      promise: 'Te ayudo a organizar tu venta online.',
+      intro: [
+        'Si vendés por mensajes o tu tienda actual te está complicando el trabajo, puedo ayudarte. Me fijo en cómo mostrar tus productos y en que tus clientes entiendan qué están comprando, cómo pagar y cómo recibir el pedido.',
+        'Diseño y desarrollo la tienda a partir de cómo trabajás hoy. Antes de recomendarte una plataforma o una solución a medida, te pregunto por el catálogo, el stock, los cobros y las entregas.',
+      ],
+      audience: [
+        'Vendés por mensajes y necesitás ordenar el catálogo y los pedidos.',
+        'Tu tienda actual tiene recorridos confusos o una experiencia móvil mejorable.',
+        'Querés integrar una experiencia de venta con sistemas que ya utilizás.',
+      ],
+      deliverables: [
+        {
+          title: 'Catálogo y fichas de producto',
+          text: 'Organizo las categorías, las fichas, las imágenes y las variantes de tus productos. Te propongo filtros según el tamaño y el tipo de catálogo.',
+        },
+        {
+          title: 'Carrito y recorrido de compra',
+          text: 'Desarrollo las pantallas para revisar productos, cantidades y datos del pedido. También preparo los mensajes de error y confirmación.',
+        },
+        {
+          title: 'Pagos y entregas acordados',
+          text: 'Reviso qué medios de pago y entrega admite la plataforma y los integro con las cuentas de tu negocio, según lo presupuestado.',
+        },
+        {
+          title: 'Preparación para operar',
+          text: 'Pruebo los recorridos de compra que incluya el proyecto y te explico cómo administrar los productos y los pedidos.',
+        },
+      ],
+      steps: [
+        {
+          title: 'Mapear la operación',
+          text: 'Te pregunto cómo vendés y reviso tu catálogo, las variantes, el stock, los pagos y las entregas antes de preparar el presupuesto.',
+        },
+        {
+          title: 'Diseñar la compra',
+          text: 'Diseño y desarrollo las pantallas para buscar productos, elegir opciones y completar un pedido. Te muestro los avances para que puedas revisarlos.',
+        },
+        {
+          title: 'Probar y lanzar',
+          text: 'Pruebo las integraciones disponibles y los recorridos de compra, reviso el contenido y preparo la tienda para empezar a usarla.',
+        },
+      ],
+      requirements: [
+        'Cantidad de productos, categorías y variantes que manejás.',
+        'Cómo cobrás, entregás y actualizás stock actualmente.',
+        'Si ya tenés tienda, plataforma o sistemas que haya que conectar.',
+      ],
+      scope:
+        'En el presupuesto te detallo la carga inicial de productos, las integraciones y cualquier migración que haga falta. También aclaro qué servicios externos, facturación o comisiones de pago tenés que considerar. Las personalizaciones posibles dependen de la plataforma.',
+      faqs: [
+        {
+          question: '¿Qué plataforma conviene para mi tienda?',
+          answer:
+            'Depende de qué vendés, cuántos productos tenés y cómo querés administrar la tienda. Primero reviso eso y te explico si te conviene una plataforma existente o una solución a medida.',
+        },
+        {
+          question: '¿Puedo conectar pagos y envíos en Uruguay?',
+          answer:
+            'Puedo revisar los proveedores que ya usás y si se pueden integrar con la tienda. Para hacer las pruebas voy a necesitar las cuentas, los accesos y las aprobaciones correspondientes.',
+        },
+        {
+          question: '¿Incluye subir todos mis productos?',
+          answer:
+            'Te indico en el presupuesto cuántos productos voy a cargar y qué información necesito. Si hay que migrar o cargar muchos, primero reviso las imágenes, las variantes y los datos disponibles.',
+        },
+        {
+          question: '¿Podés mejorar una tienda existente?',
+          answer:
+            'Sí. Puedo trabajar en la navegación, las fichas, la versión móvil o el carrito. Primero necesito conocer la plataforma y qué acceso tengo para hacer cambios.',
+        },
+      ],
+      cta: 'Contame qué vendés y cómo manejás los pedidos hoy. Con eso puedo empezar a pensar cómo ayudarte con tu tienda.',
+    },
+    en: {
+      name: 'E-commerce',
+      summary: 'I design and build your online store, from product pages to the cart and orders.',
+      title: 'E-commerce and online store development in Uruguay | Nahuel Silva',
+      description:
+        'I’m a freelance online store developer in Uruguay. I work on catalogues, carts, payments and integrations based on what your business needs.',
+      heading: 'I design and build your next online store.',
+      promise: 'I help you organise selling online.',
+      intro: [
+        'If you sell through messages or your current store is making things difficult, I can help. I look at how to show your products and help customers understand what they are buying, how to pay and how to receive their order.',
+        'I design and build the store around how you work today. Before recommending a platform or a custom build, I ask about your catalogue, stock, payments and delivery.',
+      ],
+      audience: [
+        'You sell through messages and need to organise your catalogue and orders.',
+        'Your store has confusing journeys or a mobile experience that needs improvement.',
+        'You want to connect a selling experience to systems you already use.',
+      ],
+      deliverables: [
+        {
+          title: 'Catalogue and product pages',
+          text: 'I organise categories, product pages, images and variants. I suggest filters based on the size and type of catalogue.',
+        },
+        {
+          title: 'Cart and buying journey',
+          text: 'I build screens for reviewing products, quantities and order details, including error messages and confirmations.',
+        },
+        {
+          title: 'Agreed payments and delivery',
+          text: 'I check which payment and delivery options the platform supports and integrate your business accounts as quoted.',
+        },
+        {
+          title: 'Operational handover',
+          text: 'I test the purchase flows included in the project and explain how to manage products and orders.',
+        },
+      ],
+      steps: [
+        {
+          title: 'Map operations',
+          text: 'I ask how you sell and review the catalogue, variants, stock, payments and delivery before preparing a quote.',
+        },
+        {
+          title: 'Design the purchase',
+          text: 'I design and build the screens for finding products, choosing options and placing an order, sharing progress for your feedback.',
+        },
+        {
+          title: 'Test and launch',
+          text: 'I test the available integrations and purchase flows, check the content and prepare the store for use.',
+        },
+      ],
+      requirements: [
+        'Your number of products, categories and variants.',
+        'How you currently take payments, deliver and update stock.',
+        'Any existing store, platform or systems to connect.',
+      ],
+      scope:
+        'My quote lists the initial product upload, integrations and any migration needed. I also explain external services, invoicing and payment fees you need to consider. Customisation options depend on the platform.',
+      faqs: [
+        {
+          question: 'Which store platform should I choose?',
+          answer:
+            'It depends on what you sell, how many products you have and how you want to manage the store. I review those first, then explain whether an existing platform or a custom build would suit you.',
+        },
+        {
+          question: 'Can you connect local payments and delivery?',
+          answer:
+            'I can check the providers you already use and whether they can connect to your store. For testing, I need the relevant accounts, access and approvals.',
+        },
+        {
+          question: 'Does the project include entering every product?',
+          answer:
+            'My quote says how many products I’ll upload and what information I need. For migrations or bulk uploads, I first check the images, variants and available data.',
+        },
+        {
+          question: 'Can you improve an existing store?',
+          answer:
+            'Yes. I can work on navigation, product pages, mobile layouts or the cart. First I need to understand the platform and the access available for changes.',
+        },
+      ],
+      cta: 'Tell me what you sell and how you handle orders today. That gives me a starting point for helping with your store.',
+    },
+  },
+};
