@@ -1,0 +1,159 @@
+{
+  "id": "web-apps",
+  "icon": "grid",
+  "slug": {
+    "es": "aplicaciones-web",
+    "en": "web-applications"
+  },
+  "related": ["frontend", "mobile-apps", "ui-ux"],
+  "copy": {
+    "es": {
+      "name": "Web apps",
+      "summary": "Desarrollo paneles y aplicaciones web para que puedas organizar mejor tu trabajo.",
+      "title": "Desarrollo de aplicaciones web en Uruguay | Nahuel Silva",
+      "description": "Desarrollo aplicaciones web como freelance desde Uruguay. Diseño interfaces para paneles, portales y herramientas a medida, con integración a tus APIs.",
+      "heading": "Desarrollo aplicaciones web para facilitarte el trabajo.",
+      "promise": "Te ayudo a simplificar tareas de todos los días.",
+      "intro": [
+        "¿Tenés información repartida entre planillas, mensajes y sistemas que no se conectan? Puedo ayudarte a organizarla en una aplicación web. Primero necesito entender quién la va a usar y qué tareas tiene que resolver.",
+        "Desarrollo las interfaces de paneles, portales y herramientas a medida. Me encargo de las pantallas, sus distintos estados y la conexión con los servicios y APIs que tenga el proyecto."
+      ],
+      "audience": [
+        "Tu equipo repite tareas manuales y necesita centralizar información.",
+        "Querés ofrecer a tus clientes un portal o un área de autogestión.",
+        "Tenés una idea de producto y necesitás definir una primera versión útil."
+      ],
+      "deliverables": [
+        {
+          "title": "Flujos y pantallas prioritarias",
+          "text": "Te ayudo a elegir las tareas y pantallas de una primera versión, para empezar por algo que puedas usar y revisar."
+        },
+        {
+          "title": "Interfaz y estados completos",
+          "text": "Desarrollo formularios, listados, filtros y vistas. Contemplo qué mostrar al cargar, validar, encontrar un error o no tener datos."
+        },
+        {
+          "title": "Conexión con servicios",
+          "text": "Conecto la interfaz con las APIs disponibles. Si hace falta backend, autenticación o nuevos endpoints, te lo detallo en el presupuesto."
+        },
+        {
+          "title": "Base para seguir iterando",
+          "text": "Organizo los componentes, pruebo las tareas principales y dejo documentación para que se pueda continuar el desarrollo."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Recortar el problema",
+          "text": "Te pregunto quién va a usar la app y qué necesita hacer. Te propongo qué resolver primero y qué dejar para más adelante."
+        },
+        {
+          "title": "Construir el recorrido",
+          "text": "Diseño y desarrollo las pantallas principales. Te muestro cómo se usan y reviso la conexión con los datos."
+        },
+        {
+          "title": "Validar con escenarios",
+          "text": "Pruebo las tareas y los casos de error, reviso los permisos incluidos y preparo la entrega."
+        }
+      ],
+      "requirements": [
+        "Qué proceso querés mejorar y quién usa la herramienta.",
+        "Ejemplos de las tareas y datos que se manejan hoy.",
+        "Documentación de APIs o acceso al equipo responsable de los sistemas existentes."
+      ],
+      "scope": "Antes de empezar te detallo de qué partes me encargo y qué necesito de otros sistemas o personas. El presupuesto aclara las integraciones, el backend, los permisos, el almacenamiento, la infraestructura y el soporte que hagan falta.",
+      "faqs": [
+        {
+          "question": "¿Puedo empezar con un MVP?",
+          "answer": "Sí. Puedo empezar por una función o un recorrido completo para que pruebes la idea. Te detallo qué incluiría esa versión y qué quedaría para después."
+        },
+        {
+          "question": "¿Se puede integrar con mi sistema actual?",
+          "answer": "Primero reviso si tu sistema tiene una API u otra forma de conectarlo. Necesito ver la documentación, los accesos y las limitaciones antes de confirmarte la integración."
+        },
+        {
+          "question": "¿La aplicación funciona desde el celular?",
+          "answer": "Diseño las pantallas para los dispositivos que necesiten tus usuarios. Una aplicación web funciona en el navegador; si necesitás una app móvil, te explico ese trabajo por separado."
+        },
+        {
+          "question": "¿Podés trabajar con mi equipo de backend?",
+          "answer": "Sí. Puedo coordinar con tu equipo las APIs, los formatos de datos y los errores que tiene que manejar la interfaz. Antes de desarrollar necesito tener claros los accesos y qué hace cada parte."
+        }
+      ],
+      "cta": "Contame una tarea que hoy te lleve demasiados pasos. Te ayudo a pensar cómo resolverla en una primera versión de tu aplicación."
+    },
+    "en": {
+      "name": "Web apps",
+      "summary": "I build dashboards and web applications to help you organise your work.",
+      "title": "Custom web application development in Uruguay | Nahuel Silva",
+      "description": "I’m a freelance web application developer based in Uruguay. I build interfaces for dashboards, portals and custom tools, connected to your APIs.",
+      "heading": "I build web applications to make your work easier.",
+      "promise": "I help simplify everyday tasks.",
+      "intro": [
+        "Is your information spread across spreadsheets, messages and disconnected systems? I can help you bring it into a web application. First I need to understand who will use it and which tasks it needs to handle.",
+        "I build interfaces for dashboards, portals and custom tools. I handle the screens, their different states and connections to the project’s services and APIs."
+      ],
+      "audience": [
+        "Your team repeats manual tasks and needs information in one place.",
+        "You want to offer customers a portal or self-service area.",
+        "You have a product idea and need to define a useful first version."
+      ],
+      "deliverables": [
+        {
+          "title": "Priority journeys and screens",
+          "text": "I help you choose the tasks and screens for an initial version you can use and review."
+        },
+        {
+          "title": "Interfaces with complete states",
+          "text": "I build forms, lists, filters and views, including loading, validation, error and empty states."
+        },
+        {
+          "title": "Service connections",
+          "text": "I connect the interface to available APIs. If backend work, authentication or new endpoints are needed, I list them in the quote."
+        },
+        {
+          "title": "A foundation for iteration",
+          "text": "I organise components, test the main tasks and leave documentation to support further development."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Define the problem",
+          "text": "I ask who will use the app and what they need to do, then suggest what to tackle first and what can wait."
+        },
+        {
+          "title": "Build the journey",
+          "text": "I design and build the main screens, show you how they work and check their connections to the data."
+        },
+        {
+          "title": "Validate scenarios",
+          "text": "I test tasks and error cases, review included permissions and prepare the handover."
+        }
+      ],
+      "requirements": [
+        "The process to improve and the people using the tool.",
+        "Examples of current tasks and the data involved.",
+        "API documentation or access to the team responsible for existing systems."
+      ],
+      "scope": "Before starting, I explain which parts I’ll handle and what I need from other systems or people. The quote covers the required integrations, backend work, permissions, storage, infrastructure and support.",
+      "faqs": [
+        {
+          "question": "Can I start with an MVP?",
+          "answer": "Yes. I can start with one complete feature or journey so you can try the idea. I explain what that version includes and what would come later."
+        },
+        {
+          "question": "Can it integrate with my current system?",
+          "answer": "First I check whether your system has an API or another way to connect. I need to review documentation, access and limitations before confirming the integration."
+        },
+        {
+          "question": "Will it work on mobile?",
+          "answer": "I design the screens for the devices your users need. A web app runs in a browser; if you need a mobile app, I explain that work separately."
+        },
+        {
+          "question": "Can you work with my backend team?",
+          "answer": "Yes. I can coordinate the APIs, data formats and error handling with your backend team. Before development, I need clear access and responsibilities for each part."
+        }
+      ],
+      "cta": "Tell me about a task that takes too many steps today. I’ll help you think through a way to handle it in the first version of your app."
+    }
+  }
+}

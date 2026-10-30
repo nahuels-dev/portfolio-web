@@ -1,0 +1,470 @@
+backend:
+  name: turbo-github
+  turbo_site_id: 8d47a2b7-4ca5-4ada-9d02-d1a4f6883c59
+  branch: develop
+  commit_messages:
+    create: 'Add {{collection}}: {{slug}}'
+    update: 'Update {{collection}}: {{slug}}'
+    delete: 'Remove {{collection}}: {{slug}}'
+    uploadMedia: 'Add media: {{path}}'
+    deleteMedia: 'Remove media: {{path}}'
+locale: es
+publish_mode: simple
+media_folder: public/uploads
+public_folder: /uploads
+site_url: https://nahuel-s.dev
+display_url: https://nahuel-s.dev
+logo_url: /favicon.svg
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'
+collections:
+  - name: projects
+    label: Proyectos
+    label_singular: Proyecto
+    folder: src/content/projects
+    format: json
+    extension: json
+    create: true
+    delete: true
+    identifier_field: slug
+    slug: '{{slug}}'
+    preview_path: 'proyectos/{{slug}}/'
+    summary: '{{id}} · {{name}}'
+    sortable_fields:
+      - id
+      - name
+    editor:
+      preview: false
+    fields:
+      - name: id
+        label: Orden
+        widget: string
+        hint: Número único. Los proyectos se ordenan de menor a mayor.
+        pattern:
+          - ^\d+$
+          - Usá sólo números.
+      - name: slug
+        label: Ruta
+        widget: string
+        pattern:
+          - ^[a-z0-9]+(?:-[a-z0-9]+)*$
+          - Usá minúsculas, números y guiones.
+        hint: Ruta única del proyecto. Cambiarla modifica sus enlaces públicos.
+      - name: name
+        label: Nombre
+        widget: string
+      - name: category
+        label: Categoría
+        widget: object
+        fields:
+          - name: es
+            label: Español
+            widget: string
+          - name: en
+            label: English
+            widget: string
+      - name: description
+        label: Resumen
+        widget: object
+        fields:
+          - name: es
+            label: Español
+            widget: text
+          - name: en
+            label: English
+            widget: text
+      - name: tech
+        label: Tecnologías
+        widget: list
+        min: 1
+        field:
+          name: item
+          label: Texto
+          widget: string
+      - name: image
+        label: Imagen principal
+        widget: image
+      - name: imageSrcSet
+        widget: hidden
+        required: false
+        default: ''
+      - name: href
+        label: Sitio web
+        widget: string
+        required: false
+        pattern: &a1
+          - ^(https?://[^\s]+)?$
+          - Usá una URL http o https.
+      - name: repository
+        label: Repositorio
+        widget: string
+        required: false
+        pattern: *a1
+      - name: label
+        label: Etiqueta del proyecto
+        widget: string
+      - name: role
+        label: Mi participación
+        widget: object
+        fields:
+          - name: es
+            label: Español
+            widget: string
+          - name: en
+            label: English
+            widget: string
+      - name: copy
+        label: Contenido
+        widget: object
+        fields:
+          - name: es
+            label: Español
+            widget: object
+            fields: &a2
+              - name: intro
+                label: Introducción
+                widget: text
+              - name: overview
+                label: Contexto
+                widget: text
+              - name: challenge
+                label: Desafío
+                widget: text
+              - name: solution
+                label: Solución
+                widget: text
+              - name: features
+                label: Decisiones y desarrollo
+                widget: list
+                min: 1
+                fields: &a3
+                  - name: title
+                    label: Título
+                    widget: string
+                  - name: text
+                    label: Texto
+                    widget: text
+          - name: en
+            label: English
+            widget: object
+            fields: *a2
+      - name: gallery
+        label: Galería
+        widget: list
+        min: 0
+        fields:
+          - name: src
+            label: Imagen
+            widget: image
+          - name: alt
+            label: Texto alternativo
+            widget: object
+            fields:
+              - name: es
+                label: Español
+                widget: string
+              - name: en
+                label: English
+                widget: string
+          - name: caption
+            label: Pie de imagen
+            widget: object
+            fields:
+              - name: es
+                label: Español
+                widget: string
+              - name: en
+                label: English
+                widget: string
+        required: false
+  - name: services
+    format: json
+    label: Servicios
+    editor:
+      preview: false
+    files:
+      - name: websites
+        label: Sitios web
+        file: src/content/services/websites.json
+        fields: &a5
+          - name: id
+            widget: hidden
+          - name: icon
+            widget: hidden
+          - name: slug
+            widget: hidden
+          - name: related
+            widget: hidden
+          - name: copy
+            label: Contenido
+            widget: object
+            fields:
+              - name: es
+                label: Español
+                widget: object
+                fields: &a4
+                  - name: name
+                    label: Nombre
+                    widget: string
+                  - name: summary
+                    label: Resumen
+                    widget: text
+                  - name: title
+                    label: Título SEO
+                    widget: string
+                  - name: description
+                    label: Descripción SEO
+                    widget: text
+                  - name: heading
+                    label: Título de portada
+                    widget: string
+                  - name: promise
+                    label: Propuesta
+                    widget: string
+                  - name: intro
+                    label: Introducción
+                    widget: list
+                    min: 2
+                    field:
+                      name: item
+                      label: Texto
+                      widget: string
+                    max: 2
+                  - name: audience
+                    label: Para quién es
+                    widget: list
+                    min: 1
+                    field:
+                      name: item
+                      label: Texto
+                      widget: string
+                  - name: deliverables
+                    label: Entregables
+                    widget: list
+                    min: 1
+                    fields: *a3
+                  - name: steps
+                    label: Proceso
+                    widget: list
+                    min: 1
+                    fields: *a3
+                  - name: requirements
+                    label: Qué necesito
+                    widget: list
+                    min: 1
+                    field:
+                      name: item
+                      label: Texto
+                      widget: string
+                  - name: scope
+                    label: Alcance
+                    widget: text
+                  - name: faqs
+                    label: Preguntas frecuentes
+                    widget: list
+                    min: 1
+                    fields: &a6
+                      - name: question
+                        label: Pregunta
+                        widget: string
+                      - name: answer
+                        label: Respuesta
+                        widget: text
+                  - name: cta
+                    label: Invitación al contacto
+                    widget: text
+              - name: en
+                label: English
+                widget: object
+                fields: *a4
+      - name: ecommerce
+        label: Tiendas online
+        file: src/content/services/ecommerce.json
+        fields: *a5
+      - name: web-apps
+        label: Aplicaciones web
+        file: src/content/services/web-apps.json
+        fields: *a5
+      - name: frontend
+        label: Frontend
+        file: src/content/services/frontend.json
+        fields: *a5
+      - name: ui-ux
+        label: UI/UX
+        file: src/content/services/ui-ux.json
+        fields: *a5
+      - name: creative-coding
+        label: Código creativo
+        file: src/content/services/creative-coding.json
+        fields: *a5
+      - name: mobile-apps
+        label: Aplicaciones móviles
+        file: src/content/services/mobile-apps.json
+        fields: *a5
+      - name: emails
+        label: Emails
+        file: src/content/services/emails.json
+        fields: *a5
+  - name: home
+    format: json
+    label: Portada y Sobre mí
+    editor:
+      preview: false
+    files:
+      - name: es
+        label: Español
+        file: src/content/home/es.json
+        fields: &a7
+          - name: title
+            label: Título SEO
+            widget: string
+          - name: description
+            label: Descripción SEO
+            widget: text
+          - name: available
+            label: Disponibilidad
+            widget: string
+          - name: eyebrow
+            label: Especialidad
+            widget: string
+          - name: micro
+            label: Texto lateral
+            widget: text
+          - name: role
+            label: Título principal
+            widget: list
+            min: 2
+            field:
+              name: item
+              label: Texto
+              widget: string
+            max: 2
+          - name: intro
+            label: Presentación
+            widget: text
+          - name: skills
+            label: Especialidades
+            widget: list
+            min: 1
+            field:
+              name: item
+              label: Texto
+              widget: string
+          - name: heroNote
+            label: Nota de portada
+            widget: list
+            min: 3
+            field:
+              name: item
+              label: Texto
+              widget: string
+            max: 3
+          - name: noteSteps
+            label: Etapas
+            widget: string
+          - name: heroQuote
+            label: Frase personal
+            widget: text
+          - name: quoteBy
+            label: Firma de la frase
+            widget: string
+          - name: aboutTitle
+            label: Título Sobre mí
+            widget: list
+            min: 3
+            field:
+              name: item
+              label: Texto
+              widget: string
+            max: 3
+          - name: aboutText
+            label: 'Sobre mí: primer párrafo'
+            widget: text
+          - name: aboutText2
+            label: 'Sobre mí: segundo párrafo'
+            widget: text
+          - name: aboutText3
+            label: 'Sobre mí: tercer párrafo'
+            widget: text
+          - name: buildWords
+            label: Palabras del retrato
+            widget: list
+            min: 4
+            field:
+              name: item
+              label: Texto
+              widget: string
+            max: 4
+          - name: servicesIntro
+            label: Introducción de servicios
+            widget: text
+          - name: faqList
+            label: Preguntas frecuentes
+            widget: list
+            min: 1
+            fields: *a6
+          - name: ctaLabel
+            label: 'Contacto: encabezado'
+            widget: string
+          - name: ctaTitle
+            label: 'Contacto: título'
+            widget: list
+            min: 2
+            field:
+              name: item
+              label: Texto
+              widget: string
+            max: 2
+          - name: ctaText
+            label: 'Contacto: texto'
+            widget: text
+          - name: location
+            label: Ubicación
+            widget: string
+      - name: en
+        label: English
+        file: src/content/home/en.json
+        fields: *a7
+  - name: settings
+    format: json
+    label: Perfil y enlaces
+    editor:
+      preview: false
+    files:
+      - name: profile
+        label: Datos personales
+        file: src/content/settings/profile.json
+        fields:
+          - name: name
+            label: Nombre
+            widget: string
+          - name: email
+            label: Email
+            widget: string
+            pattern:
+              - ^[^\s@]+@[^\s@]+\.[^\s@]+$
+              - Usá un email válido.
+          - name: github
+            label: github
+            widget: string
+            pattern:
+              - ^https?://[^\s]+$
+              - Usá una URL http o https.
+          - name: linkedin
+            label: linkedin
+            widget: string
+            pattern:
+              - ^https?://[^\s]+$
+              - Usá una URL http o https.
+          - name: codepen
+            label: codepen
+            widget: string
+            pattern:
+              - ^https?://[^\s]+$
+              - Usá una URL http o https.
+          - name: cv
+            label: Currículum
+            widget: file
+            hint: Subí el CV en PDF.
