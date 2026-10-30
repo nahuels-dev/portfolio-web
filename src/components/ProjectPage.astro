@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectHero from './projects/ProjectHero.astro';
+import ProjectContext from './projects/ProjectContext.astro';
+import ProjectFeatures from './projects/ProjectFeatures.astro';
+import ProjectGallery from './projects/ProjectGallery.astro';
+import ProjectPagination from './projects/ProjectPagination.astro';
+import Contact from './sections/Contact.astro';
+import { projectPath, type Project } from '../data/projects';
+import { createProjectStructuredData } from '../data/seo';
+import { projectNavigation } from '../data/navigation';
+import type { Locale } from '../i18n/ui';
+import '../styles/project-pages.scss';
+
+interface Props {
+  project: Project;
+  lang: Locale;
+}
+
+const { project, lang } = Astro.props;
+const home = lang === 'es' ? '/' : '/en/';
+---
+
+<BaseLayout
+  lang={lang}
+  intro={false}
+  page={{
+    title: `${project.name} — ${project.category[lang]} | Nahuel Silva`,
+    description: project.description[lang],
+    path: projectPath(project, lang),
+    alternatePath: projectPath(project, lang === 'es' ? 'en' : 'es'),
+    schema: createProjectStructuredData(Astro.site!, lang, project),
+    navigation: projectNavigation(lang),
+  }}
+>
+  <article class="project-page" data-project={project.slug}>
+    <ProjectHero project={project} lang={lang} />
+    <ProjectContext project={project} lang={lang} />
+    <ProjectFeatures project={project} lang={lang} />
+    <ProjectGallery project={project} lang={lang} />
+    <ProjectPagination project={project} lang={lang} />
+  </article>
+  <Contact lang={lang} projectsHref={`${home}#proyectos`} />
+</BaseLayout>
