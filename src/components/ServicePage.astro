@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Panel from './ui/Panel.astro';
+import Icon from './ui/Icon.astro';
+import Button from './ui/Button.astro';
+import ServiceCard from './ui/ServiceCard.astro';
+import ServiceHero from './services/ServiceHero.astro';
+import Contact from './sections/Contact.astro';
+import ProcessCard from './ui/ProcessCard.astro';
+import FAQ from './sections/FAQ.astro';
+import {
+  services,
+  getService,
+  servicePath,
+  serviceIndexPath,
+  type Service,
+} from '../data/services';
+import { createServiceStructuredData } from '../data/seo';
+import { serviceNavigation } from '../data/navigation';
+import { profile } from '../data/site';
+import { serviceUI } from '../i18n/services';
+import type { Locale } from '../i18n/ui';
+import '../styles/service-pages.scss';
+
+interface Props {
+  service: Service;
+  lang: Locale;
+}
+
+const { service, lang } = Astro.props;
+
+const copy = service.copy[lang];
+
+const labels = serviceUI[lang];
+
+const home = lang === 'es' ? '/' : '/en/';
+
+const related = service.related.map(getService);
+
+const email = `mailto:${profile.email}?subject=${encodeURIComponent(`${labels.emailSubject} ${copy.name}`)}&body=${encodeURIComponent(labels.emailBody)}`;
+---
+
+<BaseLayout
+  lang={lang}
+  intro={false}
+  page={{
+    title: copy.title,
+    description: copy.description,
+    path: servicePath(service, lang),
+    alternatePath: servicePath(service, lang === 'es' ? 'en' : 'es'),
+    schema: createServiceStructuredData(Astro.site!, lang, service),
+    navigation: serviceNavigation(lang),
+    heroArtwork: service.icon,
+  }}
+>
+  <article class="service-page" data-service={service.id}>
+    <ServiceHero service={service} lang={lang} />
+    <Panel
+      id="para-quien"
+      title={labels.audience}
+      note={labels.audienceNote}
+      class="service-section"
+    >
+      <ul class="service-audience">
+        {copy.audience.map((item, index) => (
+          <li>
+            <span class="service-audience__index" aria-hidden="true">
+              0{index + 1}
+            </span>
+            <p>{item}</p>
+            <Icon name={['globe', 'layers', 'rocket'][index]} size={24} />
+          </li>
+        ))}
+      </ul>
+    </Panel>
+    <Panel id="incluye" title={labels.included} note={labels.includedNote} class="service-section">
+      <div class="service-deliverables">
+        {copy.deliverables.map(({ title, text }, index) => (
+          <div
+            class:list={['service-deliverable', { 'service-deliverable--featured': index === 0 }]}
+          >
+            <div class="service-deliverable__top">
+              <span class="service-number">0{index + 1}</span>
+              <span class="service-deliverable__icon">
+                <Icon
+                  name={index === 0 ? service.icon : ['layers', 'code', 'check'][index - 1]}
+                  size={26}
+                />
+              </span>
+            </div>
+            <div class="service-deliverable__body">
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </div>
+            {index === 0 && (
+              <span class="service-deliverable__watermark" aria-hidden="true">
+                <Icon name={service.icon} size={180} />
+              </span>
+            )}
+            <span class="service-card-corner" aria-hidden="true" />
+          </div>
+        ))}
+      </div>
+    </Panel>
+    <Panel id="proceso" title={labels.process} note={labels.processNote} class="service-section">
+      <ol class="service-steps">
+        {copy.steps.map(({ title, text }, index) => (
+          <ProcessCard
+            detailed
+            title={title}
+            text={text}
+            icon={['search', 'code', 'rocket'][index]}
+            index={index}
+          />
+        ))}
+      </ol>
+      <div class="service-proposal">
+        <div class="service-proposal__brief">
+          <span class="service-proposal__icon">
+            <Icon name="mail" size={28} />
+          </span>
+          <h3>{labels.prepare}</h3>
+          <ul>
+            {copy.requirements.map((item) => (
+              <li>
+                <Icon name="check" size={18} />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="service-proposal__scope">
+          <span class="service-proposal__icon">
+            <Icon name="layers" size={28} />
+          </span>
+          <h3>{labels.scope}</h3>
+          <p>{copy.scope}</p>
+        </div>
+      </div>
+    </Panel>
+    <FAQ
+      lang={lang}
+      items={copy.faqs}
+      title={labels.faq}
+      note={labels.faqNote}
+      explorer={copy.name}
+    />
+    <Panel
+      id="otros-servicios"
+      title={labels.related}
+      note={labels.relatedNote}
+      class="service-section"
+    >
+      <div class="service-related">
+        {related.map((item) => (
+          <ServiceCard
+            icon={item.icon}
+            title={item.copy[lang].name}
+            text={item.copy[lang].summary}
+            href={servicePath(item, lang)}
+            index={services.indexOf(item)}
+          />
+        ))}
+      </div>
+      <Button class="service-catalog-link" href={serviceIndexPath(lang)}>
+        {labels.all}
+      </Button>
+    </Panel>
+  </article>
+  <Contact
+    lang={lang}
+    service={service.id}
+    text={copy.cta}
+    emailHref={email}
+    projectsHref={`${home}#proyectos`}
+  />
+</BaseLayout>

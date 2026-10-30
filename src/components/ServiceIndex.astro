@@ -1,0 +1,149 @@
+---
+import Breadcrumbs from './ui/Breadcrumbs.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Panel from './ui/Panel.astro';
+import Button from './ui/Button.astro';
+import Icon from './ui/Icon.astro';
+import TechFrame from './ui/TechFrame.astro';
+import ServiceCard from './ui/ServiceCard.astro';
+import Projects from './sections/Projects.astro';
+import Contact from './sections/Contact.astro';
+import ServiceVisual from './ui/ServiceVisual.astro';
+import ServiceHeading from './ui/ServiceHeading.astro';
+import Poster from './ui/Poster.astro';
+import { services, servicePath, serviceIndexPath } from '../data/services';
+import { serviceIndexNavigation } from '../data/navigation';
+import { createServiceStructuredData } from '../data/seo';
+import { serviceUI } from '../i18n/services';
+import type { Locale } from '../i18n/ui';
+import '../styles/service-pages.scss';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+
+const labels = serviceUI[lang];
+
+const home = lang === 'es' ? '/' : '/en/';
+
+const navigation = serviceIndexNavigation(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  intro={false}
+  page={{
+    title: labels.indexTitle,
+    description: labels.indexDescription,
+    path: serviceIndexPath(lang),
+    alternatePath: serviceIndexPath(lang === 'es' ? 'en' : 'es'),
+    schema: createServiceStructuredData(Astro.site!, lang),
+    navigation,
+    heroArtwork: 'spark',
+  }}
+>
+  <article class="service-page">
+    <section class="service-hero" id="inicio" aria-labelledby="services-title">
+      <TechFrame variant="hero" />
+      <Breadcrumbs
+        class="service-breadcrumb"
+        label={labels.breadcrumb}
+        items={[{ label: labels.home, href: home }, { label: labels.services }]}
+      />
+      <div class="service-hero__grid">
+        <div class="service-hero__copy">
+          <p class="service-eyebrow">{labels.eyebrow}</p>
+          <ServiceHeading id="services-title" text={labels.indexHeading} />
+          <p class="service-lead">{labels.indexIntro}</p>
+          <div class="service-actions">
+            <Button href="#servicios" variant="primary">
+              {labels.all}
+            </Button>
+            <Button href="#contacto" variant="secondary" contact>
+              {labels.contact}
+            </Button>
+          </div>
+        </div>
+        <ServiceVisual
+          lang={lang}
+          artwork="spark"
+          label="DESIGN / CODE / MOTION"
+          promise={
+            lang === 'es'
+              ? 'Diseño y desarrollo lo que necesitás.'
+              : 'I help you design and build your project.'
+          }
+        />
+      </div>
+    </section>
+    <Panel
+      id="servicios"
+      title={labels.services}
+      note="DESIGN / CODE / MOTION"
+      class="service-section"
+    >
+      <div class="service-index-grid">
+        {services.map((service, index) => (
+          <ServiceCard
+            icon={service.icon}
+            title={service.copy[lang].name}
+            text={service.copy[lang].summary}
+            href={servicePath(service, lang)}
+            index={index}
+          />
+        ))}
+      </div>
+    </Panel>
+    <Panel id="orientacion" title={labels.choose} class="service-section">
+      <div class="service-guidance">
+        <div>
+          <span class="service-proposal__icon">
+            <Icon name="spark" size={32} />
+          </span>
+          <p class="service-lead">{labels.chooseText}</p>
+          <Button href="#contacto" contact>
+            {labels.contact}
+          </Button>
+        </div>
+        <Poster
+          variant="services"
+          compact
+          lines={
+            lang === 'es'
+              ? ['TU IDEA.', 'EL PRIMER', 'PASO.']
+              : ['YOUR IDEA.', 'THE FIRST', 'STEP.']
+          }
+          explorer={labels.services}
+        />
+      </div>
+    </Panel>
+    <Panel id="enfoque" title={labels.collaboration} class="service-section">
+      <p class="service-lead">{labels.collaborationText}</p>
+      <div class="service-combinations">
+        {(lang === 'es'
+          ? [
+              ['pen', 'DISEÑO + CÓDIGO', 'Diseño tus pantallas y las llevo a código.'],
+              ['mail', 'TIENDA + EMAILS', 'Desarrollo tu tienda y sus emails de confirmación.'],
+              ['phone', 'WEB + MÓVIL', 'Diseño las versiones web y móvil de tu proyecto.'],
+            ]
+          : [
+              ['pen', 'DESIGN + CODE', 'I design your screens and turn them into code.'],
+              ['mail', 'STORE + EMAILS', 'I build your store and its order confirmation emails.'],
+              ['phone', 'WEB + MOBILE', 'I design the web and mobile versions of your project.'],
+            ]
+        ).map(([icon, title, text]) => (
+          <div class="service-combination">
+            <Icon name={icon} size={28} />
+            <h3>{title}</h3>
+            <p>{text}</p>
+            <span class="service-card-corner" aria-hidden="true" />
+          </div>
+        ))}
+      </div>
+    </Panel>
+    <Projects lang={lang} />
+  </article>
+  <Contact lang={lang} />
+</BaseLayout>
