@@ -24,6 +24,8 @@ interface Props {
     schema: object;
     navigation: NavigationItem[];
     heroArtwork?: string;
+    image?: string;
+    imageAlt?: string;
   };
 }
 
@@ -106,6 +108,8 @@ const heroPreload = preloadOptions ? await getImage(preloadOptions) : undefined;
       path={currentPath}
       alternatePath={alternatePath}
       schema={schema}
+      image={page?.image}
+      imageAlt={page?.imageAlt}
     />
     <noscript>
       <style>

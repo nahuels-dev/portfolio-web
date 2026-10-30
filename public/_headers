@@ -2,8 +2,5 @@
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
 
-https://portfolio-web.hola-02e.workers.dev/*
-  X-Robots-Tag: noindex, nofollow
-
-https://develop-portfolio-web.hola-02e.workers.dev/*
+https://:version.:subdomain.workers.dev/*
   X-Robots-Tag: noindex, nofollow

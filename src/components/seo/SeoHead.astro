@@ -8,9 +8,11 @@ interface Props {
   path: string;
   alternatePath: string;
   schema: object;
+  image?: string;
+  imageAlt?: string;
 }
 
-const { lang, title, description, path, alternatePath, schema } = Astro.props;
+const { lang, title, description, path, alternatePath, schema, image, imageAlt } = Astro.props;
 
 const canonical = new URL(path, Astro.site);
 
@@ -18,12 +20,19 @@ const esPath = lang === 'es' ? path : alternatePath;
 
 const enPath = lang === 'en' ? path : alternatePath;
 
-const socialImage = new URL('/images/og-cover.jpg', Astro.site);
+const socialImage = new URL(image ?? '/images/og-cover.jpg', Astro.site);
+const imageType = {
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  png: 'image/png',
+  webp: 'image/webp',
+}[socialImage.pathname.split('.').at(-1)?.toLowerCase() ?? ''];
 
 const socialImageAlt =
-  lang === 'es'
+  imageAlt ??
+  (lang === 'es'
     ? 'Portfolio de Nahuel Silva, desarrollador web en Uruguay'
-    : 'Portfolio of Nahuel Silva, web developer in Uruguay';
+    : 'Portfolio of Nahuel Silva, web developer in Uruguay');
 ---
 
 <meta name="theme-color" content="#101220" />
@@ -45,9 +54,9 @@ const socialImageAlt =
 <meta property="og:locale" content={lang === 'es' ? 'es_UY' : 'en_US'} />
 <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_UY'} />
 <meta property="og:image" content={socialImage} />
-<meta property="og:image:type" content="image/jpeg" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
+{imageType && <meta property="og:image:type" content={imageType} />}
+{!image && <meta property="og:image:width" content="1200" />}
+{!image && <meta property="og:image:height" content="630" />}
 <meta property="og:image:alt" content={socialImageAlt} />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
