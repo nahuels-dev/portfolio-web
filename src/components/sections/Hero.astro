@@ -1,5 +1,6 @@
 ---
 import { Picture } from 'astro:assets';
+import { media } from '../../data/media';
 import { heroPortrait, cyberPortrait } from '../../data/portrait-image';
 import Button from '../ui/Button.astro';
 import Tag from '../ui/Tag.astro';
@@ -23,7 +24,7 @@ const t = getUI(lang);
     <div class="hero__art" data-portrait-reveal>
       <Picture
         {...heroPortrait}
-        alt={t.portraitAlt}
+        alt={media.heroAlt[lang]}
         formats={['avif', 'webp']}
         fallbackFormat="webp"
         loading="eager"

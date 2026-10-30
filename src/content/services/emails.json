@@ -155,5 +155,11 @@
       ],
       "cta": "Tell me which emails you need and the tool you use to send them. I’ll explain how I can help with the templates."
     }
-  }
+  },
+  "image": "/media/service-portrait-emails.png",
+  "imageAlt": {
+    "es": "Nahuel Silva desarrollando emails con una MacBook en su espacio de trabajo.",
+    "en": "Nahuel Silva developing emails on a MacBook in his workspace."
+  },
+  "cardImage": "/media/service-card-emails.png"
 }

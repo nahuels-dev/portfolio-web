@@ -155,5 +155,11 @@
       ],
       "cta": "Send me a reference or tell me the effect you have in mind. I’ll explain how I would approach it and can suggest an initial prototype."
     }
-  }
+  },
+  "image": "/media/service-portrait-creative-coding.png",
+  "imageAlt": {
+    "es": "Nahuel Silva desarrollando animaciones con una MacBook en su espacio de trabajo.",
+    "en": "Nahuel Silva developing animations on a MacBook in his workspace."
+  },
+  "cardImage": "/media/service-card-creative-coding.png"
 }

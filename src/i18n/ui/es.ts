@@ -22,7 +22,6 @@ export const es = {
   github: 'Más código en GitHub',
   about: 'Sobre mí',
   cv: 'Descargar CV',
-  portraitAlt: 'Retrato natural de Nahuel Silva de pie, con camiseta oscura',
   portraitRevealLabel: 'Explorar la versión robótica del retrato',
   poster: ['LA MISMA', 'CURIOSIDAD.', 'NUEVOS', 'HORIZONTES.'],
   aboutStats: [
