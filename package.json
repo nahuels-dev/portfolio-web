@@ -8,8 +8,9 @@
     "build": "astro check && astro build",
     "preview": "astro preview --host 0.0.0.0",
     "check": "astro check",
-    "format": "prettier --write src astro.config.mjs tsconfig.json package.json .prettierrc.json",
-    "format:check": "prettier --check src astro.config.mjs tsconfig.json package.json .prettierrc.json"
+    "format": "prettier --write src astro.config.mjs tsconfig.json package.json .prettierrc.json public/admin/config.yml .github",
+    "format:check": "prettier --check src astro.config.mjs tsconfig.json package.json .prettierrc.json public/admin/config.yml .github",
+    "cms": "BIND_HOST=127.0.0.1 MODE=fs decap-server"
   },
   "dependencies": {
     "@astrojs/check": "0.9.12",
@@ -20,10 +21,13 @@
     "lenis": "1.3.27",
     "sass": "1.106.1",
     "sharp": "0.35.5",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "yaml": "2.9.1",
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@webgpu/types": "0.1.74",
+    "decap-server": "3.11.6",
     "prettier": "3.9.10",
     "prettier-plugin-astro": "1.1.2"
   },

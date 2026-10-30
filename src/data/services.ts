@@ -1,26 +1,24 @@
 import type { Locale } from '../i18n/ui';
 import type { Service, ServiceId } from './services/types';
-import { websites } from './services/websites';
-import { ecommerce } from './services/ecommerce';
-import { webApps } from './services/web-apps';
-import { frontend } from './services/frontend';
-import { uiUx } from './services/ui-ux';
-import { creativeCoding } from './services/creative-coding';
-import { mobileApps } from './services/mobile-apps';
-import { emails } from './services/emails';
+import { serviceIds, serviceSchema } from '../content/schemas';
 
 export type { Service, ServiceCopy, ServiceId } from './services/types';
 
-export const services: Service[] = [
-  websites,
-  ecommerce,
-  webApps,
-  frontend,
-  uiUx,
-  creativeCoding,
-  mobileApps,
-  emails,
-];
+const modules = import.meta.glob<{ default: unknown }>('../content/services/*.json', {
+  eager: true,
+});
+const entries = Object.values(modules).map((module) => serviceSchema.parse(module.default));
+
+export const services: Service[] = serviceIds.map((id) => {
+  const matches = entries.filter((service) => service.id === id);
+  if (matches.length !== 1) throw new Error(`Missing or duplicate service: ${id}`);
+  return matches[0];
+});
+
+for (const lang of ['es', 'en'] as const) {
+  const slugs = services.map((service) => service.slug[lang]);
+  if (new Set(slugs).size !== slugs.length) throw new Error(`Duplicate service slug: ${lang}`);
+}
 
 export const servicePath = (service: Service, lang: Locale) =>
   `${lang === 'es' ? '/servicios/' : '/en/services/'}${service.slug[lang]}/`;

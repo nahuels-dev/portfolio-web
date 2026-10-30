@@ -1,11 +1,6 @@
-export const profile = {
-  name: 'Nahuel Silva',
-  email: 'nahuel.silva008@gmail.com',
-  github: 'https://github.com/nahuels-dev',
-  linkedin: 'https://www.linkedin.com/in/nahuel--silva/',
-  codepen: 'https://codepen.io/nahuel_s',
-  cv: '/Nahuel_Silva.pdf',
-};
+import content from '../content/settings/profile.json';
+import { profileSchema } from '../content/schemas';
+export const profile = profileSchema.parse(content);
 
 export { projects } from './projects';
 

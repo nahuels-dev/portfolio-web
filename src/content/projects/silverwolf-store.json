@@ -1,0 +1,64 @@
+{
+  "id": "01",
+  "slug": "silverwolf-store",
+  "name": "Silverwolf Store",
+  "category": {
+    "es": "E-commerce",
+    "en": "E-commerce"
+  },
+  "description": {
+    "es": "Mi trabajo en la tienda online de Silverwolf Store, en Uruguay.",
+    "en": "My work on the online store for Silverwolf Store, in Uruguay."
+  },
+  "tech": ["Angular", "TypeScript", "MongoDB"],
+  "image": "/images/project-store.webp",
+  "imageSrcSet": "/images/project-store-320.webp 320w, /images/project-store-480.webp 480w, /images/project-store.webp 720w",
+  "href": "https://silverwolfstore.uy/",
+  "label": "silverwolfstore.uy",
+  "role": {
+    "es": "Desarrollo web",
+    "en": "Web development"
+  },
+  "copy": {
+    "es": {
+      "intro": "Una tienda online para explorar el universo de Silverwolf Store.",
+      "overview": "Silverwolf Store es una tienda de Uruguay. Este proyecto reúne mi trabajo en su experiencia de compra online, con Angular, TypeScript y MongoDB.",
+      "challenge": "Organizar productos y contenido comercial en una experiencia clara, que se pueda recorrer tanto desde una computadora como desde el teléfono.",
+      "solution": "Una interfaz centrada en el catálogo, con una estructura visual consistente y una presentación adaptable a distintos tamaños de pantalla.",
+      "features": [
+        {
+          "title": "Catálogo como protagonista",
+          "text": "La presentación de productos guía el recorrido por la tienda."
+        },
+        {
+          "title": "Interfaz adaptable",
+          "text": "El contenido se organiza para poder explorarse en desktop y móvil."
+        },
+        {
+          "title": "Stack del proyecto",
+          "text": "Angular y TypeScript en la interfaz, con MongoDB dentro del stack de la tienda."
+        }
+      ]
+    },
+    "en": {
+      "intro": "An online storefront to explore the world of Silverwolf Store.",
+      "overview": "Silverwolf Store is a shop in Uruguay. This project brings together my work on its online shopping experience, using Angular, TypeScript and MongoDB.",
+      "challenge": "Organize products and commercial content into a clear experience that can be explored on a computer or a phone.",
+      "solution": "A catalog-focused interface with a consistent visual structure and a layout that adapts to different screen sizes.",
+      "features": [
+        {
+          "title": "Products first",
+          "text": "Product presentation guides the journey through the store."
+        },
+        {
+          "title": "Responsive interface",
+          "text": "Content is organized for exploration on desktop and mobile."
+        },
+        {
+          "title": "Project stack",
+          "text": "Angular and TypeScript on the interface, with MongoDB in the store’s stack."
+        }
+      ]
+    }
+  }
+}
