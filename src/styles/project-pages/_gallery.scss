@@ -1,0 +1,31 @@
+.project-page {
+  .project-gallery {
+    display: grid;
+    gap: 1.5rem;
+  }
+  figure {
+    margin: 0;
+    min-width: 0;
+  }
+  .project-gallery__image {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    clip-path: var(--shape-control);
+    overflow: hidden;
+  }
+  .project-gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  figcaption {
+    display: flex;
+    gap: 1rem;
+    font: 0.625rem/1.7 var(--font-mono);
+    color: var(--muted);
+    padding: 0.875rem 0.25rem 0;
+  }
+  figcaption span {
+    color: var(--signal);
+  }
+}

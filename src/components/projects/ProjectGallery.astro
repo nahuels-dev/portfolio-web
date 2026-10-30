@@ -1,0 +1,46 @@
+---
+import Panel from '../ui/Panel.astro';
+import type { Project } from '../../data/projects';
+import { projectUI } from '../../i18n/projects';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  project: Project;
+  lang: Locale;
+}
+
+const { project, lang } = Astro.props;
+const t = projectUI[lang];
+const gallery = project.gallery?.length
+  ? project.gallery
+  : [
+      {
+        src: project.image,
+        alt: { es: `Captura de ${project.name}`, en: `Screenshot of ${project.name}` },
+        caption: { es: 'Vista del proyecto', en: 'Project view' },
+      },
+    ];
+---
+
+<Panel id="capturas" title={t.gallery} note={t.galleryNote} class="project-section">
+  <div class="project-gallery">
+    {gallery.map((image, index) => (
+      <figure>
+        <div class="project-gallery__image">
+          <img
+            src={image.src}
+            alt={image.alt[lang]}
+            width="1440"
+            height="900"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <figcaption>
+          <span>/{String(index + 1).padStart(2, '0')}</span>
+          {image.caption[lang]}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+</Panel>

@@ -1,0 +1,31 @@
+---
+import Button from '../ui/Button.astro';
+import { projects, projectPath } from '../../data/projects';
+import type { Project } from '../../data/projects';
+import { projectUI } from '../../i18n/projects';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  project: Project;
+  lang: Locale;
+}
+
+const { project, lang } = Astro.props;
+const t = projectUI[lang];
+const home = lang === 'es' ? '/' : '/en/';
+const next =
+  projects.length > 1
+    ? projects[(projects.findIndex((item) => item.slug === project.slug) + 1) % projects.length]
+    : undefined;
+---
+
+<nav class="project-pagination" aria-label={t.projects}>
+  <Button class="project-back" href={`${home}#proyectos`} icon="left">
+    {t.back}
+  </Button>
+  {next && (
+    <Button class="project-next" href={projectPath(next, lang)} variant="primary" icon="right">
+      {t.next}: {next.name}
+    </Button>
+  )}
+</nav>

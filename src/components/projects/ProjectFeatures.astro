@@ -1,0 +1,29 @@
+---
+import Panel from '../ui/Panel.astro';
+import Icon from '../ui/Icon.astro';
+import type { Project } from '../../data/projects';
+import { projectUI } from '../../i18n/projects';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  project: Project;
+  lang: Locale;
+}
+
+const { project, lang } = Astro.props;
+const t = projectUI[lang];
+const copy = project.copy[lang];
+---
+
+<Panel id="desarrollo" title={t.details} note={t.detailsNote} class="project-section">
+  <div class="project-features">
+    {copy.features.map((feature, index) => (
+      <div class="project-feature">
+        <span class="project-feature__number">/{String(index + 1).padStart(2, '0')}</span>
+        <Icon name={['layers', 'code', 'rocket'][index % 3]} size={26} />
+        <h3>{feature.title}</h3>
+        <p>{feature.text}</p>
+      </div>
+    ))}
+  </div>
+</Panel>

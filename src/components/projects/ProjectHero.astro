@@ -1,0 +1,98 @@
+---
+import Breadcrumbs from '../ui/Breadcrumbs.astro';
+import Button from '../ui/Button.astro';
+import Tag from '../ui/Tag.astro';
+import TechFrame from '../ui/TechFrame.astro';
+import type { Project } from '../../data/projects';
+import { projectUI } from '../../i18n/projects';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  project: Project;
+  lang: Locale;
+}
+
+const { project, lang } = Astro.props;
+const t = projectUI[lang];
+const copy = project.copy[lang];
+const home = lang === 'es' ? '/' : '/en/';
+---
+
+<section class="project-hero" id="inicio" aria-labelledby="project-title">
+  <TechFrame variant="hero" />
+  <Breadcrumbs
+    class="project-breadcrumb"
+    label={t.breadcrumb}
+    items={[
+      { label: t.home, href: home },
+      { label: t.projects, href: `${home}#proyectos` },
+      { label: project.name },
+    ]}
+  />
+  <div class="project-hero__heading">
+    <div>
+      <p class="project-eyebrow">{`${t.eyebrow} / ${project.id}`}</p>
+      <h1 id="project-title">{project.name}</h1>
+      <p class="project-hero__intro">{copy.intro}</p>
+    </div>
+    <div class="project-hero__actions">
+      {project.href && (
+        <Button href={project.href} variant="primary" external>
+          {t.visit}
+        </Button>
+      )}
+      {project.repository && (
+        <Button
+          href={project.repository}
+          variant={project.href ? 'secondary' : 'primary'}
+          external
+          icon="code"
+        >
+          {t.repository}
+        </Button>
+      )}
+      {!project.href && !project.repository && (
+        <Button href="#contexto" variant="primary">
+          {t.explore}
+        </Button>
+      )}
+    </div>
+  </div>
+  <div class="project-cover">
+    <div class="project-cover__bar" aria-hidden="true">
+      <span>NS / PROJECT ARCHIVE</span>
+      <span>{project.label}</span>
+      <span>↗</span>
+    </div>
+    <div class="project-cover__screen">
+      <img
+        src={project.image}
+        alt={`${t.preview}: ${project.name}`}
+        width="1440"
+        height="900"
+        fetchpriority="high"
+      />
+    </div>
+    <span class="project-cover__index" aria-hidden="true">
+      {project.id} / {project.category[lang]}
+    </span>
+  </div>
+  <dl class="project-meta">
+    <div>
+      <dt>{t.category}</dt>
+      <dd>{project.category[lang]}</dd>
+    </div>
+    <div>
+      <dt>{t.role}</dt>
+      <dd>{project.role[lang]}</dd>
+    </div>
+    <div>
+      <dt>{t.stack}</dt>
+      <dd class="project-meta__tags">
+        {project.tech.map((tech) => (
+          <Tag small>{tech}</Tag>
+        ))}
+      </dd>
+    </div>
+  </dl>
+</section>

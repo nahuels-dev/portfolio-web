@@ -1,0 +1,44 @@
+.project-page {
+  .project-hero {
+    position: relative;
+    isolation: isolate;
+    padding: 1.25rem 2.25rem 1.75rem;
+  }
+  .project-eyebrow {
+    font: 0.625rem/1.7 var(--font-mono);
+    color: var(--signal);
+    letter-spacing: 0.07em;
+    margin: 0 0 0.75rem;
+  }
+  .project-hero__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  .project-hero__heading > div {
+    min-width: 0;
+  }
+  h1 {
+    font: 900 clamp(2rem, 4.1vw, 3.75rem)/1.12 var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: -0.045em;
+    margin: 0 0 1rem;
+    overflow-wrap: anywhere;
+  }
+  .project-hero__intro {
+    margin: 0;
+    max-width: 52ch;
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+  .project-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    gap: 0.75rem;
+    padding-bottom: 0.25rem;
+  }
+}

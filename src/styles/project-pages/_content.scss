@@ -1,0 +1,67 @@
+@use '../geometry';
+
+.project-page {
+  .project-section {
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+  .project-context {
+    padding: 1rem 0.5rem 0.5rem;
+    display: grid;
+    grid-template-columns: 0.9fr 1.3fr;
+    gap: 3rem;
+  }
+  .project-context__overview {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--white);
+    margin: 0;
+    max-width: 38ch;
+  }
+  .project-context__columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+  }
+  h3 {
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1.4;
+    margin: 0 0 0.875rem;
+  }
+  .project-context h3 span {
+    display: block;
+    color: var(--signal);
+    font: 0.625rem var(--font-mono);
+    margin-bottom: 1rem;
+  }
+  .project-context__columns p,
+  .project-feature p {
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: var(--text);
+    margin: 0;
+  }
+  .project-features {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .project-feature {
+    @include geometry.cut-surface(var(--shape-card));
+    padding: 1.5rem;
+    --cut-line: var(--line);
+    --cut-surface: var(--surface-gradient);
+  }
+  .project-feature__number {
+    display: block;
+    color: var(--signal);
+    font: 0.625rem var(--font-mono);
+    margin-bottom: 1.75rem;
+  }
+  .project-feature > svg {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    color: var(--signal);
+  }
+}
