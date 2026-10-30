@@ -1,0 +1,84 @@
+---
+interface Props {
+  variant?: 'header' | 'hero' | 'panel';
+}
+
+const { variant = 'panel' } = Astro.props;
+---
+
+<span class:list={['tech-frame', `tech-frame--${variant}`]} aria-hidden="true">
+  <span class="tech-frame__fill" />
+</span>
+
+<style lang="scss">
+  @use '../../styles/frames';
+  .tech-frame {
+    --frame-shape: polygon(
+      0.875rem 0,
+      11.875rem 0,
+      12.625rem 0.5rem,
+      calc(100% - 0.875rem) 0.5rem,
+      100% 1.375rem,
+      100% calc(100% - 0.875rem),
+      calc(100% - 0.875rem) 100%,
+      0.875rem 100%,
+      0 calc(100% - 0.875rem),
+      0 0.875rem
+    );
+    position: absolute;
+    inset: -0.0625rem;
+    z-index: -2;
+    display: block;
+    pointer-events: none;
+    background: var(--line-bright);
+    clip-path: var(--frame-shape);
+    &__fill {
+      position: absolute;
+      inset: 0.0625rem;
+      clip-path: var(--frame-shape);
+      background: var(--frame-surface, var(--surface));
+    }
+    &--header {
+      --frame-surface: var(--black);
+
+      --frame-shape: polygon(
+        1.75rem 0,
+        61% 0,
+        calc(61% + 0.5rem) 0.5rem,
+        calc(100% - 2.625rem) 0.5rem,
+        calc(100% - 2.125rem) 0,
+        100% 0,
+        100% 100%,
+        0 100%,
+        0 1.75rem
+      );
+
+      .tech-frame__fill {
+        bottom: -0.0625rem;
+      }
+    }
+    &--hero {
+      @include frames.hero-shape;
+      --frame-surface: var(--black);
+      .tech-frame__fill {
+        top: -0.0625rem;
+      }
+    }
+    @media (max-width: 760px) {
+      &--header {
+        --frame-shape: polygon(
+          1rem 0,
+          30% 0,
+          calc(30% + 0.5rem) 0.5rem,
+          72% 0.5rem,
+          calc(72% + 0.5rem) 0,
+          calc(100% - 0.875rem) 0,
+          100% 0.875rem,
+          100% 100%,
+          0 100%,
+          0 1rem
+        );
+      }
+    }
+  }
+</style>

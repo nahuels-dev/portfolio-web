@@ -1,0 +1,46 @@
+@mixin hero-shape {
+  --frame-shape: polygon(
+    0 0,
+    100% 0,
+    100% 18%,
+    calc(100% - 0.625rem) calc(18% + 0.625rem),
+    calc(100% - 0.625rem) calc(100% - 2.75rem),
+    calc(100% - 1.875rem) calc(100% - 1.5rem),
+    calc(78% + 1.5rem) calc(100% - 1.5rem),
+    78% 100%,
+    1.625rem 100%,
+    0.75rem calc(100% - 0.875rem),
+    0.75rem calc(100% - 4rem),
+    0 calc(100% - 4.75rem),
+    0 76%,
+    0.5rem calc(76% - 0.5rem),
+    0.5rem calc(49% + 1.125rem),
+    0 calc(49% + 0.625rem),
+    0 24%,
+    0.875rem calc(24% - 0.875rem),
+    0.875rem 1rem,
+    0 0.125rem
+  );
+  @media (max-width: 760px) {
+    --frame-shape: polygon(
+      0 0,
+      100% 0,
+      100% 24%,
+      calc(100% - 0.3125rem) calc(24% + 0.3125rem),
+      calc(100% - 0.3125rem) calc(100% - 1.125rem),
+      calc(100% - 1.4375rem) 100%,
+      calc(64% + 0.875rem) 100%,
+      64% calc(100% - 0.875rem),
+      0.875rem calc(100% - 0.875rem),
+      0 calc(100% - 1.75rem),
+      0 65%,
+      0.3125rem calc(65% - 0.3125rem),
+      0.3125rem calc(39% + 0.625rem),
+      0 calc(39% + 0.3125rem),
+      0 13%,
+      0.5rem calc(13% - 0.5rem),
+      0.5rem 0.75rem,
+      0 0.25rem
+    );
+  }
+}

@@ -1,0 +1,26 @@
+@mixin cut-surface($shape: var(--shape-control)) {
+  --cut-shape: #{$shape};
+  --cut-line: var(--line-bright);
+  --cut-surface: var(--surface);
+  position: relative;
+  isolation: isolate;
+  border: 0.0625rem solid transparent;
+  border-radius: 0;
+  background: var(--cut-line);
+  clip-path: var(--cut-shape);
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: var(--cut-surface);
+    clip-path: var(--cut-shape);
+  }
+  &:focus-visible {
+    --cut-line: var(--accent);
+    outline: none;
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+  }
+}

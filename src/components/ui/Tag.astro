@@ -1,0 +1,32 @@
+---
+interface Props {
+  small?: boolean;
+}
+
+const { small = false } = Astro.props;
+---
+
+<span class:list={['tag', { 'tag--small': small }]}>
+  <slot />
+</span>
+<style lang="scss">
+  @use '../../styles/geometry';
+  .tag {
+    @include geometry.cut-surface(var(--shape-compact));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    --cut-line: var(--line-bright);
+    --cut-surface: var(--surface-tint);
+    padding: 0.3125rem 0.8125rem;
+    color: var(--text);
+    font-size: 0.625rem;
+    line-height: 1;
+    text-transform: uppercase;
+    &--small {
+      font-size: 0.5625rem;
+      padding: 0.25rem 0.625rem;
+    }
+  }
+</style>

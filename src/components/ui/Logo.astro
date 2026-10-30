@@ -1,0 +1,38 @@
+---
+import LogoMark from '../../assets/brand/nahuel-logo.svg';
+
+interface Props {
+  href?: string;
+  label?: string;
+}
+
+const { href = '#inicio', label = 'Nahuel Silva — Inicio' } = Astro.props;
+---
+
+<a data-glitch class="logo" href={href} aria-label={label}>
+  <LogoMark aria-hidden="true" focusable="false" />
+</a>
+<style lang="scss">
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    min-height: 3.75rem;
+    color: var(--brand);
+    flex-shrink: 0;
+    :global(svg) {
+      display: block;
+      width: 1.8125rem;
+      height: 3.75rem;
+    }
+    @media (max-width: 600px) {
+      min-width: 2.625rem;
+      min-height: 3.125rem;
+      :global(svg) {
+        width: 1.510625rem;
+        height: 3.125rem;
+      }
+    }
+  }
+</style>

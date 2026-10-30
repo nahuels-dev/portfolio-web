@@ -1,0 +1,49 @@
+:root {
+  --brand: #8155ff;
+  --black: #101220;
+  --surface: #15182a;
+  --surface-tint: #211a38;
+  --surface-gradient: linear-gradient(135deg, var(--surface-tint), var(--surface));
+  --accent: #fcff55;
+  --accent-hover: #fdff9a;
+  --signal: #a98bff;
+  --signal-hover: #c7b4ff;
+  --cyan: #34dbef;
+  --white: #ffffff;
+  --text: #c8c7d5;
+  --muted: #a6a3ba;
+  --line: #3b315f;
+  --line-bright: #8155ff;
+  --surface-hover: #29203f;
+  --shape-card: polygon(
+    0.75rem 0,
+    calc(100% - 1.125rem) 0,
+    100% 1.125rem,
+    100% calc(100% - 1.125rem),
+    calc(100% - 1.125rem) 100%,
+    0.5625rem 100%,
+    0 calc(100% - 0.5625rem),
+    0 0.75rem
+  );
+  --shape-control: polygon(
+    0.5rem 0,
+    calc(100% - 0.625rem) 0,
+    100% 0.625rem,
+    100% calc(100% - 0.5rem),
+    calc(100% - 0.5rem) 100%,
+    0 100%,
+    0 0.5rem
+  );
+  --shape-compact: polygon(
+    0.3125rem 0,
+    calc(100% - 0.3125rem) 0,
+    100% 0.3125rem,
+    100% calc(100% - 0.3125rem),
+    calc(100% - 0.3125rem) 100%,
+    0 100%,
+    0 0.3125rem
+  );
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Chakra Petch', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}

@@ -1,0 +1,100 @@
+---
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: readonly BreadcrumbItem[];
+  label: string;
+  class?: string;
+}
+
+const { items, label, class: className } = Astro.props;
+---
+
+<nav class:list={['breadcrumbs', className]} aria-label={label}>
+  <ol>
+    {items.map(({ label, href }, index) => (
+      <li>
+        {index > 0 && (
+          <span class="breadcrumbs__separator" aria-hidden="true">
+            /
+          </span>
+        )}
+        {href ? (
+          <a data-glitch href={href}>
+            {label}
+          </a>
+        ) : (
+          <span aria-current={index === items.length - 1 ? 'page' : undefined}>{label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style lang="scss">
+  .breadcrumbs {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0.25rem 0 1.5rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    ol {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 0.625rem;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      min-width: 0;
+      max-width: 100%;
+    }
+    &__separator {
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+    a,
+    [aria-current='page'] {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      min-width: 0;
+      padding: 0.375rem 0;
+      text-decoration: none;
+    }
+    a {
+      color: var(--signal);
+      white-space: nowrap;
+      transition: color 0.18s;
+      &:hover {
+        color: var(--signal-hover);
+      }
+      &:focus-visible {
+        outline: 1px solid var(--accent);
+        outline-offset: 3px;
+      }
+    }
+    [aria-current='page'] {
+      color: var(--accent);
+      font-weight: 500;
+      overflow-wrap: anywhere;
+    }
+    @media (max-width: 760px) {
+      font-size: 0.75rem;
+      ol {
+        column-gap: 0.5rem;
+      }
+      li {
+        gap: 0.5rem;
+      }
+    }
+  }
+</style>

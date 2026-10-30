@@ -1,0 +1,59 @@
+html {
+  scrollbar-gutter: stable;
+}
+
+@media (hover: hover) and (pointer: fine) and (forced-colors: none) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--brand) var(--black);
+  }
+
+  @supports selector(::-webkit-scrollbar) {
+    * {
+      scrollbar-width: auto;
+      scrollbar-color: auto;
+    }
+
+    ::-webkit-scrollbar {
+      width: 14px;
+      height: 14px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--black);
+      border: 1px solid var(--line);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      --scrollbar-thumb: var(--brand);
+      min-height: 48px;
+      min-width: 48px;
+      border: 3px solid transparent;
+      border-radius: 0;
+      background: linear-gradient(
+        135deg,
+        transparent 3px,
+        var(--scrollbar-thumb) 3px,
+        var(--scrollbar-thumb) calc(100% - 3px),
+        transparent calc(100% - 3px)
+      );
+      background-clip: padding-box;
+
+      &:hover {
+        --scrollbar-thumb: var(--signal);
+      }
+
+      &:active {
+        --scrollbar-thumb: var(--accent);
+      }
+    }
+
+    ::-webkit-scrollbar-button {
+      display: none;
+    }
+
+    ::-webkit-scrollbar-corner {
+      background: var(--black);
+    }
+  }
+}

@@ -1,0 +1,70 @@
+.net-recovery {
+  position: fixed;
+  inset: 0;
+  z-index: 170;
+  overflow: hidden;
+  contain: strict;
+  pointer-events: none;
+  &--section,
+  &--fixed {
+    position: absolute;
+    inset: auto;
+    z-index: 36;
+  }
+  &__echo {
+    position: absolute;
+    inset: 0;
+    contain: strict;
+    overflow: hidden;
+    mix-blend-mode: screen;
+    will-change: transform, opacity;
+    --brand: var(--recovery-color);
+    --signal: var(--recovery-color);
+    --accent: var(--recovery-color);
+    --white: var(--recovery-color);
+    --text: var(--recovery-color);
+    --muted: var(--recovery-color);
+    --line-bright: var(--recovery-color);
+  }
+}
+.page-shell[data-net-recovery] {
+  transform: translate3d(var(--signal-x, 0rem), var(--signal-y, 0rem), 0);
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .net-recovery {
+    display: none;
+  }
+  .page-shell[data-net-recovery] {
+    transform: none;
+  }
+}
+
+[data-reveal-state='pending'] {
+  opacity: 0;
+  pointer-events: none;
+}
+[data-reveal-state='revealing'] {
+  will-change: clip-path;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal-state='pending'],
+  [data-reveal-state='revealing'] {
+    opacity: 1;
+    pointer-events: auto;
+    clip-path: none !important;
+  }
+}
+.reveal-tiles {
+  position: absolute;
+  z-index: 37;
+  display: block;
+  overflow: hidden;
+  contain: strict;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-tiles {
+    display: none;
+  }
+}

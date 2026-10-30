@@ -1,0 +1,83 @@
+---
+import TechFrame from './TechFrame.astro';
+
+interface Props {
+  id?: string;
+  title: string;
+  note?: string;
+  class?: string;
+}
+
+const { id, title, note, class: className } = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={['panel', className]}
+  aria-labelledby={id ? `${id}-heading` : undefined}
+  data-reveal
+>
+  <TechFrame />
+  <header class="panel__header">
+    <h2 class="panel__title" id={id ? `${id}-heading` : undefined}>
+      <span class="status-dot" />
+      {title}
+    </h2>
+    {note && <p class="panel__note">{note}</p>}
+    <slot name="action" />
+  </header>
+  <slot />
+</section>
+<style lang="scss">
+  .panel {
+    position: relative;
+    padding: 0.8125rem 0.9375rem 0.9375rem;
+    margin-top: 0.9375rem;
+    isolation: isolate;
+    border: 0.0625rem solid transparent;
+    &__header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: space-between;
+      margin-bottom: 0.8125rem;
+      min-height: 1.125rem;
+    }
+    &__title {
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.075em;
+      display: flex;
+      align-items: center;
+      gap: 0.6875rem;
+      margin: 0;
+    }
+    &__note {
+      font-family: var(--font-mono);
+      font-size: 0.5625rem;
+      color: var(--muted);
+      margin: 0;
+      text-align: right;
+      letter-spacing: 0.02em;
+    }
+    @media (max-width: 600px) {
+      padding: 0.75rem 0.6875rem;
+      margin-top: 0.75rem;
+      &__title {
+        font-size: 0.6875rem;
+        gap: 0.5rem;
+        letter-spacing: 0.025em;
+      }
+      &__note {
+        font-size: 0.4375rem;
+        max-width: 8.4375rem;
+      }
+      &__header {
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+      }
+    }
+  }
+</style>

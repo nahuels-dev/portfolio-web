@@ -1,0 +1,86 @@
+---
+import {
+  IconArrowUpRight,
+  IconArrowUp,
+  IconArrowLeft,
+  IconArrowRight,
+  IconMail,
+  IconMenu2,
+  IconX,
+  IconWorld,
+  IconShoppingCart,
+  IconLayoutGrid,
+  IconStack2,
+  IconPencil,
+  IconSparkles,
+  IconSearch,
+  IconCode,
+  IconRocket,
+  IconChartBar,
+  IconCopy,
+  IconCheck,
+  IconDownload,
+  IconBrandGithub,
+  IconBrandLinkedin,
+  IconBrandCodepen,
+  IconCube,
+  IconInfinity,
+  IconWaveSine,
+  IconHome,
+  IconUser,
+  IconDeviceMobile,
+} from '@tabler/icons-astro';
+
+interface Props {
+  name?: string;
+  size?: number;
+  class?: string;
+  label?: string;
+}
+
+const { name = 'arrow', size = 24, class: className, label } = Astro.props;
+
+const icons = {
+  arrow: IconArrowUpRight,
+  left: IconArrowLeft,
+  right: IconArrowRight,
+  mail: IconMail,
+  menu: IconMenu2,
+  close: IconX,
+  globe: IconWorld,
+  cart: IconShoppingCart,
+  grid: IconLayoutGrid,
+  layers: IconStack2,
+  pen: IconPencil,
+  spark: IconSparkles,
+  search: IconSearch,
+  code: IconCode,
+  rocket: IconRocket,
+  bars: IconChartBar,
+  copy: IconCopy,
+  check: IconCheck,
+  download: IconDownload,
+  github: IconBrandGithub,
+  linkedin: IconBrandLinkedin,
+  codepen: IconBrandCodepen,
+  cube: IconCube,
+  up: IconArrowUp,
+  infinity: IconInfinity,
+  waves: IconWaveSine,
+  home: IconHome,
+  user: IconUser,
+  phone: IconDeviceMobile,
+};
+
+const Glyph = icons[name as keyof typeof icons] ?? IconArrowUpRight;
+---
+
+<Glyph
+  size={`${size / 16}rem`}
+  stroke={1.75}
+  class={className}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  focusable="false"
+/>
