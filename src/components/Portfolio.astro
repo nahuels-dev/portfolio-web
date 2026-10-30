@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from './sections/Hero.astro';
+import Projects from './sections/Projects.astro';
+import About from './sections/About.astro';
+import Services from './sections/Services.astro';
+import TechStack from './sections/TechStack.astro';
+import Process from './sections/Process.astro';
+import Principles from './sections/Principles.astro';
+import FAQ from './sections/FAQ.astro';
+import Contact from './sections/Contact.astro';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+---
+
+<BaseLayout lang={lang}>
+  <Hero lang={lang} />
+  <Projects lang={lang} />
+  <About lang={lang} />
+  <Services lang={lang} />
+  <TechStack lang={lang} />
+  <Process lang={lang} />
+  <Principles lang={lang} />
+  <FAQ lang={lang} />
+  <Contact lang={lang} />
+</BaseLayout>

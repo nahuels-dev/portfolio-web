@@ -1,0 +1,141 @@
+---
+import '../styles/global.scss';
+import SeoHead from '../components/seo/SeoHead.astro';
+import Header from '../components/Header.astro';
+import FloatingNav from '../components/FloatingNav.astro';
+import Footer from '../components/Footer.astro';
+import BootScreen from '../components/loading/BootScreen.astro';
+import { BOOT_TIMING } from '../scripts/loading/boot-timing';
+import { getUI, type Locale } from '../i18n/ui';
+import { createStructuredData } from '../data/seo';
+import { getImage } from 'astro:assets';
+import { heroPortrait } from '../data/portrait-image';
+import { serviceHeroImage } from '../data/service-image';
+import type { NavigationItem } from '../data/navigation';
+
+interface Props {
+  lang: Locale;
+  intro?: boolean;
+  page?: {
+    title: string;
+    description: string;
+    path: string;
+    alternatePath: string;
+    schema: object;
+    navigation: NavigationItem[];
+    heroArtwork?: string;
+  };
+}
+
+const { lang, page, intro = true } = Astro.props;
+
+const t = getUI(lang);
+
+const title = page?.title ?? t.title;
+
+const description = page?.description ?? t.description;
+
+const homePath = lang === 'es' ? '/' : '/en/';
+
+const currentPath = page?.path ?? homePath;
+
+const alternatePath = page?.alternatePath ?? (lang === 'es' ? '/en/' : '/');
+
+const schema = page?.schema ?? createStructuredData(Astro.site!, lang);
+
+const preloadOptions = page?.heroArtwork
+  ? serviceHeroImage(page.heroArtwork)
+  : intro
+    ? { ...heroPortrait, format: 'avif' as const }
+    : undefined;
+
+const heroPreload = preloadOptions ? await getImage(preloadOptions) : undefined;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {heroPreload && (
+      <link
+        rel="preload"
+        as="image"
+        type="image/avif"
+        href={heroPreload.src}
+        imagesrcset={heroPreload.srcSet.attribute}
+        imagesizes={preloadOptions?.sizes}
+        fetchpriority="high"
+      />
+    )}
+    {intro && <script is:inline define:vars={{ bootDeadline: BOOT_TIMING.deadline }}>
+      (() => {
+        try {
+          const skip = new URLSearchParams(location.search).get('intro') === '0';
+          const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (!skip && !reduced && !navigator.connection?.saveData) {
+            window.__bootStartedAt = performance.now();
+            document.documentElement.dataset.boot = 'pending';
+            window.__bootDeadline = setTimeout(() => {
+              window.dispatchEvent(new Event('portfolio:boot-timeout'));
+              delete document.documentElement.dataset.boot;
+              const screen = document.querySelector('[data-loading-screen]');
+              if (screen) screen.hidden = true;
+              document
+                .querySelectorAll('.page-shell,.skip-link')
+                .forEach((el) => (el.inert = false));
+            }, bootDeadline);
+          }
+        } catch {}
+      })();
+    </script>}
+    <link rel="preload" href="/fonts/orbitron-bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      href="/fonts/chakra-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="preload" href="/fonts/chakra-bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/space-mono.woff2" as="font" type="font/woff2" crossorigin />
+    <SeoHead
+      lang={lang}
+      title={title}
+      description={description}
+      path={currentPath}
+      alternatePath={alternatePath}
+      schema={schema}
+    />
+    <noscript>
+      <style>
+        .header__toggle,
+        .contact__copy-email {
+          display: none !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    {intro && <BootScreen lang={lang} />}
+    <a class="skip-link" href="#main">
+      {t.skip}
+    </a>
+    <div class="page-shell">
+      <Header
+        lang={lang}
+        navigation={page?.navigation}
+        languageHref={alternatePath}
+        homeHref={page ? homePath : undefined}
+      />
+      <FloatingNav lang={lang} navigation={page?.navigation} />
+      <main id="main" tabindex="-1">
+        <slot />
+      </main>
+      <Footer lang={lang} navigation={page?.navigation} homeHref={page ? homePath : undefined} />
+    </div>
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>
