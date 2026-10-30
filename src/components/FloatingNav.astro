@@ -1,0 +1,68 @@
+---
+import Icon from './ui/Icon.astro';
+import Button from './ui/Button.astro';
+import { getUI, type Locale } from '../i18n/ui';
+import { homeNavigation, type NavigationItem } from '../data/navigation';
+
+interface Props {
+  lang: Locale;
+  navigation?: NavigationItem[];
+}
+
+const { lang, navigation = homeNavigation(lang) } = Astro.props;
+
+const t = getUI(lang);
+---
+
+<div
+  class="floating-nav"
+  style={`--floating-nav-items: ${navigation.length}`}
+  data-floating-nav
+  hidden
+>
+  <nav
+    class="floating-nav__panel"
+    id="floating-navigation"
+    data-floating-panel
+    data-lenis-prevent
+    aria-label={t.quickNav}
+  >
+    {navigation.map(({ label, id }, index) => (
+      <a
+        class:list={['floating-nav__link', { 'is-active': index === 0 }]}
+        href={`#${id}`}
+        data-floating-link
+        title={label}
+      >
+        <span class="navigation-menu__index">0{index + 1}</span>
+        <span class="floating-nav__label navigation-menu__label">{label}</span>
+        <Icon size={20} class="navigation-menu__arrow" />
+      </a>
+    ))}
+    <p class="navigation-menu__caption">NAHUEL SILVA / {t.eyebrow.toUpperCase()}</p>
+  </nav>
+  <Button
+    as="button"
+    variant="icon"
+    icon={false}
+    glitch={false}
+    class="floating-nav__toggle"
+    data-floating-toggle
+    aria-controls="floating-navigation"
+    aria-expanded="false"
+    aria-label={`${t.menu} — ${t.quickNav}`}
+    data-label-open={`${t.menu} — ${t.quickNav}`}
+    data-label-close={`${t.close} — ${t.quickNav}`}
+  >
+    <span class="floating-nav__open-icon">
+      <Icon name="menu" size={23} />
+    </span>
+    <span class="floating-nav__close-icon">
+      <Icon name="close" size={23} />
+    </span>
+  </Button>
+</div>
+
+<style lang="scss">
+  @use '../styles/floating-nav';
+</style>

@@ -1,0 +1,152 @@
+@use './geometry';
+.footer {
+  margin-top: 1.875rem;
+  border-top: 0.0625rem solid var(--line);
+  padding-top: 1.25rem;
+  &__main {
+    @include geometry.cut-surface(var(--shape-card));
+    min-height: 5.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 0.75rem 1.5rem;
+  }
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 1.0625rem;
+    strong,
+    span {
+      display: block;
+      font: 0.5625rem/1.5 var(--font-mono);
+    }
+    span {
+      font-size: 0.5rem;
+      color: var(--muted);
+    }
+  }
+  &__nav {
+    display: flex;
+    gap: 1.5rem;
+    a {
+      text-decoration: none;
+      font-size: 0.5625rem;
+      text-transform: uppercase;
+      color: var(--text);
+      &:hover {
+        color: var(--white);
+      }
+    }
+  }
+  &__socials {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    a {
+      color: var(--white);
+      display: flex;
+      &:hover {
+        color: var(--white);
+      }
+    }
+  }
+  &__note {
+    position: relative;
+    padding-left: 1.5rem;
+    border-left: 0.0625rem solid var(--line);
+    font: 0.5rem/1.5 var(--font-mono);
+    color: var(--muted);
+    span {
+      display: block;
+    }
+    i {
+      display: block;
+      width: 1.375rem;
+      height: 0.125rem;
+      background: var(--signal);
+      margin-top: 0.4375rem;
+      margin-left: auto;
+    }
+  }
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0.25rem 0.3125rem;
+    font: 0.5rem var(--font-mono);
+    color: var(--muted);
+    gap: 0.9375rem;
+    a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+  }
+  @media (max-width: 1100px) {
+    &__main {
+      flex-wrap: wrap;
+      gap: 0.9375rem;
+    }
+    &__note {
+      display: none;
+    }
+    &__nav {
+      gap: 1.25rem;
+    }
+  }
+  @media (max-width: 700px) {
+    margin-top: 1.375rem;
+    padding-top: 0.9375rem;
+    &__main {
+      padding: 0.75rem 0.9375rem;
+      gap: 0.75rem;
+    }
+    &__brand {
+      gap: 0.75rem;
+      strong {
+        font-size: 0.5rem;
+      }
+      span {
+        font-size: 0.4375rem;
+      }
+    }
+    &__socials {
+      gap: 0.9375rem;
+      margin-left: auto;
+      svg {
+        width: 1rem;
+      }
+    }
+    &__nav {
+      order: 3;
+      width: 100%;
+      border-top: 0.0625rem solid var(--line);
+      padding-top: 0.875rem;
+      justify-content: space-between;
+      gap: 0.5rem;
+      a {
+        font-size: 0.5rem;
+      }
+    }
+    &__bottom {
+      font-size: 0.4375rem;
+      line-height: 1.6;
+      & > span:last-child {
+        display: none;
+      }
+      a {
+        white-space: nowrap;
+      }
+    }
+  }
+  @media (max-width: 360px) {
+    &__brand div {
+      max-width: 6.25rem;
+    }
+    &__socials {
+      gap: 0.75rem;
+    }
+  }
+}

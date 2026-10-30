@@ -1,0 +1,90 @@
+---
+import Logo from './ui/Logo.astro';
+import Icon from './ui/Icon.astro';
+import { profile } from '../data/site';
+import { getUI, type Locale } from '../i18n/ui';
+import { homeNavigation, type NavigationItem } from '../data/navigation';
+
+interface Props {
+  lang: Locale;
+  navigation?: NavigationItem[];
+  homeHref?: string;
+}
+
+const { lang, navigation = homeNavigation(lang), homeHref = '#inicio' } = Astro.props;
+
+const t = getUI(lang);
+---
+
+<footer class="footer">
+  <div class="footer__main">
+    <div class="footer__brand">
+      <Logo href={homeHref} label={t.back} />
+      <div>
+        <strong>NAHUEL SILVA</strong>
+        <span>{t.footerRole}</span>
+      </div>
+    </div>
+    <nav
+      class="footer__nav"
+      aria-label={lang === 'es' ? 'Navegación del pie' : 'Footer navigation'}
+    >
+      {navigation.map(({ label, id }) => (
+        <a data-glitch href={`#${id}`}>
+          {label}
+        </a>
+      ))}
+    </nav>
+    <div class="footer__socials">
+      <a
+        data-glitch
+        href={profile.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+      >
+        <Icon name="github" size={19} />
+      </a>
+      <a
+        data-glitch
+        href={profile.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+      >
+        <Icon name="linkedin" size={19} />
+      </a>
+      <a
+        data-glitch
+        href={profile.codepen}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="CodePen"
+      >
+        <Icon name="codepen" size={19} />
+      </a>
+      <a data-glitch href={`mailto:${profile.email}`} aria-label={t.email}>
+        <Icon name="mail" size={19} />
+      </a>
+    </div>
+    <div class="footer__note">
+      {t.footerNote.map((line) => (
+        <span>{line}</span>
+      ))}
+      <i />
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>
+      © {new Date().getFullYear()} — {t.rights}
+    </span>
+    <a data-glitch href="#inicio">
+      {t.back}
+      <Icon name="up" size={13} />
+    </a>
+    <span>ASTRO / SCSS / GSAP</span>
+  </div>
+</footer>
+<style lang="scss">
+  @use '../styles/footer';
+</style>

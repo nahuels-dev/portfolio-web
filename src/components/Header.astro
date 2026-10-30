@@ -1,0 +1,81 @@
+---
+import Logo from './ui/Logo.astro';
+import TechFrame from './ui/TechFrame.astro';
+import Icon from './ui/Icon.astro';
+import Button from './ui/Button.astro';
+import { getUI, type Locale } from '../i18n/ui';
+import { homeNavigation, type NavigationItem } from '../data/navigation';
+
+interface Props {
+  lang: Locale;
+  navigation?: NavigationItem[];
+  languageHref?: string;
+  homeHref?: string;
+}
+
+const {
+  lang,
+  navigation = homeNavigation(lang),
+  languageHref = lang === 'es' ? '/en/' : '/',
+  homeHref = '#inicio',
+} = Astro.props;
+
+const t = getUI(lang);
+---
+
+<header class="header" id="top">
+  <TechFrame variant="header" />
+  <Logo href={homeHref} label={`Nahuel Silva — ${t.nav[0]}`} />
+  <nav class="header__nav" aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}>
+    {navigation.map(({ label, id }, i) => (
+      <a data-glitch class:list={['header__link', { 'is-active': i === 0 }]} href={`#${id}`}>
+        {label}
+      </a>
+    ))}
+  </nav>
+  <Button href="#contacto" class="header__status" contact>
+    {t.available}
+  </Button>
+  <a
+    data-glitch
+    class="header__language"
+    href={languageHref}
+    lang={lang === 'es' ? 'en' : 'es'}
+    aria-label={`${lang === 'es' ? 'EN' : 'ES'} — ${t.language}`}
+  >
+    {lang === 'es' ? 'EN' : 'ES'}
+    <Icon size={10} />
+  </a>
+  <Button
+    as="button"
+    variant="icon"
+    icon={false}
+    class="header__toggle"
+    aria-label={t.menu}
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+    data-menu-toggle
+    data-label-open={t.menu}
+    data-label-close={t.close}
+  >
+    <span class="header__toggle-open">
+      <Icon name="menu" />
+    </span>
+    <span class="header__toggle-close">
+      <Icon name="close" />
+    </span>
+  </Button>
+</header>
+<nav class="mobile-menu" id="mobile-menu" aria-label={lang === 'es' ? 'Menú' : 'Menu'} hidden>
+  {navigation.map(({ label, id }, i) => (
+    <a data-glitch data-menu-link href={`#${id}`}>
+      <span class="navigation-menu__index">0{i + 1}</span>
+      <span class="navigation-menu__label">{label}</span>
+      <Icon size={20} class="navigation-menu__arrow" />
+    </a>
+  ))}
+  <p class="navigation-menu__caption">NAHUEL SILVA / {t.eyebrow.toUpperCase()}</p>
+</nav>
+<style lang="scss">
+  @use '../styles/header';
+</style>
