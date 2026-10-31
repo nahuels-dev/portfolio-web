@@ -1,0 +1,32 @@
+---
+import { Picture } from 'astro:assets';
+import { getMediaImage } from '../../data/media';
+
+interface Props {
+  src: string;
+  alt: string;
+  widths: number[];
+  sizes: string;
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+
+const { src, alt, widths, sizes, loading = 'lazy', fetchpriority = 'auto' } = Astro.props;
+const image = getMediaImage(src);
+const width = Math.min(Math.max(...widths), image.width);
+const responsiveWidths = [...widths.filter((candidate) => candidate < width), width];
+---
+
+<Picture
+  src={image}
+  alt={alt}
+  width={width}
+  widths={responsiveWidths}
+  sizes={sizes}
+  formats={['avif', 'webp']}
+  fallbackFormat="webp"
+  quality={80}
+  loading={loading}
+  fetchpriority={fetchpriority}
+  decoding="async"
+/>

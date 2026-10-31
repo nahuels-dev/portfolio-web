@@ -155,5 +155,11 @@
       ],
       "cta": "Show me a screen that is causing problems, or tell me your idea. I’ll help you work out where to start."
     }
-  }
+  },
+  "image": "/media/service-portrait-ui-ux.png",
+  "imageAlt": {
+    "es": "Nahuel Silva desarrollando prototipos UI/UX con una MacBook en su espacio de trabajo.",
+    "en": "Nahuel Silva developing UI/UX prototypes on a MacBook in his workspace."
+  },
+  "cardImage": "/media/service-card-ui-ux.png"
 }

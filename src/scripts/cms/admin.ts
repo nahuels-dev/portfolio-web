@@ -1,20 +1,7 @@
 import { parse } from 'yaml';
 
-interface ContentData {
-  get(key: string): unknown;
-  set(key: string, value: string): ContentData;
-}
-
-interface SaveEvent {
-  entry: { get(key: string): unknown };
-}
-
 interface Cms {
   init(options: { config: Record<string, unknown> }): void;
-  registerEventListener(options: {
-    name: string;
-    handler(event: SaveEvent): ContentData | undefined;
-  }): void;
 }
 
 const cmsWindow = window as Window & { CMS_MANUAL_INIT?: boolean; CMS?: Cms };
@@ -49,18 +36,6 @@ async function start() {
   });
   const cms = cmsWindow.CMS;
   if (!cms) throw new Error('No se pudo iniciar el editor.');
-  cms.registerEventListener({
-    name: 'preSave',
-    handler: ({ entry }) => {
-      if (entry.get('collection') !== 'projects') return;
-      const data = entry.get('data') as ContentData;
-      const image = data.get('image');
-      const srcset = data.get('imageSrcSet');
-      if (typeof srcset !== 'string' || !srcset) return data;
-      const sources = srcset.split(',').map((source) => source.trim().split(/\s+/)[0]);
-      return sources.includes(String(image)) ? data : data.set('imageSrcSet', '');
-    },
-  });
   cms.init({ config });
   if (status) status.hidden = true;
 }

@@ -1,9 +1,7 @@
-import portrait from '../assets/nahuel-human-standing.png';
-import about from '../assets/nahuel-human-about-reference.png';
-import cyberpunk from '../assets/nahuel-standing-chrome.png';
+import { getMediaImage, media } from './media';
 
 export const heroPortrait = {
-  src: portrait,
+  src: getMediaImage(media.hero),
   widths: [320, 480, 512, 640, 768, 1100, 1254],
   sizes: '(max-width: 760px) 70vw, 51vw',
   quality: 50,
@@ -11,10 +9,10 @@ export const heroPortrait = {
 
 export const aboutPortrait = {
   ...heroPortrait,
-  src: about,
+  src: getMediaImage(media.about),
 };
 
 export const cyberPortrait = {
   ...heroPortrait,
-  src: cyberpunk,
+  src: getMediaImage(media.heroReveal),
 };

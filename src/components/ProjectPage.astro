@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getImage } from 'astro:assets';
+import { getMediaImage } from '../data/media';
 import ProjectHero from './projects/ProjectHero.astro';
 import ProjectContext from './projects/ProjectContext.astro';
 import ProjectFeatures from './projects/ProjectFeatures.astro';
@@ -19,6 +21,13 @@ interface Props {
 
 const { project, lang } = Astro.props;
 const home = lang === 'es' ? '/' : '/en/';
+const image = getMediaImage(project.image);
+const socialImage = await getImage({
+  src: image,
+  width: Math.min(1440, image.width),
+  format: 'webp',
+  quality: 80,
+});
 ---
 
 <BaseLayout
@@ -29,8 +38,8 @@ const home = lang === 'es' ? '/' : '/en/';
     description: project.description[lang],
     path: projectPath(project, lang),
     alternatePath: projectPath(project, lang === 'es' ? 'en' : 'es'),
-    schema: createProjectStructuredData(Astro.site!, lang, project),
-    image: project.image,
+    schema: createProjectStructuredData(Astro.site!, lang, project, socialImage.src),
+    image: socialImage.src,
     imageAlt: `${project.name} — ${project.category[lang]}`,
     navigation: projectNavigation(lang),
   }}

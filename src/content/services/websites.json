@@ -155,5 +155,11 @@
       ],
       "cta": "Tell me what your business does and what you need from the website. I’ll explain how I would approach it and what else I need to prepare a quote."
     }
-  }
+  },
+  "image": "/media/service-portrait-websites.png",
+  "imageAlt": {
+    "es": "Nahuel Silva desarrollando páginas web con una MacBook en su espacio de trabajo.",
+    "en": "Nahuel Silva developing websites on a MacBook in his workspace."
+  },
+  "cardImage": "/media/service-card-websites.png"
 }

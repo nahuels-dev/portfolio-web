@@ -82,7 +82,12 @@ export function createStructuredData(site: URL, lang: Locale) {
   };
 }
 
-export function createProjectStructuredData(site: URL, lang: Locale, project: Project) {
+export function createProjectStructuredData(
+  site: URL,
+  lang: Locale,
+  project: Project,
+  image: string,
+) {
   const url = new URL(projectPath(project, lang), site).href;
   const home = new URL(lang === 'es' ? '/' : '/en/', site).href;
   const personId = `${new URL('/', site).href}#person`;
@@ -104,7 +109,7 @@ export function createProjectStructuredData(site: URL, lang: Locale, project: Pr
         isPartOf: { '@id': `${new URL('/', site).href}#website` },
         primaryImageOfPage: {
           '@type': 'ImageObject',
-          url: new URL(project.image, site).href,
+          url: new URL(image, site).href,
         },
       },
       {
@@ -114,7 +119,7 @@ export function createProjectStructuredData(site: URL, lang: Locale, project: Pr
         description: project.description[lang],
         url,
         inLanguage: lang,
-        image: new URL(project.image, site).href,
+        image: new URL(image, site).href,
         author: { '@id': personId },
         keywords: project.tech.join(', '),
         ...(project.repository ? { codeRepository: project.repository } : {}),

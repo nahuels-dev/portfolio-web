@@ -155,5 +155,11 @@
       ],
       "cta": "Tell me what you sell and how you handle orders today. That gives me a starting point for helping with your store."
     }
-  }
+  },
+  "image": "/media/service-portrait-ecommerce.png",
+  "imageAlt": {
+    "es": "Nahuel Silva desarrollando tiendas online con una MacBook en su espacio de trabajo.",
+    "en": "Nahuel Silva developing online stores on a MacBook in his workspace."
+  },
+  "cardImage": "/media/service-card-ecommerce.png"
 }

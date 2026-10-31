@@ -3,6 +3,7 @@ import { z } from 'zod';
 const text = z.string().trim().min(1);
 const slug = text.regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
 const asset = text.regex(/^\/(?!\/)[^\s?#]+$/);
+const mediaAsset = text.regex(/^\/media\/[^\s?#]+\.(?:avif|gif|jpe?g|png|svg|tiff|webp)$/i);
 const url = z.url({ protocol: /^https?$/ });
 const optionalUrl = z.union([url, z.literal('')]).optional();
 const localized = <T extends z.ZodType>(schema: T) => z.object({ es: schema, en: schema });
@@ -23,15 +24,14 @@ export const projectSchema = z.object({
   category: localized(text),
   description: localized(text),
   tech: z.array(text).min(1),
-  image: asset,
-  imageSrcSet: z.string().optional(),
+  image: mediaAsset,
   href: optionalUrl,
   repository: optionalUrl,
   label: text,
   role: localized(text),
   copy: localized(projectCopy),
   gallery: z
-    .array(z.object({ src: asset, alt: localized(text), caption: localized(text) }))
+    .array(z.object({ src: mediaAsset, alt: localized(text), caption: localized(text) }))
     .optional(),
 });
 
@@ -68,6 +68,9 @@ export const serviceSchema = z.object({
   icon: text,
   slug: localized(slug),
   related: z.array(z.enum(serviceIds)),
+  image: mediaAsset,
+  imageAlt: localized(text),
+  cardImage: mediaAsset,
   copy: localized(serviceCopySchema),
 });
 
@@ -104,4 +107,18 @@ export const profileSchema = z.object({
   linkedin: url,
   codepen: url,
   cv: asset,
+});
+
+export const mediaSchema = z.object({
+  hero: mediaAsset,
+  heroAlt: localized(text),
+  heroReveal: mediaAsset,
+  about: mediaAsset,
+  contact: mediaAsset,
+  contactModal: mediaAsset,
+  posters: z.object({
+    questions: mediaAsset,
+    principles: mediaAsset,
+    services: mediaAsset,
+  }),
 });
