@@ -2,7 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TechFrame from '../ui/TechFrame.astro';
 import Breadcrumbs from '../ui/Breadcrumbs.astro';
-import Button from '../ui/Button.astro';
 import Panel from '../ui/Panel.astro';
 import PostCard from './PostCard.astro';
 import Contact from '../sections/Contact.astro';
@@ -45,9 +44,6 @@ const home = lang === 'es' ? '/' : '/en/';
           <p class="project-eyebrow">{t.eyebrow}</p>
           <h1 id="blog-title">{t.title}</h1>
           <p class="project-hero__intro">{t.intro}</p>
-        </div>
-        <div class="project-hero__actions">
-          <Button href={`${blogPath(lang)}rss.xml`}>RSS</Button>
         </div>
       </div>
     </section>

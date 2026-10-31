@@ -19,7 +19,6 @@ export const blogUI = {
     empty: 'Todavía no hay artículos publicados. Pronto habrá nuevas notas por acá.',
     toc: 'En este artículo',
     more: 'Seguir leyendo',
-    feed: 'Suscribirse por RSS',
     breadcrumb: 'Ruta de navegación',
   },
   en: {
@@ -42,7 +41,6 @@ export const blogUI = {
     empty: 'No articles published yet. New notes will be here soon.',
     toc: 'In this article',
     more: 'Keep reading',
-    feed: 'Subscribe via RSS',
     breadcrumb: 'Breadcrumb',
   },
 } as const;

@@ -155,9 +155,6 @@ const related = visiblePosts.filter((entry) => entry.slug !== post.slug).slice(0
     )}
     <nav class="blog-pagination" aria-label="Blog">
       <Button href={blogPath(lang)}>{t.back}</Button>
-      <Button href={`${blogPath(lang)}rss.xml`} variant="text">
-        {t.feed}
-      </Button>
     </nav>
   </article>
   <Contact lang={lang} projectsHref={`${home}#proyectos`} />
