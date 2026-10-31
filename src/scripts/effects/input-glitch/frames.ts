@@ -11,10 +11,12 @@ export function fragmentFrames(
     const progress = phase / 8;
     const noise = packetNoise(seed + row * 73 + phase * 7919);
     const recovery = Math.max(0, (progress - 0.65) / 0.35);
-    const shift = (noise - 0.5) * Math.min(width * 1.4, 12) * (1 - recovery);
+    const shift = (noise - 0.5) * Math.min(width * 1.8, 16) * (1 - recovery);
+    const lift =
+      Math.round((packetNoise(seed + row * 19 + phase * 271) - 0.5) * 4) * (1 - recovery);
     return {
       offset: progress,
-      translate: `${shift}px 0`,
+      translate: `${shift}px ${lift}px`,
       opacity: removed
         ? phase === 8 || noise < progress * 0.7
           ? 0
