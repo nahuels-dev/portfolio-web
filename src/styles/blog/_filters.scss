@@ -50,6 +50,7 @@
     }
     svg {
       position: absolute;
+      z-index: 1;
       top: 50%;
       left: 0.875rem;
       transform: translateY(-50%);
