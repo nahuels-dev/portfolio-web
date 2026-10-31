@@ -1,5 +1,6 @@
 ---
 import Breadcrumbs from '../ui/Breadcrumbs.astro';
+import MediaImage from '../ui/MediaImage.astro';
 import Button from '../ui/Button.astro';
 import Tag from '../ui/Tag.astro';
 import TechFrame from '../ui/TechFrame.astro';
@@ -65,11 +66,12 @@ const home = lang === 'es' ? '/' : '/en/';
       <span>↗</span>
     </div>
     <div class="project-cover__screen">
-      <img
+      <MediaImage
         src={project.image}
         alt={`${t.preview}: ${project.name}`}
-        width="1440"
-        height="900"
+        widths={[480, 720, 1024, 1440]}
+        sizes="(max-width: 760px) calc(100vw - 4rem), 90vw"
+        loading="eager"
         fetchpriority="high"
       />
     </div>

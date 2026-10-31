@@ -10,8 +10,8 @@ backend:
     deleteMedia: 'Remove media: {{path}}'
 locale: es
 publish_mode: simple
-media_folder: public/uploads
-public_folder: /uploads
+media_folder: src/assets/media
+public_folder: /media
 site_url: https://nahuel-s.dev
 display_url: https://nahuel-s.dev
 logo_url: /favicon.svg
@@ -86,10 +86,7 @@ collections:
       - name: image
         label: Imagen principal
         widget: image
-      - name: imageSrcSet
-        widget: hidden
-        required: false
-        default: ''
+        choose_url: false
       - name: href
         label: Sitio web
         widget: string
@@ -158,6 +155,7 @@ collections:
           - name: src
             label: Imagen
             widget: image
+            choose_url: false
           - name: alt
             label: Texto alternativo
             widget: object
@@ -197,6 +195,24 @@ collections:
             widget: hidden
           - name: related
             widget: hidden
+          - name: image
+            label: Foto principal
+            widget: image
+            choose_url: false
+          - name: imageAlt
+            label: Texto alternativo de la foto
+            widget: object
+            fields:
+              - name: es
+                label: Español
+                widget: string
+              - name: en
+                label: English
+                widget: string
+          - name: cardImage
+            label: Imagen de la tarjeta
+            widget: image
+            choose_url: false
           - name: copy
             label: Contenido
             widget: object
@@ -427,6 +443,62 @@ collections:
         label: English
         file: src/content/home/en.json
         fields: *a7
+  - name: media
+    label: Fotos e imágenes
+    format: json
+    editor:
+      preview: false
+    files:
+      - name: site
+        label: Imágenes del sitio
+        file: src/content/settings/media.json
+        fields:
+          - name: hero
+            label: Retrato de portada
+            widget: image
+            choose_url: false
+          - name: heroAlt
+            label: Texto alternativo del retrato
+            widget: object
+            fields:
+              - name: es
+                label: Español
+                widget: string
+              - name: en
+                label: English
+                widget: string
+          - name: heroReveal
+            label: Retrato alternativo de portada
+            widget: image
+            choose_url: false
+          - name: about
+            label: Foto de Sobre mí
+            widget: image
+            choose_url: false
+          - name: contact
+            label: Imagen de contacto
+            widget: image
+            choose_url: false
+          - name: contactModal
+            label: Imagen del formulario de contacto
+            widget: image
+            choose_url: false
+          - name: posters
+            label: Imágenes de las secciones
+            widget: object
+            fields:
+              - name: questions
+                label: Preguntas frecuentes
+                widget: image
+                choose_url: false
+              - name: principles
+                label: Cómo trabajo
+                widget: image
+                choose_url: false
+              - name: services
+                label: Índice de servicios
+                widget: image
+                choose_url: false
   - name: settings
     format: json
     label: Perfil y enlaces
@@ -468,3 +540,6 @@ collections:
             label: Currículum
             widget: file
             hint: Subí el CV en PDF.
+            media_folder: /public/uploads
+            public_folder: /uploads
+            choose_url: false

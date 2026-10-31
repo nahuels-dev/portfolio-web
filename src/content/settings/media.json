@@ -1,0 +1,16 @@
+{
+  "hero": "/media/hero-portrait.png",
+  "heroAlt": {
+    "es": "Retrato natural de Nahuel Silva de pie, con camiseta oscura",
+    "en": "Natural portrait of Nahuel Silva standing, wearing a dark t-shirt"
+  },
+  "heroReveal": "/media/hero-reveal.png",
+  "about": "/media/about-portrait.png",
+  "contact": "/media/contact-city.png",
+  "contactModal": "/media/contact-story.png",
+  "posters": {
+    "questions": "/media/questions-poster.png",
+    "principles": "/media/principles-poster.png",
+    "services": "/media/services-poster.png"
+  }
+}

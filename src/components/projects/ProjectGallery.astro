@@ -1,5 +1,6 @@
 ---
 import Panel from '../ui/Panel.astro';
+import MediaImage from '../ui/MediaImage.astro';
 import type { Project } from '../../data/projects';
 import { projectUI } from '../../i18n/projects';
 import type { Locale } from '../../i18n/ui';
@@ -27,13 +28,12 @@ const gallery = project.gallery?.length
     {gallery.map((image, index) => (
       <figure>
         <div class="project-gallery__image">
-          <img
+          <MediaImage
             src={image.src}
             alt={image.alt[lang]}
-            width="1440"
-            height="900"
+            widths={[480, 720, 1024, 1440]}
+            sizes="(max-width: 760px) calc(100vw - 4rem), 90vw"
             loading="lazy"
-            decoding="async"
           />
         </div>
         <figcaption>

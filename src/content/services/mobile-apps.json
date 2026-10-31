@@ -155,5 +155,11 @@
       ],
       "cta": "Tell me who would use your app and the most important thing they need to do. I’ll help you think through a first version and the platforms it needs."
     }
-  }
+  },
+  "image": "/media/service-portrait-mobile-apps.png",
+  "imageAlt": {
+    "es": "Nahuel Silva desarrollando aplicaciones móviles con una MacBook en su espacio de trabajo.",
+    "en": "Nahuel Silva developing mobile apps on a MacBook in his workspace."
+  },
+  "cardImage": "/media/service-card-mobile-apps.png"
 }

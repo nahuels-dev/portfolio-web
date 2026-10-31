@@ -155,5 +155,11 @@
       ],
       "cta": "Tell me where your project stands, which technologies you use and where you need a hand. I’ll explain how I can contribute and where I would start."
     }
-  }
+  },
+  "image": "/media/service-portrait-frontend.png",
+  "imageAlt": {
+    "es": "Nahuel Silva desarrollando interfaces frontend con una MacBook en su espacio de trabajo.",
+    "en": "Nahuel Silva developing frontend interfaces on a MacBook in his workspace."
+  },
+  "cardImage": "/media/service-card-frontend.png"
 }

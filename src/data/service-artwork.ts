@@ -1,20 +1,6 @@
-import type { ImageMetadata } from 'astro';
-import websites from '../assets/services/websites.png';
-import ecommerce from '../assets/services/ecommerce.png';
-import webApps from '../assets/services/web-apps.png';
-import frontend from '../assets/services/frontend.png';
-import uiUx from '../assets/services/ui-ux.png';
-import creativeCoding from '../assets/services/creative-coding.png';
-import mobileApps from '../assets/services/mobile-apps.png';
-import emails from '../assets/services/emails.png';
+import { services } from './services';
+import { getMediaImage } from './media';
 
-export const serviceArtwork: Record<string, ImageMetadata> = {
-  globe: websites,
-  cart: ecommerce,
-  grid: webApps,
-  layers: frontend,
-  pen: uiUx,
-  spark: creativeCoding,
-  phone: mobileApps,
-  mail: emails,
-};
+export const serviceArtwork = Object.fromEntries(
+  services.map((service) => [service.icon, getMediaImage(service.cardImage)]),
+);
