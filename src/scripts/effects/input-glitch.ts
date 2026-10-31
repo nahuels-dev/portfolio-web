@@ -56,9 +56,19 @@ export function initInputGlitch(input: HTMLInputElement) {
   input.addEventListener(
     'scroll',
     () => {
+      renderer?.reposition();
       if (!composing && previous.value === input.value) previous.scroll = input.scrollLeft;
     },
     { signal, passive: true },
+  );
+  input.addEventListener('keydown', () => renderer?.clear(), { signal });
+  input.addEventListener('pointerdown', () => renderer?.clear(), { signal });
+  input.addEventListener(
+    'select',
+    () => {
+      if (input.selectionStart !== input.selectionEnd) renderer?.clear();
+    },
+    { signal },
   );
   input.addEventListener('blur', () => renderer?.clear(), { signal });
   window.addEventListener('resize', () => renderer?.clear(), { signal, passive: true });

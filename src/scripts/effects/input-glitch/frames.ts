@@ -1,19 +1,33 @@
-export const enterFrames: Keyframe[] = [
-  { offset: 0, opacity: 1, color: 'var(--cyan)', clipPath: 'inset(0)' },
-  { offset: 0.25, opacity: 1, color: 'var(--signal)', clipPath: 'inset(0)' },
-  { offset: 0.4, opacity: 1, color: 'var(--cyan)', clipPath: 'inset(20% 0 40% 0)' },
-  { offset: 0.55, opacity: 0, clipPath: 'inset(0)' },
-  { offset: 0.65, opacity: 1, color: 'var(--signal)', clipPath: 'inset(40% 0 15% 0)' },
-  { offset: 0.85, opacity: 1, color: 'var(--cyan)', clipPath: 'inset(15% 0 50% 0)' },
-  { offset: 1, opacity: 0, clipPath: 'inset(0)' },
-];
+import { packetNoise } from '../corruption-field';
+import { SIGNAL_COLORS, SIGNAL_PALETTE } from '../signal-palette';
 
-export const exitFrames: Keyframe[] = [
-  { offset: 0, opacity: 1, color: 'var(--cyan)', clipPath: 'inset(0)' },
-  { offset: 0.2, opacity: 1, color: 'var(--signal)', clipPath: 'inset(15% 0 10% 0)' },
-  { offset: 0.4, opacity: 1, color: 'var(--cyan)', clipPath: 'inset(45% 0 15% 0)' },
-  { offset: 0.55, opacity: 0, clipPath: 'inset(0)' },
-  { offset: 0.65, opacity: 1, color: 'var(--signal)', clipPath: 'inset(20% 0 55% 0)' },
-  { offset: 0.85, opacity: 1, color: 'var(--cyan)', clipPath: 'inset(50% 0 25% 0)' },
-  { offset: 1, opacity: 0, clipPath: 'inset(50% 0)' },
-];
+export function fragmentFrames(
+  row: number,
+  width: number,
+  seed: number,
+  removed: boolean,
+): Keyframe[] {
+  return Array.from({ length: 9 }, (_, phase) => {
+    const progress = phase / 8;
+    const noise = packetNoise(seed + row * 73 + phase * 7919);
+    const recovery = Math.max(0, (progress - 0.65) / 0.35);
+    const shift = (noise - 0.5) * Math.min(width * 1.4, 12) * (1 - recovery);
+    return {
+      offset: progress,
+      translate: `${shift}px 0`,
+      opacity: removed
+        ? phase === 8 || noise < progress * 0.7
+          ? 0
+          : 1
+        : noise < 0.18 && phase < 6
+          ? 0
+          : 1,
+      color:
+        phase === 8
+          ? 'inherit'
+          : noise > 0.65
+            ? SIGNAL_COLORS.highlight
+            : SIGNAL_PALETTE[(row + phase) % SIGNAL_PALETTE.length],
+    };
+  });
+}

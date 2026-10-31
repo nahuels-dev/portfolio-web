@@ -1,77 +1,54 @@
 import { visibleGlyphs, type ChangedGlyph } from './changes';
-import { enterFrames, exitFrames } from './frames';
+import { animateGlyph } from './fragments';
+import { prepareInputGlitch } from './layout';
 
 export function createInputGlitchRenderer(input: HTMLInputElement) {
-  const context = document.createElement('canvas').getContext('2d');
-  if (!context || !input.parentElement) return;
+  if (!input.parentElement) return;
   const layer = document.createElement('span');
   layer.className = 'input-glitch';
   layer.setAttribute('aria-hidden', 'true');
   input.parentElement.append(layer);
-  const active = new Set<Animation>();
-  let pending: { glyph: ChangedGlyph; scroll: number }[] = [];
+  let active: Animation[] = [];
   let frame = 0;
+  let scroll = 0;
   const clear = () => {
     cancelAnimationFrame(frame);
     frame = 0;
-    pending = [];
     active.forEach((animation) => animation.cancel());
-    active.clear();
+    active = [];
+    input.classList.remove('is-input-glitching');
     layer.replaceChildren();
   };
-  const draw = () => {
-    frame = 0;
-    const style = getComputedStyle(input);
-    context.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
-    layer.style.font = style.font;
-    layer.style.letterSpacing = style.letterSpacing;
-    layer.style.left = `${parseFloat(style.paddingLeft) + parseFloat(style.borderLeftWidth)}px`;
-    layer.style.right = `${parseFloat(style.paddingRight) + parseFloat(style.borderRightWidth)}px`;
-    layer.style.top = style.borderTopWidth;
-    layer.style.bottom = style.borderBottomWidth;
-    const spacing = parseFloat(style.letterSpacing) || 0;
-    const width =
-      input.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
-    for (const { glyph, scroll } of pending.splice(0)) {
-      if (!glyph.text.trim()) continue;
-      const left =
-        context.measureText(glyph.prefix).width +
-        [...glyph.prefix].length * spacing -
-        (glyph.removed ? scroll : input.scrollLeft);
-      const occupied =
-        context.measureText(input.value).width +
-        [...input.value].length * spacing -
-        input.scrollLeft;
-      if (glyph.removed && left < occupied) continue;
-      if (left < -context.measureText(glyph.text).width || left > width) continue;
-      if (active.size >= 100) {
-        const oldest = active.values().next().value;
-        oldest?.cancel();
-        if (oldest) active.delete(oldest);
-      }
-      const character = document.createElement('span');
-      character.className = 'input-glitch__character';
-      character.textContent = glyph.text;
-      character.style.left = `${left}px`;
-      layer.append(character);
-      const animation = character.animate(glyph.removed ? exitFrames : enterFrames, {
-        duration: glyph.removed ? 300 : 280,
-        easing: 'steps(1, end)',
-        fill: 'both',
-      });
-      active.add(animation);
-      const finish = () => {
-        character.remove();
-        active.delete(animation);
-      };
-      void animation.finished.then(finish, finish);
-    }
-  };
   return {
-    play(glyphs: ChangedGlyph[], scroll: number) {
+    play(glyphs: ChangedGlyph[], previousScroll: number) {
       clear();
-      pending = visibleGlyphs(glyphs, input.value).map((glyph) => ({ glyph, scroll }));
-      if (pending.length && !frame) frame = requestAnimationFrame(draw);
+      const visible = visibleGlyphs(glyphs, input.value);
+      if (!visible.length || input.selectionStart !== input.selectionEnd) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        scroll = input.scrollLeft;
+        const layout = prepareInputGlitch(input, layer);
+        const seed = Math.floor(performance.now());
+        for (const [index, glyph] of visible.entries()) {
+          const capture = layout.capture(glyph, previousScroll);
+          if (capture)
+            active.push(...animateGlyph(layer, capture, glyph.removed, seed + index * 131));
+        }
+        if (!active.length) return clear();
+        layout.mask();
+        input.classList.add('is-input-glitching');
+        const current = active;
+        void Promise.allSettled(current.map((animation) => animation.finished)).then(() => {
+          if (active === current) clear();
+        });
+      });
+    },
+    reposition() {
+      const delta = input.scrollLeft - scroll;
+      for (const element of layer.children)
+        if (element instanceof HTMLElement)
+          element.style.left = `${parseFloat(element.style.left) - delta}px`;
+      scroll = input.scrollLeft;
     },
     clear,
     destroy() {
