@@ -9,16 +9,10 @@
   &__character {
     position: absolute;
     top: 50%;
-    color: transparent;
+    color: var(--cyan);
     white-space: pre;
     transform: translateY(-50%);
-    text-shadow:
-      -0.75px 0 var(--cyan),
-      0.75px 0 var(--brand);
     will-change: opacity, clip-path;
-    &--removed {
-      color: var(--white);
-    }
   }
 }
 @media (prefers-reduced-motion: reduce) {
