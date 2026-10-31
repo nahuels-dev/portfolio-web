@@ -126,11 +126,18 @@
   }
   a {
     display: block;
+    margin-left: -1px;
+    border-left: 2px solid transparent;
     padding: 0.625rem 1rem;
     color: var(--muted);
     text-decoration: none;
     font-size: 0.875rem;
     line-height: 1.5;
+  }
+  a[aria-current='location'] {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: var(--surface);
   }
   a:hover {
     color: var(--accent);
