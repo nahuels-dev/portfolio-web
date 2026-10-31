@@ -1,5 +1,5 @@
 {
-  "draft": true,
+  "draft": false,
   "slug": "typescript-7-1-import-attributes",
   "imageAlt": {
     "es": "Ilustración conceptual de archivos que atraviesan una puerta de carga y llegan a salidas distintas.",
