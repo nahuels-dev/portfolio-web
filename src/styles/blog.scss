@@ -1,6 +1,8 @@
 @use 'project-pages';
 @use 'blog/layout';
 @use 'blog/cards';
+@use 'blog/filters';
+@use 'blog/pagination';
 @use 'blog/toc';
 @use 'blog/prose';
 @use 'blog/responsive';
