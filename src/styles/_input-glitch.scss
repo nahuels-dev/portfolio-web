@@ -1,0 +1,24 @@
+.input-glitch {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  overflow: clip;
+  pointer-events: none;
+  user-select: none;
+  white-space: pre;
+  &__character {
+    position: absolute;
+    top: 50%;
+    color: var(--white);
+    white-space: pre;
+    text-shadow:
+      -3px 0 var(--cyan),
+      3px 0 var(--brand);
+    will-change: transform, opacity;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .input-glitch {
+    display: none;
+  }
+}
