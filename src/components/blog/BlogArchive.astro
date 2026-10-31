@@ -1,5 +1,6 @@
 ---
 import PostCard from './PostCard.astro';
+import ColumnControls from './ColumnControls.astro';
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
 import Select from '../ui/Select.astro';
@@ -61,9 +62,12 @@ const topics = [
     </div>
     <div class="blog-filters__summary" data-blog-summary hidden={!posts.length}>
       <p role="status" aria-live="polite" aria-atomic="true" tabindex="-1" data-blog-status></p>
-      <Button as="button" type="reset" variant="text" icon={false} glitch={false} disabled>
-        {t.clear}
-      </Button>
+      <div class="blog-filters__actions">
+        <Button as="button" type="reset" variant="text" icon={false} glitch={false} disabled>
+          {t.clear}
+        </Button>
+        <ColumnControls lang={lang} />
+      </div>
     </div>
   </form>
   <div class="blog-grid" id="blog-results" data-blog-results>
