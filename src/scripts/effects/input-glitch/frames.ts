@@ -16,6 +16,7 @@ export function fragmentFrames(
       Math.round((packetNoise(seed + row * 19 + phase * 271) - 0.5) * 4) * (1 - recovery);
     return {
       offset: progress,
+      easing: 'steps(1, end)',
       translate: `${shift}px ${lift}px`,
       opacity: removed
         ? phase === 8 || noise < progress * 0.7

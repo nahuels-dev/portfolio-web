@@ -35,7 +35,9 @@ export function prepareInputGlitch(input: HTMLInputElement, layer: HTMLElement) 
       if (
         bounds.right <= viewport.left ||
         bounds.left >= viewport.right ||
-        (glyph.removed && bounds.left < text.getBoundingClientRect().right - 0.5)
+        (glyph.removed &&
+          glyph.prefix !== input.value &&
+          bounds.left < text.getBoundingClientRect().right - 0.5)
       )
         return;
       const left = bounds.left - origin.left;

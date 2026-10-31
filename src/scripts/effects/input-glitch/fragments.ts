@@ -19,7 +19,6 @@ export function animateGlyph(
     layer.append(fragment);
     const animation = fragment.animate(fragmentFrames(row, width, seed, removed), {
       duration: GLITCH_EFFECT.duration,
-      easing: 'steps(1, end)',
       fill: 'both',
     });
     animations.push(animation);
