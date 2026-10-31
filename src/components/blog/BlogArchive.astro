@@ -6,6 +6,7 @@ import Select from '../ui/Select.astro';
 import { normalizeSearch } from '../../data/blog/archive';
 import type { Post } from '../../data/blog/posts';
 import { blogUI } from '../../i18n/blog';
+import { blogTag } from '../../i18n/blog-tags';
 import type { Locale } from '../../i18n/ui';
 
 interface Props {
@@ -17,7 +18,7 @@ const { posts, lang } = Astro.props;
 const t = blogUI[lang];
 const topics = [
   ...new Map(
-    posts.flatMap((post) => post.tags).map((tag) => [normalizeSearch(tag), tag]),
+    posts.flatMap((post) => post.tags).map((tag) => [normalizeSearch(tag), blogTag(tag, lang)]),
   ).entries(),
 ].sort((a, b) => a[1].localeCompare(b[1], lang));
 ---

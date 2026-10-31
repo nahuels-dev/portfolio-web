@@ -28,7 +28,10 @@ function initBlogArchive() {
     id,
     title: card.querySelector('h3')?.textContent ?? '',
     description: card.querySelector('.blog-card__description')?.textContent ?? '',
-    tags: [...card.querySelectorAll('.blog-tags .tag')].map((tag) => tag.textContent?.trim() ?? ''),
+    tags: [
+      ...(JSON.parse(card.dataset.blogTags ?? '[]') as string[]),
+      ...[...card.querySelectorAll('.blog-tags .tag')].map((tag) => tag.textContent?.trim() ?? ''),
+    ],
     date: card.querySelector('time')?.dateTime ?? '',
   }));
   const t = blogUI[root.dataset.lang === 'en' ? 'en' : 'es'];

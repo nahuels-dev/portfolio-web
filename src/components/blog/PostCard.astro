@@ -11,6 +11,7 @@ import {
 } from '../../data/blog/posts';
 import { validateBlogImage } from '../../data/blog/images';
 import { blogUI } from '../../i18n/blog';
+import { blogTag } from '../../i18n/blog-tags';
 import type { Locale } from '../../i18n/ui';
 interface Props {
   post: Post;
@@ -22,7 +23,7 @@ const copy = post.copy[lang];
 await validateBlogImage(post.image);
 ---
 
-<article class="blog-card">
+<article class="blog-card" data-blog-tags={JSON.stringify(post.tags)}>
   <a class="blog-card__image" href={postPath(post, lang)} tabindex="-1" aria-hidden="true">
     <MediaImage
       src={post.image}
@@ -41,7 +42,7 @@ await validateBlogImage(post.image);
     </div>
     <div class="blog-tags">
       {post.tags.map((tag) => (
-        <Tag small>{tag}</Tag>
+        <Tag small>{blogTag(tag, lang)}</Tag>
       ))}
     </div>
     <h3>
