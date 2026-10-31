@@ -27,6 +27,10 @@ interface Props {
     heroArtwork?: string;
     image?: string;
     imageAlt?: string;
+    blog?: boolean;
+    noindex?: boolean;
+    published?: string;
+    modified?: string;
   };
 }
 
@@ -111,6 +115,10 @@ const heroPreload = preloadOptions ? await getImage(preloadOptions) : undefined;
       schema={schema}
       image={page?.image}
       imageAlt={page?.imageAlt}
+      blog={page?.blog}
+      noindex={page?.noindex}
+      published={page?.published}
+      modified={page?.modified}
     />
     <noscript>
       <style>

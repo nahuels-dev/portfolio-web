@@ -4,11 +4,14 @@ import { getUI, type Locale } from '../i18n/ui';
 export interface NavigationItem {
   label: string;
   id: string;
+  href?: string;
 }
 
 export const homeNavigation = (lang: Locale): NavigationItem[] => {
   const t = getUI(lang);
-  return t.nav.map((label, index) => ({ label, id: t.ids[index] }));
+  const items: NavigationItem[] = t.nav.map((label, index) => ({ label, id: t.ids[index] }));
+  items.splice(-1, 0, { label: 'Blog', id: 'blog', href: lang === 'es' ? '/blog/' : '/en/blog/' });
+  return items;
 };
 
 export const serviceNavigation = (lang: Locale): NavigationItem[] =>
