@@ -1,0 +1,83 @@
+---
+import PostCard from './PostCard.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import Select from '../ui/Select.astro';
+import { normalizeSearch } from '../../data/blog/archive';
+import type { Post } from '../../data/blog/posts';
+import { blogUI } from '../../i18n/blog';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  posts: Post[];
+  lang: Locale;
+}
+
+const { posts, lang } = Astro.props;
+const t = blogUI[lang];
+const topics = [
+  ...new Map(
+    posts.flatMap((post) => post.tags).map((tag) => [normalizeSearch(tag), tag]),
+  ).entries(),
+].sort((a, b) => a[1].localeCompare(b[1], lang));
+---
+
+<div data-blog-archive data-lang={lang}>
+  <form class="blog-filters" role="search" aria-label={t.search} data-blog-controls hidden>
+    <div class="blog-filters__fields">
+      <label class="blog-filters__search">
+        <span>{t.search}</span>
+        <span class="blog-filters__input">
+          <Icon name="search" size={18} />
+          <input
+            type="search"
+            name="q"
+            placeholder={t.searchPlaceholder}
+            maxlength="100"
+            autocomplete="off"
+            aria-controls="blog-results"
+            disabled
+          />
+        </span>
+      </label>
+      <Select
+        id="blog-topic"
+        name="topic"
+        label={t.topic}
+        options={[
+          { value: '', label: t.allTopics },
+          ...topics.map(([value, label]) => ({ value, label })),
+        ]}
+      />
+      <Select
+        id="blog-order"
+        name="order"
+        label={t.order}
+        options={[
+          { value: 'newest', label: t.newest },
+          { value: 'oldest', label: t.oldest },
+        ]}
+      />
+    </div>
+    <div class="blog-filters__summary" data-blog-summary hidden={!posts.length}>
+      <p role="status" aria-live="polite" aria-atomic="true" tabindex="-1" data-blog-status></p>
+      <Button as="button" type="reset" variant="text" icon={false} glitch={false} disabled>
+        {t.clear}
+      </Button>
+    </div>
+  </form>
+  <div class="blog-grid" id="blog-results" data-blog-results>
+    {posts.map((post) => (
+      <PostCard post={post} lang={lang} />
+    ))}
+  </div>
+  {!posts.length && <p class="blog-empty">{t.empty}</p>}
+  <p class="blog-empty" data-blog-no-results hidden>
+    {t.noResults}
+  </p>
+  <nav class="blog-list-pagination" aria-label={t.pagination} data-blog-pagination hidden></nav>
+</div>
+
+<script>
+  import '../../scripts/blog/archive';
+</script>

@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import TechFrame from '../ui/TechFrame.astro';
 import Breadcrumbs from '../ui/Breadcrumbs.astro';
 import Panel from '../ui/Panel.astro';
-import PostCard from './PostCard.astro';
+import BlogArchive from './BlogArchive.astro';
 import Contact from '../sections/Contact.astro';
 import { blogPath, visiblePosts } from '../../data/blog/posts';
 import { blogStructuredData } from '../../data/blog/seo';
@@ -24,7 +24,7 @@ const home = lang === 'es' ? '/' : '/en/';
   lang={lang}
   intro={false}
   page={{
-    title: `Blog — ${t.title} | Nahuel Silva`,
+    title: `${t.title} | Nahuel Silva`,
     description: t.intro,
     path: blogPath(lang),
     alternatePath: blogPath(lang === 'es' ? 'en' : 'es'),
@@ -49,15 +49,7 @@ const home = lang === 'es' ? '/' : '/en/';
       </div>
     </section>
     <Panel id="articulos" title={t.articles} note="NS / BLOG">
-      {visiblePosts.length ? (
-        <div class="blog-grid">
-          {visiblePosts.map((post) => (
-            <PostCard post={post} lang={lang} />
-          ))}
-        </div>
-      ) : (
-        <p class="blog-empty">{t.empty}</p>
-      )}
+      <BlogArchive posts={visiblePosts} lang={lang} />
     </Panel>
   </div>
   <Contact lang={lang} projectsHref={`${home}#proyectos`} />

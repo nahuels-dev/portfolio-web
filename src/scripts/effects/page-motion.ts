@@ -49,6 +49,10 @@ export function initPageMotion() {
   return {
     pause: () => lenis?.stop(),
     resume: () => lenis?.start(),
+    refresh() {
+      lenis?.resize();
+      ScrollTrigger.refresh();
+    },
     scrollTo(target: HTMLElement, onComplete: () => void) {
       if (!lenis) return false;
       lenis.scrollTo(target, { offset: -18, onComplete });
