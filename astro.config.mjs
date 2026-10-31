@@ -13,13 +13,22 @@ const readEntries = (folder) =>
             readFileSync(new URL(`./src/content/${folder}/${file}`, import.meta.url), 'utf8'),
           ),
         );
+const publishedPosts = readEntries('posts').filter(
+  ({ draft, date }) => draft === false && date <= new Date().toISOString().slice(0, 10),
+);
+const postModifiedDates = new Map(
+  publishedPosts.flatMap(({ slug, date, updated }) =>
+    [`/blog/${slug}/`, `/en/blog/${slug}/`].map((path) => [
+      new URL(path, site).href,
+      updated || date,
+    ]),
+  ),
+);
 const localizedRoutes = [
   ['/', '/en/'],
   ['/servicios/', '/en/services/'],
   ['/blog/', '/en/blog/'],
-  ...readEntries('posts')
-    .filter(({ draft, date }) => draft === false && date <= new Date().toISOString().slice(0, 10))
-    .map(({ slug }) => [`/blog/${slug}/`, `/en/blog/${slug}/`]),
+  ...publishedPosts.map(({ slug }) => [`/blog/${slug}/`, `/en/blog/${slug}/`]),
   ...readEntries('projects').map(({ slug }) => [`/proyectos/${slug}/`, `/en/projects/${slug}/`]),
   ...readEntries('services').map(({ slug }) => [
     `/servicios/${slug.es}/`,
@@ -44,7 +53,11 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) => !/\/(?:404(?:\.html)?\/?$|error\/|(?:admin|media)(?:\/|$))/.test(page),
-      serialize: (item) => ({ ...item, links: alternateLinks.get(item.url) }),
+      serialize: (item) => ({
+        ...item,
+        links: alternateLinks.get(item.url),
+        lastmod: postModifiedDates.get(item.url),
+      }),
     }),
   ],
   i18n: { defaultLocale: 'es', locales: ['es', 'en'], routing: { prefixDefaultLocale: false } },
