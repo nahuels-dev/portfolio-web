@@ -2,6 +2,7 @@
 import PostCard from './PostCard.astro';
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
+import Select from '../ui/Select.astro';
 import { normalizeSearch } from '../../data/blog/archive';
 import type { Post } from '../../data/blog/posts';
 import { blogUI } from '../../i18n/blog';
@@ -39,24 +40,26 @@ const topics = [
           />
         </span>
       </label>
-      <label>
-        <span>{t.topic}</span>
-        <select name="topic" aria-controls="blog-results" disabled>
-          <option value="">{t.allTopics}</option>
-          {topics.map(([value, label]) => (
-            <option value={value}>{label}</option>
-          ))}
-        </select>
-      </label>
-      <label>
-        <span>{t.order}</span>
-        <select name="order" aria-controls="blog-results" disabled>
-          <option value="newest">{t.newest}</option>
-          <option value="oldest">{t.oldest}</option>
-        </select>
-      </label>
+      <Select
+        id="blog-topic"
+        name="topic"
+        label={t.topic}
+        options={[
+          { value: '', label: t.allTopics },
+          ...topics.map(([value, label]) => ({ value, label })),
+        ]}
+      />
+      <Select
+        id="blog-order"
+        name="order"
+        label={t.order}
+        options={[
+          { value: 'newest', label: t.newest },
+          { value: 'oldest', label: t.oldest },
+        ]}
+      />
     </div>
-    <div class="blog-filters__summary" hidden={!posts.length}>
+    <div class="blog-filters__summary" data-blog-summary hidden={!posts.length}>
       <p role="status" aria-live="polite" aria-atomic="true" tabindex="-1" data-blog-status></p>
       <Button as="button" type="reset" variant="text" icon={false} glitch={false} disabled>
         {t.clear}

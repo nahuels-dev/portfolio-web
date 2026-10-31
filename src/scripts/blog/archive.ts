@@ -6,14 +6,17 @@ import {
 } from '../../data/blog/archive';
 import { blogUI } from '../../i18n/blog';
 import { renderPagination } from './pagination';
+import { initCustomSelects, syncCustomSelect } from '../ui/select';
 
 function initBlogArchive() {
   const root = document.querySelector<HTMLElement>('[data-blog-archive]');
   if (!root) return () => {};
   const form = root.querySelector<HTMLFormElement>('[data-blog-controls]')!;
   const search = form.elements.namedItem('q') as HTMLInputElement;
-  const topic = form.elements.namedItem('topic') as HTMLSelectElement;
-  const order = form.elements.namedItem('order') as HTMLSelectElement;
+  const topic = form.elements.namedItem('topic') as HTMLInputElement;
+  const order = form.elements.namedItem('order') as HTMLInputElement;
+  const disposeSelects = initCustomSelects(form);
+  const summary = form.querySelector<HTMLElement>('[data-blog-summary]')!;
   const reset = form.querySelector<HTMLButtonElement>('[type="reset"]')!;
   const results = root.querySelector<HTMLElement>('[data-blog-results]')!;
   const status = form.querySelector<HTMLElement>('[data-blog-status]')!;
@@ -36,8 +39,10 @@ function initBlogArchive() {
   const syncForm = () => {
     search.value = state.query;
     topic.value = state.topic;
+    syncCustomSelect(topic);
     state.topic = topic.value;
     order.value = state.order;
+    syncCustomSelect(order);
   };
   const readForm = () =>
     readArchiveState(
@@ -51,10 +56,9 @@ function initBlogArchive() {
     cards.forEach((card, index) => (card.hidden = !visible.has(index)));
     results.append(...filtered.map((entry) => cards[entry.id]));
     empty.hidden = !entries.length || filtered.length > 0;
-    status.textContent = entries.length
-      ? `${filtered.length} ${filtered.length === 1 ? t.result : t.results}${filtered.length ? ` · ${t.page} ${page} ${t.of} ${pages}` : ''}`
-      : '';
-    reset.disabled = !entries.length || (!state.query && !state.topic && state.order === 'newest');
+    status.textContent = `${filtered.length} ${filtered.length === 1 ? t.result : t.results}${filtered.length ? ` · ${t.page} ${page} ${t.of} ${pages}` : ''}`;
+    reset.disabled = !state.query && !state.topic && state.order === 'newest';
+    summary.hidden = !entries.length && reset.disabled;
     renderPagination(pagination, page, pages, t, (next) => {
       state = { ...readForm(), page: next };
       commit('push');
@@ -114,13 +118,14 @@ function initBlogArchive() {
     },
     { signal },
   );
-  for (const field of [search, topic, order]) field.disabled = !entries.length;
+  for (const field of [search, topic, order]) field.disabled = false;
   form.hidden = false;
   syncForm();
   commit('replace');
 
   return () => {
     abort.abort();
+    disposeSelects();
     clearTimeout(timer);
   };
 }
