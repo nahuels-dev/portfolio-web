@@ -20,6 +20,142 @@ slug:
   clean_accents: true
   sanitize_replacement: '-'
 collections:
+  - name: posts
+    label: Blog
+    label_singular: Artículo
+    folder: src/content/posts
+    format: json
+    extension: json
+    create: true
+    delete: true
+    identifier_field: slug
+    slug: '{{slug}}'
+    summary: '{{copy.es.title}} · {{date}}'
+    preview_path: 'blog/{{slug}}/'
+    sortable_fields: [date, slug]
+    editor:
+      preview: false
+    fields:
+      - name: slug
+        label: Ruta
+        widget: string
+        pattern:
+          - ^[a-z0-9]+(?:-[a-z0-9]+)*$
+          - Usá minúsculas, números y guiones.
+        hint: Ruta única del artículo en ambos idiomas. Cambiarla modifica sus enlaces.
+      - name: draft
+        label: Borrador
+        widget: boolean
+        default: true
+        hint: Los borradores sólo se muestran en la vista local. Si guardás el archivo en el repositorio público, su contenido será visible en GitHub. Para publicar, desactivá Borrador y guardá.
+      - name: date
+        label: Fecha de publicación
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        format: YYYY-MM-DD
+        hint: Las fechas futuras quedan fuera de la web hasta una compilación realizada a partir de ese día.
+      - name: updated
+        label: Última actualización
+        widget: datetime
+        required: false
+        date_format: YYYY-MM-DD
+        time_format: false
+        format: YYYY-MM-DD
+      - name: tags
+        label: Temas
+        widget: list
+        min: 1
+        max: 5
+        field:
+          name: tag
+          label: Tema
+          widget: string
+      - name: image
+        label: Portada
+        widget: image
+        choose_url: false
+        media_library:
+          config:
+            max_file_size: 8388608
+        pattern:
+          - '^[a-zA-Z0-9][a-zA-Z0-9._-]*\.(avif|jpe?g|png|webp)$'
+          - Elegí una imagen JPG, PNG, WebP o AVIF de Media.
+        hint: Máximo 8 MiB, 24 megapíxeles y 8000 px por lado. Sin animación. La compilación verifica el formato real.
+      - name: imageAlt
+        label: Descripción de la portada
+        widget: object
+        fields:
+          - { name: es, label: Español, widget: string }
+          - { name: en, label: English, widget: string }
+      - name: copy
+        label: Contenido
+        widget: object
+        fields:
+          - name: es
+            label: Español
+            widget: object
+            fields:
+              - name: title
+                label: Título
+                widget: string
+                pattern: ['^.{1,120}$', 'Máximo 120 caracteres.']
+              - name: description
+                label: Resumen
+                widget: text
+                pattern: ['^[\s\S]{1,300}$', 'Máximo 300 caracteres.']
+              - name: body
+                label: Artículo
+                widget: markdown
+                buttons:
+                  [
+                    bold,
+                    italic,
+                    code,
+                    link,
+                    heading-two,
+                    heading-three,
+                    quote,
+                    bulleted-list,
+                    numbered-list,
+                  ]
+                editor_components: [image, code-block]
+                media_library:
+                  config:
+                    max_file_size: 8388608
+                hint: Usá imágenes JPG, PNG, WebP o AVIF de Media. El HTML se descarta y el código se muestra sin ejecutarse.
+          - name: en
+            label: English
+            widget: object
+            fields:
+              - name: title
+                label: Título
+                widget: string
+                pattern: ['^.{1,120}$', 'Máximo 120 caracteres.']
+              - name: description
+                label: Resumen
+                widget: text
+                pattern: ['^[\s\S]{1,300}$', 'Máximo 300 caracteres.']
+              - name: body
+                label: Artículo
+                widget: markdown
+                buttons:
+                  [
+                    bold,
+                    italic,
+                    code,
+                    link,
+                    heading-two,
+                    heading-three,
+                    quote,
+                    bulleted-list,
+                    numbered-list,
+                  ]
+                editor_components: [image, code-block]
+                media_library:
+                  config:
+                    max_file_size: 8388608
+                hint: Usá imágenes JPG, PNG, WebP o AVIF de Media. El HTML se descarta y el código se muestra sin ejecutarse.
   - name: projects
     label: Proyectos
     label_singular: Proyecto

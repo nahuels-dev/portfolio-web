@@ -43,6 +43,8 @@ async function start() {
   if (local) {
     config.backend = { name: 'git-gateway', branch: 'develop' };
     config.local_backend = { url: 'http://127.0.0.1:8081/api/v1' };
+    config.site_url = location.origin;
+    config.display_url = location.origin;
   }
   config.load_config_file = false;
   cmsWindow.CMS_MANUAL_INIT = true;
