@@ -7,12 +7,14 @@ import {
 import { blogUI } from '../../i18n/blog';
 import { renderPagination } from './pagination';
 import { initCustomSelects, syncCustomSelect } from '../ui/select';
+import { initInputGlitch } from '../effects/input-glitch';
 
 function initBlogArchive() {
   const root = document.querySelector<HTMLElement>('[data-blog-archive]');
   if (!root) return () => {};
   const form = root.querySelector<HTMLFormElement>('[data-blog-controls]')!;
   const search = form.elements.namedItem('q') as HTMLInputElement;
+  const inputGlitch = initInputGlitch(search);
   const topic = form.elements.namedItem('topic') as HTMLInputElement;
   const order = form.elements.namedItem('order') as HTMLInputElement;
   const disposeSelects = initCustomSelects(form);
@@ -36,8 +38,9 @@ function initBlogArchive() {
   let state = readArchiveState(new URL(location.href).searchParams);
   let timer = 0;
 
-  const syncForm = () => {
+  const syncForm = (animate = false) => {
     search.value = state.query;
+    inputGlitch.sync(animate);
     topic.value = state.topic;
     syncCustomSelect(topic);
     state.topic = topic.value;
@@ -80,14 +83,18 @@ function initBlogArchive() {
     commit(mode);
   };
 
+  const scheduleSearch = () => {
+    clearTimeout(timer);
+    timer = window.setTimeout(() => changeFilters('replace'), 180);
+  };
   search.addEventListener(
     'input',
-    () => {
-      clearTimeout(timer);
-      timer = window.setTimeout(() => changeFilters('replace'), 180);
+    (event) => {
+      if (!event.isComposing) scheduleSearch();
     },
     { signal },
   );
+  search.addEventListener('compositionend', scheduleSearch, { signal });
   for (const field of [topic, order])
     field.addEventListener('change', () => changeFilters('push'), { signal });
   form.addEventListener(
@@ -103,7 +110,7 @@ function initBlogArchive() {
     (event) => {
       event.preventDefault();
       state = readArchiveState(new URLSearchParams());
-      syncForm();
+      syncForm(true);
       commit('push');
     },
     { signal },
@@ -126,6 +133,7 @@ function initBlogArchive() {
   return () => {
     abort.abort();
     disposeSelects();
+    inputGlitch.destroy();
     clearTimeout(timer);
   };
 }
