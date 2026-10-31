@@ -1,5 +1,5 @@
 {
-  "draft": true,
+  "draft": false,
   "slug": "php2shell-security-updates",
   "imageAlt": {
     "es": "Ilustración conceptual de un servidor y una reparación en el límite de entrada de solicitudes.",
