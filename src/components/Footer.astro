@@ -29,8 +29,8 @@ const t = getUI(lang);
       class="footer__nav"
       aria-label={lang === 'es' ? 'Navegación del pie' : 'Footer navigation'}
     >
-      {navigation.map(({ label, id }) => (
-        <a data-glitch href={`#${id}`}>
+      {navigation.map(({ label, id, href }) => (
+        <a data-glitch href={href ?? `#${id}`}>
           {label}
         </a>
       ))}

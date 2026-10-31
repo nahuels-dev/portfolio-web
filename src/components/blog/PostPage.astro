@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Panel from '../ui/Panel.astro';
+import Button from '../ui/Button.astro';
+import Contact from '../sections/Contact.astro';
+import PostCard from './PostCard.astro';
+import PostHero from './PostHero.astro';
+import { getImage } from 'astro:assets';
+import { blogPath, postPath, visiblePosts, isPublished, type Post } from '../../data/blog/posts';
+import { validateBlogImage } from '../../data/blog/images';
+import { renderMarkdown } from '../../data/blog/markdown';
+import { blogStructuredData } from '../../data/blog/seo';
+import { blogNavigation } from '../../data/navigation';
+import { blogUI } from '../../i18n/blog';
+import type { Locale } from '../../i18n/ui';
+import '../../styles/blog.scss';
+interface Props {
+  post: Post;
+  lang: Locale;
+}
+const { post, lang } = Astro.props;
+const t = blogUI[lang];
+const copy = post.copy[lang];
+const home = lang === 'es' ? '/' : '/en/';
+const { html, headings } = await renderMarkdown(copy.body);
+const image = await validateBlogImage(post.image);
+const social = await getImage({
+  src: image,
+  width: Math.min(1200, image.width),
+  format: 'webp',
+  quality: 80,
+});
+const related = visiblePosts.filter((entry) => entry.slug !== post.slug).slice(0, 2);
+---
+
+<BaseLayout
+  lang={lang}
+  intro={false}
+  page={{
+    title: `${copy.title} | Nahuel Silva`,
+    description: copy.description,
+    path: postPath(post, lang),
+    alternatePath: postPath(post, lang === 'es' ? 'en' : 'es'),
+    schema: blogStructuredData(Astro.site!, lang, post, social.src),
+    navigation: blogNavigation(lang, true),
+    image: social.src,
+    imageAlt: post.imageAlt[lang],
+    blog: true,
+    noindex: !isPublished(post),
+    published: post.date,
+    modified: post.updated || post.date,
+  }}
+>
+  <article class="project-page blog-page">
+    <PostHero post={post} lang={lang} />
+    <Panel id="contenido" title={t.content} class="blog-content-panel">
+      <div
+        class:list={[
+          'blog-content-layout',
+          { 'blog-content-layout--plain': headings.length === 0 },
+        ]}
+      >
+        {headings.length > 0 && (
+          <nav class="blog-toc" aria-label={t.toc}>
+            <p>{t.toc}</p>
+            <ol>
+              {headings.map((heading) => (
+                <li class:list={{ 'blog-toc__sub': heading.level === 3 }}>
+                  <a href={`#${heading.id}`}>{heading.label}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
+        <div class="blog-prose" set:html={html} />
+      </div>
+    </Panel>
+    {related.length > 0 && (
+      <Panel id="mas-articulos" title={t.more}>
+        <div class="blog-grid">
+          {related.map((entry) => (
+            <PostCard post={entry} lang={lang} />
+          ))}
+        </div>
+      </Panel>
+    )}
+    <nav class="blog-pagination" aria-label="Blog">
+      <Button href={blogPath(lang)}>{t.back}</Button>
+    </nav>
+  </article>
+  <Contact lang={lang} projectsHref={`${home}#proyectos`} />
+</BaseLayout>
+
+<script>
+  import '../../scripts/navigation/article-navigation';
+</script>

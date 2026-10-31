@@ -1,0 +1,55 @@
+---
+import MediaImage from '../ui/MediaImage.astro';
+import Button from '../ui/Button.astro';
+import Tag from '../ui/Tag.astro';
+import {
+  formatPostDate,
+  isPublished,
+  postPath,
+  readingMinutes,
+  type Post,
+} from '../../data/blog/posts';
+import { validateBlogImage } from '../../data/blog/images';
+import { blogUI } from '../../i18n/blog';
+import type { Locale } from '../../i18n/ui';
+interface Props {
+  post: Post;
+  lang: Locale;
+}
+const { post, lang } = Astro.props;
+const t = blogUI[lang];
+const copy = post.copy[lang];
+await validateBlogImage(post.image);
+---
+
+<article class="blog-card">
+  <a class="blog-card__image" href={postPath(post, lang)} tabindex="-1" aria-hidden="true">
+    <MediaImage
+      src={post.image}
+      alt=""
+      widths={[480, 720, 1024]}
+      sizes="(max-width: 760px) 90vw, 45vw"
+    />
+  </a>
+  <div class="blog-card__body">
+    {!isPublished(post) && <p class="blog-draft">{t.draft}</p>}
+    <div class="blog-card__meta">
+      <time datetime={post.date}>{formatPostDate(post.date, lang)}</time>
+      <span>
+        {readingMinutes(post, lang)} {t.minutes}
+      </span>
+    </div>
+    <div class="blog-tags">
+      {post.tags.map((tag) => (
+        <Tag small>{tag}</Tag>
+      ))}
+    </div>
+    <h3>
+      <a href={postPath(post, lang)}>{copy.title}</a>
+    </h3>
+    <p class="blog-card__description">{copy.description}</p>
+    <Button href={postPath(post, lang)} variant="text" aria-label={`${t.read}: ${copy.title}`}>
+      {t.read}
+    </Button>
+  </div>
+</article>

@@ -27,8 +27,12 @@ const t = getUI(lang);
   <TechFrame variant="header" />
   <Logo href={homeHref} label={`Nahuel Silva — ${t.nav[0]}`} />
   <nav class="header__nav" aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}>
-    {navigation.map(({ label, id }, i) => (
-      <a data-glitch class:list={['header__link', { 'is-active': i === 0 }]} href={`#${id}`}>
+    {navigation.map(({ label, id, href }, i) => (
+      <a
+        data-glitch
+        class:list={['header__link', { 'is-active': i === 0 }]}
+        href={href ?? `#${id}`}
+      >
         {label}
       </a>
     ))}
@@ -67,8 +71,8 @@ const t = getUI(lang);
   </Button>
 </header>
 <nav class="mobile-menu" id="mobile-menu" aria-label={lang === 'es' ? 'Menú' : 'Menu'} hidden>
-  {navigation.map(({ label, id }, i) => (
-    <a data-glitch data-menu-link href={`#${id}`}>
+  {navigation.map(({ label, id, href }, i) => (
+    <a data-glitch data-menu-link href={href ?? `#${id}`}>
       <span class="navigation-menu__index">0{i + 1}</span>
       <span class="navigation-menu__label">{label}</span>
       <Icon size={20} class="navigation-menu__arrow" />
