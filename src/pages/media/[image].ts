@@ -17,6 +17,10 @@ export const GET: APIRoute = async ({ props }) => {
   const type = extension === 'jpg' ? 'jpeg' : extension === 'svg' ? 'svg+xml' : extension;
   const content = await readFile(file);
   return new Response(new Uint8Array(content), {
-    headers: { 'Content-Type': `image/${type}` },
+    headers: {
+      'Content-Type': `image/${type}`,
+      'X-Content-Type-Options': 'nosniff',
+      'Content-Security-Policy': "default-src 'none'; sandbox",
+    },
   });
 };
