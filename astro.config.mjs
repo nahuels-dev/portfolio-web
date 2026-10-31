@@ -35,7 +35,7 @@ export default defineConfig({
   trailingSlash: 'ignore',
   integrations: [
     sitemap({
-      filter: (page) => !/\/(?:404(?:\.html)?\/?$|error\/|admin(?:\/|$))/.test(page),
+      filter: (page) => !/\/(?:404(?:\.html)?\/?$|error\/|(?:admin|media)(?:\/|$))/.test(page),
       serialize: (item) => ({ ...item, links: alternateLinks.get(item.url) }),
     }),
   ],
