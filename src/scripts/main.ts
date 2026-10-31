@@ -20,6 +20,8 @@ let disposed = false;
 
 const pauseForContact = () => motion?.pause();
 
+const refreshLayout = () => motion?.refresh();
+
 const resumeAfterContact = () => {
   if (!document.documentElement.dataset.boot) motion?.resume();
 };
@@ -27,6 +29,8 @@ const resumeAfterContact = () => {
 document.addEventListener('portfolio:contact-open', pauseForContact);
 
 document.addEventListener('portfolio:contact-close', resumeAfterContact);
+
+document.addEventListener('portfolio:layout-change', refreshLayout);
 
 const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -87,6 +91,7 @@ if (import.meta.hot)
     motionPreference.removeEventListener('change', loadMotion);
     document.removeEventListener('portfolio:contact-open', pauseForContact);
     document.removeEventListener('portfolio:contact-close', resumeAfterContact);
+    document.removeEventListener('portfolio:layout-change', refreshLayout);
     motion?.destroy();
     headerMenu.destroy();
     disposeCopyEmail();
