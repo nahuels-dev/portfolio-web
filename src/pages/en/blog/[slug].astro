@@ -1,0 +1,10 @@
+---
+import PostPage from '../../../components/blog/PostPage.astro';
+import { visiblePosts } from '../../../data/blog/posts';
+export function getStaticPaths() {
+  return visiblePosts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+const { post } = Astro.props;
+---
+
+<PostPage post={post} lang="en" />

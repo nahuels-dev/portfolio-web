@@ -27,10 +27,10 @@ const t = getUI(lang);
     data-lenis-prevent
     aria-label={t.quickNav}
   >
-    {navigation.map(({ label, id }, index) => (
+    {navigation.map(({ label, id, href }, index) => (
       <a
         class:list={['floating-nav__link', { 'is-active': index === 0 }]}
-        href={`#${id}`}
+        href={href ?? `#${id}`}
         data-floating-link
         title={label}
       >

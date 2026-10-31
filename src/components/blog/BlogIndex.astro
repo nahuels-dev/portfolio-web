@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TechFrame from '../ui/TechFrame.astro';
+import Breadcrumbs from '../ui/Breadcrumbs.astro';
+import Panel from '../ui/Panel.astro';
+import PostCard from './PostCard.astro';
+import Contact from '../sections/Contact.astro';
+import { blogPath, visiblePosts } from '../../data/blog/posts';
+import { blogStructuredData } from '../../data/blog/seo';
+import { blogNavigation } from '../../data/navigation';
+import { blogUI } from '../../i18n/blog';
+import type { Locale } from '../../i18n/ui';
+import '../../styles/blog.scss';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = blogUI[lang];
+const home = lang === 'es' ? '/' : '/en/';
+---
+
+<BaseLayout
+  lang={lang}
+  intro={false}
+  page={{
+    title: `Blog — ${t.title} | Nahuel Silva`,
+    description: t.intro,
+    path: blogPath(lang),
+    alternatePath: blogPath(lang === 'es' ? 'en' : 'es'),
+    schema: blogStructuredData(Astro.site!, lang),
+    navigation: blogNavigation(lang),
+    blog: true,
+  }}
+>
+  <div class="project-page blog-page">
+    <section class="project-hero" id="inicio" aria-labelledby="blog-title">
+      <TechFrame variant="hero" />
+      <Breadcrumbs
+        label={t.breadcrumb}
+        items={[{ label: t.home, href: home }, { label: 'Blog' }]}
+      />
+      <div class="project-hero__heading">
+        <div>
+          <p class="project-eyebrow">{t.eyebrow}</p>
+          <h1 id="blog-title">{t.title}</h1>
+          <p class="project-hero__intro">{t.intro}</p>
+        </div>
+      </div>
+    </section>
+    <Panel id="articulos" title={t.articles} note="NS / BLOG">
+      {visiblePosts.length ? (
+        <div class="blog-grid">
+          {visiblePosts.map((post) => (
+            <PostCard post={post} lang={lang} />
+          ))}
+        </div>
+      ) : (
+        <p class="blog-empty">{t.empty}</p>
+      )}
+    </Panel>
+  </div>
+  <Contact lang={lang} projectsHref={`${home}#proyectos`} />
+</BaseLayout>
