@@ -24,6 +24,6 @@ export function blogStructuredData(site: URL, lang: Locale, post?: Post, image?:
           isPartOf: { '@type': 'Blog', url: new URL(blogPath(lang), site).href },
           keywords: post.tags.join(', '),
         }
-      : { name: `Blog — ${profile.name}`, description: blogUI[lang].intro }),
+      : { name: `${blogUI[lang].title} — ${profile.name}`, description: blogUI[lang].intro }),
   };
 }

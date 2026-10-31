@@ -5,7 +5,7 @@ import type { Locale } from '../../i18n/ui';
 
 export function blogFeed(site: URL, lang: Locale) {
   return rss({
-    title: 'Blog — Nahuel Silva',
+    title: `${blogUI[lang].title} — Nahuel Silva`,
     description: blogUI[lang].intro,
     site: new URL(blogPath(lang), site),
     items: publishedPosts.map((post) => ({

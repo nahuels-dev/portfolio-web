@@ -1,0 +1,33 @@
+.blog-list-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  &__button {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 0;
+    background: var(--surface);
+    color: var(--signal);
+    font: 0.8125rem/1.5 var(--font-mono);
+    cursor: pointer;
+    &[aria-current='page'] {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--black);
+    }
+    &:hover:not(:disabled):not([aria-current]) {
+      background: var(--surface-hover);
+    }
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+  &[hidden] {
+    display: none;
+  }
+}

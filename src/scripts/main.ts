@@ -7,6 +7,7 @@ import { initHoverGlitch } from './effects/hover-glitch';
 import { initPortraitReveal } from './effects/portrait-reveal';
 import type { PageMotion } from './effects/page-motion';
 import { initFloatingNav } from './navigation/floating-nav';
+import { initInputGlitches } from './effects/input-glitches';
 
 const headerMenu = initHeaderMenu();
 
@@ -20,6 +21,8 @@ let disposed = false;
 
 const pauseForContact = () => motion?.pause();
 
+const refreshLayout = () => motion?.refresh();
+
 const resumeAfterContact = () => {
   if (!document.documentElement.dataset.boot) motion?.resume();
 };
@@ -27,6 +30,8 @@ const resumeAfterContact = () => {
 document.addEventListener('portfolio:contact-open', pauseForContact);
 
 document.addEventListener('portfolio:contact-close', resumeAfterContact);
+
+document.addEventListener('portfolio:layout-change', refreshLayout);
 
 const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -78,6 +83,7 @@ const disposeBootScreen = initBootScreen({
 
 const disposeHoverGlitch = initHoverGlitch();
 const disposePortraitReveal = initPortraitReveal();
+const disposeInputGlitches = initInputGlitches();
 
 if (import.meta.hot)
   import.meta.hot.dispose(() => {
@@ -87,6 +93,7 @@ if (import.meta.hot)
     motionPreference.removeEventListener('change', loadMotion);
     document.removeEventListener('portfolio:contact-open', pauseForContact);
     document.removeEventListener('portfolio:contact-close', resumeAfterContact);
+    document.removeEventListener('portfolio:layout-change', refreshLayout);
     motion?.destroy();
     headerMenu.destroy();
     disposeCopyEmail();
@@ -95,4 +102,5 @@ if (import.meta.hot)
     disposeBootScreen();
     disposeHoverGlitch();
     disposePortraitReveal();
+    disposeInputGlitches();
   });

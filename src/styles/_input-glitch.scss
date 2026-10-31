@@ -1,0 +1,43 @@
+.input-glitch-host {
+  display: block;
+  position: relative;
+  min-width: 0;
+}
+.input-glitch {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  overflow: clip;
+  pointer-events: none;
+  user-select: none;
+  white-space: pre;
+  &__text {
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: max-content;
+    white-space: pre;
+    transform: translateY(-50%);
+    &--multiline {
+      top: 0;
+      transform: none;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+    }
+  }
+  &__fragment {
+    will-change: translate, opacity;
+  }
+}
+:is(input, textarea).is-input-glitching {
+  -webkit-text-fill-color: transparent;
+  caret-color: var(--white);
+}
+@media (prefers-reduced-motion: reduce) {
+  .input-glitch {
+    display: none;
+  }
+  :is(input, textarea).is-input-glitching {
+    -webkit-text-fill-color: currentColor;
+  }
+}
