@@ -7,6 +7,7 @@ import { initHoverGlitch } from './effects/hover-glitch';
 import { initPortraitReveal } from './effects/portrait-reveal';
 import type { PageMotion } from './effects/page-motion';
 import { initFloatingNav } from './navigation/floating-nav';
+import { initInputGlitches } from './effects/input-glitches';
 
 const headerMenu = initHeaderMenu();
 
@@ -82,6 +83,7 @@ const disposeBootScreen = initBootScreen({
 
 const disposeHoverGlitch = initHoverGlitch();
 const disposePortraitReveal = initPortraitReveal();
+const disposeInputGlitches = initInputGlitches();
 
 if (import.meta.hot)
   import.meta.hot.dispose(() => {
@@ -100,4 +102,5 @@ if (import.meta.hot)
     disposeBootScreen();
     disposeHoverGlitch();
     disposePortraitReveal();
+    disposeInputGlitches();
   });

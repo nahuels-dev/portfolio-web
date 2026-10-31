@@ -14,7 +14,6 @@ function initBlogArchive() {
   if (!root) return () => {};
   const form = root.querySelector<HTMLFormElement>('[data-blog-controls]')!;
   const search = form.elements.namedItem('q') as HTMLInputElement;
-  const inputGlitch = initInputGlitch(search);
   const topic = form.elements.namedItem('topic') as HTMLInputElement;
   const order = form.elements.namedItem('order') as HTMLInputElement;
   const disposeSelects = initCustomSelects(form);
@@ -40,7 +39,7 @@ function initBlogArchive() {
 
   const syncForm = (animate = false) => {
     search.value = state.query;
-    inputGlitch.sync(animate);
+    initInputGlitch(search).sync(animate);
     topic.value = state.topic;
     syncCustomSelect(topic);
     state.topic = topic.value;
@@ -133,7 +132,6 @@ function initBlogArchive() {
   return () => {
     abort.abort();
     disposeSelects();
-    inputGlitch.destroy();
     clearTimeout(timer);
   };
 }
