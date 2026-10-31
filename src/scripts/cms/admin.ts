@@ -1,10 +1,31 @@
 import { parse } from 'yaml';
 
-interface Cms {
-  init(options: { config: Record<string, unknown> }): void;
+interface ImageControlProps {
+  getAsset(path: string, field: unknown): { path: string };
 }
 
-const cmsWindow = window as Window & { CMS_MANUAL_INIT?: boolean; CMS?: Cms };
+interface Widget {
+  control: unknown;
+  preview: unknown;
+  schema: object;
+}
+
+interface Cms {
+  init(options: { config: Record<string, unknown> }): void;
+  getWidget(name: string): Widget;
+  registerWidget(
+    name: string,
+    control: (props: ImageControlProps) => unknown,
+    preview: unknown,
+    schema: object,
+  ): void;
+}
+
+const cmsWindow = window as Window & {
+  CMS_MANUAL_INIT?: boolean;
+  CMS?: Cms;
+  h?: (component: unknown, props: Record<string, unknown>) => unknown;
+};
 const status = document.querySelector<HTMLElement>('#cms-status');
 const message = document.querySelector<HTMLElement>('#cms-message');
 const local = ['localhost', '127.0.0.1'].includes(window.location.hostname);
@@ -35,7 +56,23 @@ async function start() {
     document.head.append(script);
   });
   const cms = cmsWindow.CMS;
-  if (!cms) throw new Error('No se pudo iniciar el editor.');
+  const render = cmsWindow.h;
+  if (!cms || !render) throw new Error('No se pudo iniciar el editor.');
+  const image = cms.getWidget('image');
+  cms.registerWidget(
+    'image',
+    (props) =>
+      render(image.control, {
+        ...props,
+        getAsset: (path: string, field: unknown) => {
+          if (!path.startsWith('/media/')) return props.getAsset(path, field);
+          const asset = props.getAsset(path.slice('/media/'.length), field);
+          return asset.path === 'empty.svg' ? path : asset;
+        },
+      }),
+    image.preview,
+    image.schema,
+  );
   cms.init({ config });
   if (status) status.hidden = true;
 }
