@@ -1,0 +1,49 @@
+name: Sync develop
+
+on:
+  push:
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-develop
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync develop
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: develop
+          fetch-depth: 0
+      - name: Merge main
+        id: merge
+        run: |
+          git fetch origin main
+          if git merge-base --is-ancestor origin/main HEAD; then
+            printf 'changed=false\n' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git merge --no-edit -m 'Sync main into develop' origin/main
+          printf 'changed=true\n' >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-node@v7.1.0
+        if: steps.merge.outputs.changed == 'true'
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+        if: steps.merge.outputs.changed == 'true'
+      - run: npm run format:check
+        if: steps.merge.outputs.changed == 'true'
+      - run: npm run build
+        if: steps.merge.outputs.changed == 'true'
+      - name: Update develop
+        if: steps.merge.outputs.changed == 'true'
+        run: git push origin HEAD:develop
