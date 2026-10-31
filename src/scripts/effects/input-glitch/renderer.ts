@@ -32,7 +32,7 @@ export function createInputGlitchRenderer(input: HTMLInputElement) {
     const spacing = parseFloat(style.letterSpacing) || 0;
     const width =
       input.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
-    for (const [index, { glyph, scroll }] of pending.splice(0).entries()) {
+    for (const { glyph, scroll } of pending.splice(0)) {
       if (!glyph.text.trim()) continue;
       const left =
         context.measureText(glyph.prefix).width +
@@ -45,13 +45,12 @@ export function createInputGlitchRenderer(input: HTMLInputElement) {
         if (oldest) active.delete(oldest);
       }
       const character = document.createElement('span');
-      character.className = 'input-glitch__character';
+      character.className = `input-glitch__character${glyph.removed ? ' input-glitch__character--removed' : ''}`;
       character.textContent = glyph.text;
       character.style.left = `${left}px`;
       layer.append(character);
       const animation = character.animate(glyph.removed ? exitFrames : enterFrames, {
-        duration: glyph.removed ? 260 : 300,
-        delay: Math.min(index * 12, 72),
+        duration: glyph.removed ? 150 : 120,
         easing: 'steps(1, end)',
         fill: 'both',
       });
@@ -65,7 +64,8 @@ export function createInputGlitchRenderer(input: HTMLInputElement) {
   };
   return {
     play(glyphs: ChangedGlyph[], scroll: number) {
-      pending.push(...glyphs.map((glyph) => ({ glyph, scroll })));
+      clear();
+      pending = glyphs.map((glyph) => ({ glyph, scroll }));
       if (pending.length && !frame) frame = requestAnimationFrame(draw);
     },
     clear,
