@@ -13,7 +13,7 @@ export interface ArchiveState {
   page: number;
 }
 
-export const postsPerPage = 6;
+export const postsPerPage = 12;
 export const normalizeSearch = (value: string) =>
   value
     .normalize('NFD')

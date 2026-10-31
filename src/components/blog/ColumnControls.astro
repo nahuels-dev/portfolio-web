@@ -1,0 +1,40 @@
+---
+import Button from '../ui/Button.astro';
+import { blogUI } from '../../i18n/blog';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const t = blogUI[Astro.props.lang];
+---
+
+<div class="blog-columns" role="group" aria-label={t.layout} data-blog-columns hidden>
+  <span>{t.layout}</span>
+  {[2, 3, 4].map((columns) => (
+    <Button
+      as="button"
+      variant="ghost"
+      icon={false}
+      glitch={false}
+      aria-label={`${t.showColumns} ${columns} ${t.columns}`}
+      aria-pressed={columns === 2 ? 'true' : 'false'}
+      aria-controls="blog-results"
+      data-columns={columns}
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        aria-hidden="true"
+      >
+        {Array.from({ length: columns }, (_, index) => (
+          <rect x={2 + index * (20 / columns)} y="4" width={20 / columns - 2} height="16" />
+        ))}
+      </svg>
+      <span>{columns}</span>
+    </Button>
+  ))}
+</div>

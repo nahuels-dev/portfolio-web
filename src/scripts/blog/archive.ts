@@ -8,6 +8,7 @@ import { blogUI } from '../../i18n/blog';
 import { renderPagination } from './pagination';
 import { initCustomSelects, syncCustomSelect } from '../ui/select';
 import { initInputGlitch } from '../effects/input-glitch';
+import { initBlogColumns } from './columns';
 
 function initBlogArchive() {
   const root = document.querySelector<HTMLElement>('[data-blog-archive]');
@@ -20,6 +21,7 @@ function initBlogArchive() {
   const summary = form.querySelector<HTMLElement>('[data-blog-summary]')!;
   const reset = form.querySelector<HTMLButtonElement>('[type="reset"]')!;
   const results = root.querySelector<HTMLElement>('[data-blog-results]')!;
+  const disposeColumns = initBlogColumns(root);
   const status = form.querySelector<HTMLElement>('[data-blog-status]')!;
   const empty = root.querySelector<HTMLElement>('[data-blog-no-results]')!;
   const pagination = root.querySelector<HTMLElement>('[data-blog-pagination]')!;
@@ -132,6 +134,7 @@ function initBlogArchive() {
   return () => {
     abort.abort();
     disposeSelects();
+    disposeColumns();
     clearTimeout(timer);
   };
 }
