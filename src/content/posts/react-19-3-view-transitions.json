@@ -1,0 +1,27 @@
+{
+  "slug": "react-19-3-view-transitions",
+  "draft": false,
+  "date": "2026-10-31",
+  "tags": [
+    "Technology",
+    "React",
+    "Frontend"
+  ],
+  "image": "/media/blog-react-19-3-view-transitions.webp",
+  "imageAlt": {
+    "es": "Ilustración conceptual de dos tarjetas de interfaz conectadas por trayectorias de movimiento.",
+    "en": "Conceptual illustration of two interface cards connected by motion paths."
+  },
+  "copy": {
+    "es": {
+      "title": "React 19.3: transiciones que acompañan a la interfaz",
+      "description": "ViewTransition llega a la versión estable. Qué aporta al navegar y qué conviene revisar antes de animar una aplicación.",
+      "body": "## Un cambio que se ve\n\nUna tarjeta se abre y su imagen pasa a ocupar el encabezado de una página. El contenido cambia, pero seguimos entendiendo de dónde venimos. Ese tipo de continuidad es una buena razón para animar una interfaz.\n\n[React 19.3, publicado el 9 de septiembre](https://react.dev/blog/2026/09/09/react-19-3), incorpora ViewTransition a la versión estable. El interés está en poder coordinar el movimiento con las actualizaciones de React, en lugar de sostener una segunda lógica que intente adivinar cuándo cambió el contenido.\n\n## Coordinar antes de decorar\n\nLa [documentación de ViewTransition](https://react.dev/reference/react/ViewTransition) distingue entradas, salidas, actualizaciones y elementos compartidos. También explica cómo participa Suspense: una pantalla puede cambiar mientras algunos datos todavía están cargando.\n\nEso obliga a pensar qué está contando la animación. Si el usuario abre un artículo, mantener la relación entre su portada y el detalle puede ayudar. Si cambia un número en un contador, mover toda la pantalla probablemente agregue ruido.\n\nUna implementación pequeña permite evaluar esa decisión con más claridad que una capa de efectos aplicada a cada componente.\n\n## La prueba está en los casos incómodos\n\nAntes de dar una transición por terminada, conviene recorrer situaciones que la demo suele evitar:\n\n- Navegar dos veces seguidas antes de que termine el movimiento.\n- Volver atrás con el teclado o con el navegador.\n- Cargar datos lentamente y atravesar estados vacíos o de error.\n- Usar la preferencia de movimiento reducido del sistema.\n\nLa animación tampoco debería dejar el foco en un elemento que desapareció. La continuidad visual y la continuidad de uso tienen que funcionar juntas.\n\n## Una mejora con un objetivo\n\nLa disponibilidad de una API estable facilita adoptar este patrón, pero no garantiza que una aplicación cargue más rápido. El presupuesto de JavaScript, las imágenes y las consultas siguen existiendo.\n\nUn buen punto de partida es una sola navegación frecuente. Si el movimiento ayuda a reconocer el cambio, respeta las preferencias de accesibilidad y conserva una respuesta inmediata, ya cumple una función concreta. Lo demás puede esperar."
+    },
+    "en": {
+      "title": "React 19.3: transitions that follow the interface",
+      "description": "ViewTransition is now stable. What it brings to navigation and what to check before adding motion to an application.",
+      "body": "## A visible change\n\nA card opens and its image becomes the header of a page. The content changes, yet the connection remains obvious. That kind of continuity gives interface animation a useful job.\n\n[React 19.3, released on September 9](https://react.dev/blog/2026/09/09/react-19-3), brings ViewTransition into the stable release. The appeal is coordinating motion with React updates rather than maintaining a separate layer that guesses when content has changed.\n\n## Coordinate the change first\n\nThe [ViewTransition reference](https://react.dev/reference/react/ViewTransition) covers entering, exiting, updating and shared elements. It also describes how Suspense participates when a screen changes while some data is still loading.\n\nThat raises a design question: what should the movement explain? When someone opens an article, keeping a visible connection between its card and its header can help. When a counter changes, moving the whole screen will probably add noise.\n\nA small implementation makes that judgment easier than applying an animation system to every component at once. It also leaves fewer interactions to debug when loading and navigation overlap.\n\n## Test the awkward moments\n\nBefore calling a transition finished, try the situations that a polished demo tends to skip:\n\n- Navigate twice before the first animation ends.\n- Go back using the keyboard and browser controls.\n- Load data slowly and move through empty or error states.\n- Enable the operating system's reduced-motion preference.\n\nFocus should remain useful when an element disappears. Visual continuity only helps if keyboard navigation and reading order still make sense.\n\nThe same applies to touch input. Motion should explain a response already in progress rather than make someone wait for permission to interact again.\n\n## Give the animation a purpose\n\nA stable API makes this pattern easier to adopt. It does not guarantee faster loading: JavaScript size, image delivery and data fetching still need their own attention.\n\nStart with one common navigation path. If the transition makes the change easier to follow, respects accessibility preferences and keeps the interface responsive, it has earned its place. There is no need to animate every update to benefit from the release."
+    }
+  }
+}
