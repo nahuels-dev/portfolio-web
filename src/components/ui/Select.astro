@@ -1,0 +1,68 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  options: readonly { value: string; label: string }[];
+  value?: string;
+}
+
+const { id, name, label, options, value } = Astro.props;
+const selected = options.find((option) => option.value === value) ?? options[0];
+---
+
+<div class="custom-select" data-custom-select>
+  <span class="custom-select__label" id={`${id}-label`}>
+    {label}
+  </span>
+  <div class="custom-select__control">
+    <input type="hidden" name={name} value={selected?.value ?? ''} />
+    <button
+      class="custom-select__trigger"
+      type="button"
+      role="combobox"
+      aria-haspopup="listbox"
+      aria-expanded="false"
+      aria-controls={`${id}-options`}
+      aria-labelledby={`${id}-label ${id}-value`}
+      disabled={!options.length}
+    >
+      <span id={`${id}-value`} data-select-value>
+        {selected?.label ?? ''}
+      </span>
+      <span class="custom-select__arrow">
+        <Icon name="chevron-down" size={18} />
+      </span>
+    </button>
+    <ul
+      class="custom-select__menu"
+      id={`${id}-options`}
+      role="listbox"
+      aria-labelledby={`${id}-label`}
+      data-lenis-prevent
+      hidden
+    >
+      {options.map((option, index) => (
+        <li
+          class="custom-select__option"
+          id={`${id}-option-${index}`}
+          role="option"
+          aria-selected={option.value === selected?.value}
+          data-value={option.value}
+          data-label={option.label}
+        >
+          <span>{option.label}</span>
+          <span class="custom-select__check">
+            <Icon name="check" size={16} />
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style lang="scss">
+  @use '../../styles/select';
+</style>
