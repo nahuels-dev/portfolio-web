@@ -1,3 +1,5 @@
+import { blogUI } from '../i18n/blog';
+import { blogPath } from './blog/posts';
 import { projectUI } from '../i18n/projects';
 import { getUI, type Locale } from '../i18n/ui';
 
@@ -37,3 +39,14 @@ export const projectNavigation = (lang: Locale): NavigationItem[] =>
     label,
     id: ['inicio', 'contexto', 'desarrollo', 'capturas', 'contacto'][index],
   }));
+
+export function blogNavigation(lang: Locale, article = false): NavigationItem[] {
+  const t = blogUI[lang];
+  return [
+    { label: t.home, id: 'inicio' },
+    { label: article ? t.content : t.articles, id: article ? 'contenido' : 'articulos' },
+    ...(article ? [{ label: 'Blog', id: 'blog', href: blogPath(lang) }] : []),
+    { label: t.portfolio, id: 'portfolio', href: lang === 'es' ? '/' : '/en/' },
+    { label: t.contact, id: 'contacto' },
+  ];
+}

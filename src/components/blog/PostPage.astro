@@ -1,28 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import TechFrame from '../ui/TechFrame.astro';
-import Breadcrumbs from '../ui/Breadcrumbs.astro';
-import MediaImage from '../ui/MediaImage.astro';
-import Tag from '../ui/Tag.astro';
 import Panel from '../ui/Panel.astro';
 import Button from '../ui/Button.astro';
 import Contact from '../sections/Contact.astro';
 import PostCard from './PostCard.astro';
+import PostHero from './PostHero.astro';
 import { getImage } from 'astro:assets';
-import {
-  blogPath,
-  postPath,
-  visiblePosts,
-  isPublished,
-  readingMinutes,
-  formatPostDate,
-  type Post,
-} from '../../data/blog/posts';
+import { blogPath, postPath, visiblePosts, isPublished, type Post } from '../../data/blog/posts';
 import { validateBlogImage } from '../../data/blog/images';
 import { renderMarkdown } from '../../data/blog/markdown';
-import { blogNavigation, blogStructuredData } from '../../data/blog/seo';
+import { blogStructuredData } from '../../data/blog/seo';
+import { blogNavigation } from '../../data/navigation';
 import { blogUI } from '../../i18n/blog';
-import { profile } from '../../data/site';
 import type { Locale } from '../../i18n/ui';
 import '../../styles/blog.scss';
 interface Props {
@@ -63,65 +52,7 @@ const related = visiblePosts.filter((entry) => entry.slug !== post.slug).slice(0
   }}
 >
   <article class="project-page blog-page">
-    <header class="project-hero" id="inicio" aria-labelledby="post-title">
-      <TechFrame variant="hero" />
-      <Breadcrumbs
-        label={t.breadcrumb}
-        items={[
-          { label: t.home, href: home },
-          { label: 'Blog', href: blogPath(lang) },
-          { label: copy.title },
-        ]}
-      />
-      {!isPublished(post) && <p class="blog-draft">{t.draft}</p>}
-      <p class="project-eyebrow">{t.eyebrow}</p>
-      <h1 id="post-title">{copy.title}</h1>
-      <p class="project-hero__intro">{copy.description}</p>
-      <dl class="project-meta blog-meta">
-        <div>
-          <dt>{t.date}</dt>
-          <dd>
-            <time datetime={post.date}>{formatPostDate(post.date, lang)}</time>
-          </dd>
-          {post.updated && (
-            <dd class="blog-updated">
-              {t.updated}: <time datetime={post.updated}>{formatPostDate(post.updated, lang)}</time>
-            </dd>
-          )}
-        </div>
-        <div>
-          <dt>{t.author}</dt>
-          <dd>
-            {profile.name} · {readingMinutes(post, lang)} {t.minutes}
-          </dd>
-        </div>
-        <div>
-          <dt>{t.topics}</dt>
-          <dd class="project-meta__tags">
-            {post.tags.map((tag) => (
-              <Tag small>{tag}</Tag>
-            ))}
-          </dd>
-        </div>
-      </dl>
-      <div class="project-cover blog-cover">
-        <div class="project-cover__bar" aria-hidden="true">
-          <span>NS / BLOG</span>
-          <span>{post.tags[0]}</span>
-          <span>↗</span>
-        </div>
-        <div class="project-cover__screen">
-          <MediaImage
-            src={post.image}
-            alt={post.imageAlt[lang]}
-            widths={[480, 720, 1024, 1440]}
-            sizes="90vw"
-            loading="eager"
-            fetchpriority="high"
-          />
-        </div>
-      </div>
-    </header>
+    <PostHero post={post} lang={lang} />
     <Panel id="contenido" title={t.content} class="blog-content-panel">
       <div
         class:list={[
