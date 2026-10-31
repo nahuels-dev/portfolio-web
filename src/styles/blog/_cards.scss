@@ -1,0 +1,65 @@
+@use '../geometry';
+
+.blog-card {
+  @include geometry.cut-surface(var(--shape-card));
+  --cut-surface: var(--surface-gradient);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  &__image {
+    display: block;
+    margin: 0.625rem;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    clip-path: var(--shape-control);
+  }
+  &__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.3s;
+  }
+  &:hover &__image img {
+    transform: scale(1.025);
+  }
+  &__body {
+    padding: 1rem 1.375rem 1.375rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    font: 0.625rem/1.7 var(--font-mono);
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  h3 {
+    font: 700 clamp(1.125rem, 1.8vw, 1.625rem)/1.35 var(--font-display);
+    margin: 1rem 0 0.75rem;
+  }
+  h3 a {
+    color: var(--white);
+    text-decoration: none;
+  }
+  h3 a:hover {
+    color: var(--signal);
+  }
+  &__description {
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0 0 1rem;
+    flex: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .blog-card__image img {
+    transition: none;
+  }
+}
