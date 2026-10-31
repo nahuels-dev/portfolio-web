@@ -1,3 +1,8 @@
+.input-glitch-host {
+  display: block;
+  position: relative;
+  min-width: 0;
+}
 .input-glitch {
   position: absolute;
   z-index: 2;
@@ -13,12 +18,18 @@
     width: max-content;
     white-space: pre;
     transform: translateY(-50%);
+    &--multiline {
+      top: 0;
+      transform: none;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+    }
   }
   &__fragment {
     will-change: translate, opacity;
   }
 }
-input.is-input-glitching {
+:is(input, textarea).is-input-glitching {
   -webkit-text-fill-color: transparent;
   caret-color: var(--white);
 }
@@ -26,7 +37,7 @@ input.is-input-glitching {
   .input-glitch {
     display: none;
   }
-  input.is-input-glitching {
+  :is(input, textarea).is-input-glitching {
     -webkit-text-fill-color: currentColor;
   }
 }

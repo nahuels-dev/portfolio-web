@@ -1,7 +1,12 @@
 import { changedGlyphs, type TextSnapshot } from './input-glitch/changes';
 import { createInputGlitchRenderer } from './input-glitch/renderer';
+import type { InputGlitch, TextControl } from './input-glitch/types';
 
-export function initInputGlitch(input: HTMLInputElement) {
+const instances = new WeakMap<TextControl, InputGlitch>();
+
+export function initInputGlitch(input: TextControl): InputGlitch {
+  const existing = instances.get(input);
+  if (existing) return existing;
   const abort = new AbortController();
   const { signal } = abort;
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -9,15 +14,15 @@ export function initInputGlitch(input: HTMLInputElement) {
   const snapshot = (): TextSnapshot => ({
     value: input.value,
     start: input.selectionStart ?? input.value.length,
-    end: input.selectionEnd ?? input.value.length,
-    scroll: input.scrollLeft,
+    end: input.selectionEnd ?? 0,
+    scroll: { left: input.scrollLeft, top: input.scrollTop },
   });
   let previous = snapshot();
   let composing = false;
   const sync = (animate = false) => {
     const next = snapshot();
     if (animate && !motion.matches && !composing)
-      renderer?.play(changedGlyphs(previous, next), previous.scroll);
+      renderer?.play(changedGlyphs(previous, next), previous);
     else renderer?.clear();
     previous = next;
   };
@@ -32,7 +37,8 @@ export function initInputGlitch(input: HTMLInputElement) {
   input.addEventListener(
     'input',
     (event) => {
-      if (!composing && !event.isComposing) sync(true);
+      const isComposing = event instanceof InputEvent && event.isComposing;
+      if (!composing && !isComposing) sync(true);
     },
     { signal },
   );
@@ -57,7 +63,8 @@ export function initInputGlitch(input: HTMLInputElement) {
     'scroll',
     () => {
       renderer?.reposition();
-      if (!composing && previous.value === input.value) previous.scroll = input.scrollLeft;
+      if (!composing && previous.value === input.value)
+        previous.scroll = { left: input.scrollLeft, top: input.scrollTop };
     },
     { signal, passive: true },
   );
@@ -81,11 +88,15 @@ export function initInputGlitch(input: HTMLInputElement) {
     { signal },
   );
 
-  return {
+  const controller: InputGlitch = {
     sync,
     destroy() {
+      if (instances.get(input) !== controller) return;
       abort.abort();
       renderer?.destroy();
+      instances.delete(input);
     },
   };
+  instances.set(input, controller);
+  return controller;
 }

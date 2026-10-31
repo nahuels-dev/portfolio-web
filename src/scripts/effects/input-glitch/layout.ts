@@ -1,29 +1,22 @@
-import type { ChangedGlyph } from './changes';
+import type { ChangedGlyph, TextSnapshot } from './changes';
+import { createTextSurface } from './surface';
+import type { TextControl } from './types';
 
-export function prepareInputGlitch(input: HTMLInputElement, layer: HTMLElement) {
-  const style = getComputedStyle(input);
-  layer.style.font = style.font;
-  layer.style.letterSpacing = style.letterSpacing;
-  layer.style.color = style.color;
-  layer.style.left = `${parseFloat(style.paddingLeft) + parseFloat(style.borderLeftWidth)}px`;
-  layer.style.right = `${parseFloat(style.paddingRight) + parseFloat(style.borderRightWidth)}px`;
-  layer.style.top = style.borderTopWidth;
-  layer.style.bottom = style.borderBottomWidth;
-  const createText = (value: string, scroll: number) => {
-    const text = document.createElement('span');
-    text.className = 'input-glitch__text';
-    text.textContent = value;
-    text.style.left = `${-scroll}px`;
-    layer.append(text);
-    return text;
-  };
-  const text = createText(input.value, input.scrollLeft);
-  const exclusions: { start: number; end: number }[] = [];
+export function prepareInputGlitch(input: TextControl, layer: HTMLElement, previous: TextSnapshot) {
+  const createText = createTextSurface(input, layer);
+  const text = createText(input.value, { left: input.scrollLeft, top: input.scrollTop });
+  const exclusions: { left: number; top: number; width: number; height: number }[] = [];
+  const occupied = document.createRange();
+  occupied.selectNodeContents(text);
+  const current = [...occupied.getClientRects()];
+  const range = document.createRange();
+  let oldText: HTMLSpanElement | undefined;
   return {
-    capture(glyph: ChangedGlyph, scroll: number) {
+    capture(glyph: ChangedGlyph) {
       if (!glyph.text.trim()) return;
-      const source = glyph.removed ? createText(glyph.prefix + glyph.text, scroll) : text;
-      const range = document.createRange();
+      const source = glyph.removed
+        ? (oldText ??= createText(previous.value, previous.scroll))
+        : text;
       const node = source.firstChild;
       if (!node) return;
       range.setStart(node, glyph.prefix.length);
@@ -31,37 +24,41 @@ export function prepareInputGlitch(input: HTMLInputElement, layer: HTMLElement) 
       const bounds = range.getBoundingClientRect();
       const origin = source.getBoundingClientRect();
       const viewport = layer.getBoundingClientRect();
-      if (glyph.removed) source.remove();
+      const overlaps = current.some(
+        (rect) =>
+          bounds.left < rect.right - 0.5 &&
+          bounds.right > rect.left + 0.5 &&
+          bounds.top < rect.bottom &&
+          bounds.bottom > rect.top,
+      );
       if (
         bounds.right <= viewport.left ||
         bounds.left >= viewport.right ||
-        (glyph.removed &&
-          glyph.prefix !== input.value &&
-          bounds.left < text.getBoundingClientRect().right - 0.5)
+        bounds.bottom <= viewport.top ||
+        bounds.top >= viewport.bottom ||
+        (glyph.removed && glyph.prefix !== input.value && overlaps)
       )
         return;
-      const left = bounds.left - origin.left;
-      if (!glyph.removed) exclusions.push({ start: left, end: left + bounds.width });
-      return {
+      const capture = {
         source,
-        left,
+        left: bounds.left - origin.left,
         top: bounds.top - origin.top,
         width: bounds.width,
         height: bounds.height,
       };
+      if (!glyph.removed) exclusions.push(capture);
+      return capture;
     },
     mask() {
+      oldText?.remove();
       if (!exclusions.length) return;
-      const stops = ['#000 0px'];
-      for (const { start, end } of exclusions.sort((a, b) => a.start - b.start))
-        stops.push(
-          `#000 ${start}px`,
-          `transparent ${start}px`,
-          `transparent ${end}px`,
-          `#000 ${end}px`,
-        );
-      stops.push('#000 100%');
-      text.style.maskImage = `linear-gradient(to right, ${stops.join(', ')})`;
+      const { width, height } = text.getBoundingClientRect();
+      const holes = exclusions
+        .map(({ left, top, width, height }) => `M${left} ${top}h${width}v${height}h${-width}Z`)
+        .join('');
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><path fill="white" fill-rule="evenodd" d="M0 0H${width}V${height}H0Z${holes}"/></svg>`;
+      text.style.maskImage = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+      text.style.maskSize = '100% 100%';
     },
   };
 }

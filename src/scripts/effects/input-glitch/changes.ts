@@ -1,8 +1,10 @@
+import type { TextScroll } from './types';
+
 export interface TextSnapshot {
   value: string;
   start: number;
   end: number;
-  scroll: number;
+  scroll: TextScroll;
 }
 
 export interface ChangedGlyph {
