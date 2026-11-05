@@ -6,7 +6,7 @@ import FloatingNav from '../components/FloatingNav.astro';
 import Footer from '../components/Footer.astro';
 import AnalyticsConsent from '../components/AnalyticsConsent.astro';
 import BootScreen from '../components/loading/BootScreen.astro';
-import { BOOT_TIMING } from '../scripts/loading/boot-timing';
+import PageEntry from '../components/loading/PageEntry.astro';
 import { getUI, type Locale } from '../i18n/ui';
 import { createStructuredData } from '../data/seo';
 import { getImage } from 'astro:assets';
@@ -16,7 +16,6 @@ import type { NavigationItem } from '../data/navigation';
 
 interface Props {
   lang: Locale;
-  intro?: boolean;
   page?: {
     title: string;
     description: string;
@@ -34,7 +33,7 @@ interface Props {
   };
 }
 
-const { lang, page, intro = true } = Astro.props;
+const { lang, page } = Astro.props;
 
 const t = getUI(lang);
 
@@ -52,7 +51,7 @@ const schema = page?.schema ?? createStructuredData(Astro.site!, lang);
 
 const preloadOptions = page?.heroArtwork
   ? serviceHeroImage(page.heroArtwork)
-  : intro
+  : !page
     ? { ...heroPortrait, format: 'avif' as const }
     : undefined;
 
@@ -75,27 +74,7 @@ const heroPreload = preloadOptions ? await getImage(preloadOptions) : undefined;
         fetchpriority="high"
       />
     )}
-    {intro && <script is:inline define:vars={{ bootDeadline: BOOT_TIMING.deadline }}>
-      (() => {
-        try {
-          const skip = new URLSearchParams(location.search).get('intro') === '0';
-          const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-          if (!skip && !reduced && !navigator.connection?.saveData) {
-            window.__bootStartedAt = performance.now();
-            document.documentElement.dataset.boot = 'pending';
-            window.__bootDeadline = setTimeout(() => {
-              window.dispatchEvent(new Event('portfolio:boot-timeout'));
-              delete document.documentElement.dataset.boot;
-              const screen = document.querySelector('[data-loading-screen]');
-              if (screen) screen.hidden = true;
-              document
-                .querySelectorAll('.page-shell,.skip-link')
-                .forEach((el) => (el.inert = false));
-            }, bootDeadline);
-          }
-        } catch {}
-      })();
-    </script>}
+    <PageEntry />
     <link rel="preload" href="/fonts/orbitron-bold.woff2" as="font" type="font/woff2" crossorigin />
     <link
       rel="preload"
@@ -130,11 +109,11 @@ const heroPreload = preloadOptions ? await getImage(preloadOptions) : undefined;
     </noscript>
   </head>
   <body>
-    {intro && <BootScreen lang={lang} />}
-    <a class="skip-link" href="#main">
+    <BootScreen lang={lang} />
+    <a class="skip-link" href="#main" data-boot-content>
       {t.skip}
     </a>
-    <div class="page-shell">
+    <div class="page-shell" data-boot-content>
       <Header
         lang={lang}
         navigation={page?.navigation}

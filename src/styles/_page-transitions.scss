@@ -1,0 +1,73 @@
+::view-transition-group(root) {
+  animation-duration: var(--page-transition-duration);
+}
+
+::view-transition-image-pair(root) {
+  isolation: isolate;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+  animation-duration: var(--page-transition-duration);
+  animation-fill-mode: both;
+}
+
+::view-transition-old(root) {
+  z-index: 2;
+  animation-name: page-glitch-out;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+  animation-name: page-transition-hold;
+}
+
+html[data-page-transition]::view-transition-old(root) {
+  animation-name: page-transition-hold;
+  clip-path: var(--page-old-mask, inset(0));
+  transform: translate(var(--page-old-x, 0px), var(--page-old-y, 0px));
+  filter: drop-shadow(0.25rem 0 var(--brand));
+}
+
+@keyframes page-transition-hold {
+  from,
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes page-glitch-out {
+  0% {
+    opacity: 1;
+    transform: none;
+  }
+  20% {
+    opacity: 0.85;
+    transform: translateX(-0.75rem);
+  }
+  40% {
+    opacity: 0.6;
+    transform: translateX(1rem);
+  }
+  60% {
+    opacity: 0.4;
+    transform: translateX(-0.5rem);
+  }
+  80% {
+    opacity: 0.15;
+    transform: translateX(0.25rem);
+  }
+  100% {
+    opacity: 0;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

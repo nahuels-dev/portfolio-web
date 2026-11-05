@@ -1,6 +1,8 @@
 ---
 import '../styles/global.scss';
 import ErrorView from '../components/errors/ErrorView.astro';
+import BootScreen from '../components/loading/BootScreen.astro';
+import PageEntry from '../components/loading/PageEntry.astro';
 import { getErrorUI, type ErrorCode } from '../i18n/errors';
 import type { Locale } from '../i18n/ui';
 
@@ -33,6 +35,7 @@ const titles = {
       document.documentElement.lang = errorLocale;
       document.title = titles[errorLocale];
     </script>
+    <PageEntry />
     <link rel="icon" href="/favicon.svg" />
     <link rel="preload" href="/fonts/orbitron-bold.woff2" as="font" type="font/woff2" crossorigin />
     <link
@@ -44,22 +47,28 @@ const titles = {
     />
   </head>
   <body class="error-document" data-error-screen data-error-code={code}>
+    <BootScreen lang={lang} />
     <div class="error-atmosphere" aria-hidden="true">
       <canvas data-error-field />
       <canvas data-error-gpu hidden />
       <span />
     </div>
-    <ErrorView lang="es" code={code} />
-    <ErrorView lang="en" code={code} />
+    <div data-boot-content>
+      <ErrorView lang="es" code={code} />
+      <ErrorView lang="en" code={code} />
+    </div>
     <script>
       import { initErrorScreen } from '../scripts/errors/error-screen';
       import { initHoverGlitch } from '../scripts/effects/hover-glitch';
+      import { initBootScreen } from '../scripts/loading/boot-screen';
+      const disposeBoot = initBootScreen({ pause() {}, resume() {} });
       const disposeScene = initErrorScreen();
       const disposeHover = initHoverGlitch();
       if (import.meta.hot)
         import.meta.hot.dispose(() => {
           disposeScene();
           disposeHover();
+          disposeBoot();
         });
     </script>
   </body>
