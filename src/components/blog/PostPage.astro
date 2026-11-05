@@ -35,7 +35,6 @@ const related = visiblePosts.filter((entry) => entry.slug !== post.slug).slice(0
 
 <BaseLayout
   lang={lang}
-  intro={false}
   page={{
     title: `${copy.title} | Nahuel Silva`,
     description: copy.description,
@@ -89,8 +88,7 @@ const related = visiblePosts.filter((entry) => entry.slug !== post.slug).slice(0
     </nav>
   </article>
   <Contact lang={lang} projectsHref={`${home}#proyectos`} />
+  <script>
+    import '../../scripts/navigation/article-navigation';
+  </script>
 </BaseLayout>
-
-<script>
-  import '../../scripts/navigation/article-navigation';
-</script>

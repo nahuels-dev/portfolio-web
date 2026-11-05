@@ -1,29 +1,21 @@
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initScrollGlitch } from './scroll-glitch';
 import { initAccordionGlitch } from './accordion-glitch';
 import { initFloatingNavGlitch } from './floating-nav-glitch';
 
 export function initPageMotion() {
-  gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.config({ ignoreMobileResize: true });
   let lenis: Lenis | undefined;
   const media = matchMedia('(prefers-reduced-motion: no-preference)');
   let disposeEffects: (() => void) | undefined;
   const revealedPanels = new WeakSet<HTMLElement>();
   const start = () => {
-    lenis = new Lenis({ duration: 1.05, smoothWheel: true, syncTouch: false });
+    lenis = new Lenis({ duration: 1.05, smoothWheel: true, syncTouch: false, autoRaf: true });
     if (
       document.documentElement.dataset.boot ||
       document.querySelector('[data-contact-dialog][open]')
     )
       lenis.stop();
-    lenis.on('scroll', ScrollTrigger.update);
-    const tick = (time: number) => lenis?.raf(time * 1000);
-    gsap.ticker.add(tick);
-    gsap.ticker.lagSmoothing(0);
     const disposeReveals = initScrollGlitch(revealedPanels);
     const disposeAccordions = initAccordionGlitch();
     const disposeFloatingNavGlitch = initFloatingNavGlitch();
@@ -31,7 +23,6 @@ export function initPageMotion() {
       disposeReveals();
       disposeAccordions();
       disposeFloatingNavGlitch();
-      gsap.ticker.remove(tick);
       lenis?.destroy();
       lenis = undefined;
     };
@@ -51,7 +42,6 @@ export function initPageMotion() {
     resume: () => lenis?.start(),
     refresh() {
       lenis?.resize();
-      ScrollTrigger.refresh();
     },
     scrollTo(target: HTMLElement, onComplete: () => void) {
       if (!lenis) return false;

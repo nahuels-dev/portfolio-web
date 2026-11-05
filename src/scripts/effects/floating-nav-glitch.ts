@@ -1,4 +1,4 @@
-import { gsap } from 'gsap';
+import { createFrameLoop } from './frame-loop';
 import { createNetRecovery, type NetRecovery } from '../loading/net-recovery';
 import { createRevealTiles, type RevealTiles } from './reveal-tiles';
 import { viewportResize } from './viewport-resize';
@@ -19,7 +19,7 @@ export function initFloatingNavGlitch(): () => void {
     geometryDirty = true;
   };
   const finish = () => {
-    gsap.ticker.remove(tick);
+    loop.stop();
     recovery?.destroy();
     tiles?.destroy();
     recovery = undefined;
@@ -41,6 +41,7 @@ export function initFloatingNavGlitch(): () => void {
     recovery?.update(progress);
     tiles?.update(progress);
   };
+  const loop = createFrameLoop(tick);
   const play = (surface: HTMLElement) => {
     finish();
     if (nav.hidden || document.hidden || surface.contains(document.activeElement)) return;
@@ -56,7 +57,7 @@ export function initFloatingNavGlitch(): () => void {
     nav.dataset.floatingNavState = 'revealing';
     started = performance.now();
     tick();
-    gsap.ticker.add(tick);
+    if (recovery) loop.start();
   };
   const appear = () => play(mobile.matches ? button : panel);
   nav.addEventListener('portfolio:floating-nav-show', appear, { signal: abort.signal });

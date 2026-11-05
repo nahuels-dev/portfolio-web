@@ -72,7 +72,10 @@
       scroll-margin-top: 2rem;
     }
   }
-  &[hidden],
+  &[hidden] {
+    display: block;
+    visibility: hidden;
+  }
   &__summary[hidden] {
     display: none;
   }

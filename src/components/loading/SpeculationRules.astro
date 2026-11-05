@@ -1,0 +1,20 @@
+<script type="speculationrules" is:inline>
+  {
+    "prerender": [
+      {
+        "where": {
+          "and": [
+            { "href_matches": "/*" },
+            { "not": { "href_matches": "/logout" } },
+            { "not": { "href_matches": "/admin*" } },
+            { "not": { "href_matches": "/media/*" } },
+            { "not": { "selector_matches": "[rel~=nofollow]" } },
+            { "not": { "selector_matches": "[data-no-prerender]" } },
+            { "not": { "selector_matches": "[download]" } }
+          ]
+        },
+        "eagerness": "moderate"
+      }
+    ]
+  }
+</script>

@@ -106,4 +106,6 @@ function initializeAnalytics() {
   if (choice === 'granted') loadTagManager();
 }
 
-initializeAnalytics();
+if ('prerendering' in document && document.prerendering)
+  document.addEventListener('prerenderingchange', initializeAnalytics, { once: true });
+else initializeAnalytics();
