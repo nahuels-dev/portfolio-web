@@ -26,7 +26,7 @@ export function initBootScreen(options: Options): () => void {
   }
   const abort = new AbortController(),
     { signal } = abort;
-  const page = [...document.querySelectorAll<HTMLElement>('.page-shell,.skip-link')];
+  const page = [...document.querySelectorAll<HTMLElement>('[data-boot-content]')];
   const previousInert = page.map((el) => el.inert);
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const skip = root.querySelector<HTMLButtonElement>('.blackwall__skip')!;
@@ -67,7 +67,9 @@ export function initBootScreen(options: Options): () => void {
     });
     options.resume();
     revealContent();
-    document.querySelector<HTMLElement>('#main')?.focus({ preventScroll: true });
+    [...document.querySelectorAll<HTMLElement>('main')]
+      .find((el) => el.getClientRects().length > 0)
+      ?.focus({ preventScroll: true });
   };
   const finish = (immediate = false, quick = false) => {
     if (closing) {
@@ -89,7 +91,7 @@ export function initBootScreen(options: Options): () => void {
     renderer.reset();
 
     revealContent();
-    recovery = createNetRecovery();
+    recovery = createNetRecovery({ source: page.find((el) => el.querySelector('main')) });
     recovery.update(0);
     exitTimer = window.setTimeout(restore, crossingDuration + 120);
     frame = requestAnimationFrame(tick);
@@ -165,6 +167,7 @@ export function initBootScreen(options: Options): () => void {
     { signal },
   );
   window.addEventListener('portfolio:boot-timeout', () => finish(true), { signal });
+  window.addEventListener('pagehide', () => finish(true), { signal });
   watchBootResources((index) => {
     ready++;
     if (!closing) display.ready(index);

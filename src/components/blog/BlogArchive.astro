@@ -82,6 +82,14 @@ const topics = [
   <nav class="blog-list-pagination" aria-label={t.pagination} data-blog-pagination hidden></nav>
 </div>
 
+<noscript>
+  <style is:inline>
+    [data-blog-controls][hidden] {
+      display: none;
+    }
+  </style>
+</noscript>
+
 <script>
   import '../../scripts/blog/archive';
 </script>

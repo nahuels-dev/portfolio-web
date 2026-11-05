@@ -25,9 +25,14 @@
     --text: var(--recovery-color);
     --muted: var(--recovery-color);
     --line-bright: var(--recovery-color);
+    &,
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
   }
 }
-.page-shell[data-net-recovery] {
+[data-boot-content][data-net-recovery] {
   transform: translate3d(var(--signal-x, 0rem), var(--signal-y, 0rem), 0);
   will-change: transform;
 }
@@ -35,7 +40,7 @@
   .net-recovery {
     display: none;
   }
-  .page-shell[data-net-recovery] {
+  [data-boot-content][data-net-recovery] {
     transform: none;
   }
 }
