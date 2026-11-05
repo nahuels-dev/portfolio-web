@@ -3,6 +3,9 @@
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
 
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /media/*
   Content-Security-Policy: default-src 'none'; sandbox
 

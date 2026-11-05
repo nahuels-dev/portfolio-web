@@ -1,6 +1,5 @@
-import { gsap } from 'gsap';
+import { createFrameLoop } from './frame-loop';
 import { viewportResize } from './viewport-resize';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { createNetRecovery, type NetRecovery } from '../loading/net-recovery';
 import { createRevealTiles, type RevealTiles } from './reveal-tiles';
 
@@ -17,17 +16,18 @@ interface Reveal {
 export function initScrollGlitch(seen: WeakSet<HTMLElement>): () => void {
   const panels = [...document.querySelectorAll<HTMLElement>('[data-reveal]')];
   const abort = new AbortController(),
-    triggers: ScrollTrigger[] = [],
     queue: HTMLElement[] = [];
+  let observer: IntersectionObserver | undefined;
   let active: Reveal | undefined,
     started = false,
     disposed = false;
   const complete = (panel: HTMLElement) => {
     panel.dataset.revealState = 'complete';
     seen.add(panel);
+    observer?.unobserve(panel);
   };
   const finish = () => {
-    gsap.ticker.remove(tick);
+    loop.stop();
     if (!active) return;
     const { target, recovery, tiles } = active;
     active = undefined;
@@ -57,7 +57,7 @@ export function initScrollGlitch(seen: WeakSet<HTMLElement>): () => void {
       const tiles = createRevealTiles(panel);
       active = { target: panel, recovery, tiles, start: performance.now(), phase: -1 };
       tick();
-      if (active) gsap.ticker.add(tick);
+      if (active) loop.start();
       return;
     }
   };
@@ -76,30 +76,42 @@ export function initScrollGlitch(seen: WeakSet<HTMLElement>): () => void {
     active.recovery.update(progress);
     active.tiles.update(progress);
   };
+  const loop = createFrameLoop(tick);
   const request = (panel: HTMLElement) => {
     if (disposed || seen.has(panel) || queue.includes(panel)) return;
     queue.push(panel);
     advance();
   };
+  const observePanels = () => {
+    observer?.disconnect();
+    observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          observer?.unobserve(entry.target);
+          request(entry.target as HTMLElement);
+        }
+      },
+      { rootMargin: `0px 0px -${Math.round(innerHeight * 0.28)}px 0px` },
+    );
+    for (const panel of panels)
+      if (!seen.has(panel) && !queue.includes(panel)) observer.observe(panel);
+  };
   const start = () => {
     if (started || disposed || document.documentElement.dataset.boot) return;
     started = true;
     bootObserver.disconnect();
+    const pending = new Set(
+      panels.filter((panel) => !seen.has(panel) && panel.getBoundingClientRect().bottom > 0),
+    );
     for (const panel of panels) {
-      if (seen.has(panel) || panel.getBoundingClientRect().bottom <= 0) {
+      if (!pending.has(panel)) {
         complete(panel);
         continue;
       }
       panel.dataset.revealState = 'pending';
-      triggers.push(
-        ScrollTrigger.create({
-          trigger: panel,
-          start: 'top 72%',
-          once: true,
-          onEnter: () => request(panel),
-        }),
-      );
     }
+    observePanels();
   };
   const bootObserver = new MutationObserver(start);
   if (document.documentElement.dataset.boot)
@@ -132,6 +144,7 @@ export function initScrollGlitch(seen: WeakSet<HTMLElement>): () => void {
     'resize',
     viewportResize(() => {
       finish();
+      if (started) observePanels();
       advance();
     }),
     { signal: abort.signal, passive: true },
@@ -141,7 +154,7 @@ export function initScrollGlitch(seen: WeakSet<HTMLElement>): () => void {
     abort.abort();
     bootObserver.disconnect();
     queue.length = 0;
-    triggers.forEach((trigger) => trigger.kill());
+    observer?.disconnect();
     finish();
     panels.forEach((panel) => {
       delete panel.dataset.revealState;

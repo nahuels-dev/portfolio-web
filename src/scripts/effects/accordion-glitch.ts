@@ -1,6 +1,5 @@
-import { gsap } from 'gsap';
+import { createFrameLoop } from './frame-loop';
 import { viewportResize } from './viewport-resize';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { createNetRecovery, type NetRecovery } from '../loading/net-recovery';
 import { createRevealTiles, type RevealTiles } from './reveal-tiles';
 
@@ -21,7 +20,7 @@ export function initAccordionGlitch(): () => void {
     | undefined;
 
   const finish = () => {
-    gsap.ticker.remove(tick);
+    loop.stop();
     if (!active) return;
     active.recovery.destroy();
     active.tiles.destroy();
@@ -48,6 +47,7 @@ export function initAccordionGlitch(): () => void {
     active.recovery.update(progress);
     active.tiles.update(progress);
   };
+  const loop = createFrameLoop(tick);
 
   for (const details of accordions) {
     details.addEventListener(
@@ -55,7 +55,7 @@ export function initAccordionGlitch(): () => void {
       () => {
         finish();
 
-        ScrollTrigger.refresh();
+        document.dispatchEvent(new Event('portfolio:layout-change'));
         if (!details.open || document.hidden) return;
         const content = details.querySelector<HTMLElement>('[data-accordion-content]');
         if (!content) return;
@@ -71,7 +71,7 @@ export function initAccordionGlitch(): () => void {
         active = { details, content, recovery, tiles, start: performance.now(), phase: -1 };
         details.dataset.accordionState = 'revealing';
         tick();
-        if (active) gsap.ticker.add(tick);
+        if (active) loop.start();
       },
       { signal: abort.signal },
     );
