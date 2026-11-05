@@ -43,11 +43,15 @@
     margin: 1.75rem 0 0.75rem;
   }
   a {
-    color: var(--signal);
-    text-underline-offset: 0.25em;
-  }
-  a:hover {
     color: var(--accent);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+    text-shadow: none;
+  }
+  a:hover,
+  a:focus-visible {
+    color: var(--white);
   }
   strong {
     color: var(--white);
