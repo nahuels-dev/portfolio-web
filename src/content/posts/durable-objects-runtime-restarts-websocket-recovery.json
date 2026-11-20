@@ -1,5 +1,5 @@
 {
-  "draft": true,
+  "draft": false,
   "slug": "durable-objects-runtime-restarts-websocket-recovery",
   "imageAlt": {
     "es": "Ilustración conceptual de un grupo de servidores que reemplaza una máquina durante mantenimiento y un cliente que se reconecta.",
